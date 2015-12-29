@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date [%thread] %-5level %logger{80} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+     
+    <logger name="com.github.tobato" level="DEBUG" /> 
+
+    <logger name="org.springframework.web" level="WARN" />
+
+    <logger name="org.springframework" level="WARN" />
+ 
+ 
+
+    <root level="INFO">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+    </root>
+</configuration>

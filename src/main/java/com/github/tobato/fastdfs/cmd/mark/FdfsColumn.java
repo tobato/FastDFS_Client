@@ -1,0 +1,27 @@
+package com.github.tobato.fastdfs.cmd.mark;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * 传输参数定义标签
+ * 
+ * @author wuyf
+ *
+ */
+@Documented
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface FdfsColumn {
+    /** 映射顺序(从0开始) */
+    int index() default 0;
+
+    /** String最大值 */
+    int max() default 0;
+
+    /** 所有剩余数据 */
+    boolean isAllRestByte() default false;
+}

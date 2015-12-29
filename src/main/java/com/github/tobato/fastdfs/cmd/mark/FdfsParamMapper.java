@@ -1,0 +1,162 @@
+package com.github.tobato.fastdfs.cmd.mark;
+
+import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * param对象与byte映射器
+ * 
+ * @author wuyf
+ *
+ */
+public class FdfsParamMapper {
+
+    private FdfsParamMapper() {
+        // hide for utils
+    }
+
+    /** 对象映射缓存 */
+    private static Map<String, ObjectMateData> mapCache = new HashMap<String, ObjectMateData>();
+
+    /** 日志 */
+    private static Logger LOGGER = LoggerFactory.getLogger(FdfsParamMapper.class);
+
+    /**
+     * 将byte解码为对象
+     * 
+     * @param objectArrayList
+     * @param genericType
+     * @return
+     */
+    public static <T> T map(byte[] content, Class<T> genericType, Charset charset) {
+        // 获取映射对象
+        ObjectMateData objectMap = getObjectMap(genericType);
+        if (LOGGER.isDebugEnabled()) {
+            dumpObjectMateData(objectMap);
+        }
+
+        try {
+            return mapByIndex(content, genericType, objectMap, charset);
+        } catch (InstantiationException ie) {
+            LOGGER.debug("Cannot instantiate: ", ie);
+            throw new FdfsColumnMapException(ie);
+        } catch (IllegalAccessException iae) {
+            LOGGER.debug("Illegal access: ", iae);
+            throw new FdfsColumnMapException(iae);
+        } catch (InvocationTargetException ite) {
+            LOGGER.debug("Cannot invoke method: ", ite);
+            throw new FdfsColumnMapException(ite);
+        }
+    }
+
+    /**
+     * 获取对象映射定义
+     * 
+     * @param genericType
+     * @return
+     */
+    public static <T> ObjectMateData getObjectMap(Class<T> genericType) {
+        if (null == mapCache.get(genericType.getName())) {
+            // 还未缓存过
+            mapCache.put(genericType.getName(), new ObjectMateData(genericType));
+        }
+        return mapCache.get(genericType.getName());
+    }
+
+    /**
+     * 按列顺序映射
+     * 
+     * @param content
+     * @param genericType
+     * @param objectMap
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+    private static <T> T mapByIndex(byte[] content, Class<T> genericType, ObjectMateData objectMap, Charset charset)
+            throws InstantiationException, IllegalAccessException, InvocationTargetException {
+
+        List<FieldMateData> mappingFields = objectMap.getFieldList();
+        T obj = genericType.newInstance();
+        for (int i = 0; i < mappingFields.size(); i++) {
+            FieldMateData field = mappingFields.get(i);
+            // 设置属性值
+            LOGGER.debug("设置值是 " + field + field.getValue(content, charset));
+            BeanUtils.setProperty(obj, field.getFieldName(), field.getValue(content, charset));
+        }
+
+        return obj;
+    }
+
+    /**
+     * 导出调试信息
+     * 
+     * @param objectMap
+     */
+    private static void dumpObjectMateData(ObjectMateData objectMap) {
+        LOGGER.debug("dump class={}", objectMap.getClassName());
+        LOGGER.debug("----------------------------------------");
+        for (FieldMateData md : objectMap.getFieldList()) {
+            LOGGER.debug(md.toString());
+        }
+    }
+
+    /**
+     * 序列化为Byte
+     * 
+     * @param object
+     * @param charset
+     * @return
+     */
+    public static byte[] toByte(Object object, Charset charset) {
+        ObjectMateData objectMap = getObjectMap(object.getClass());
+        try {
+            return convertFieldToByte(objectMap, object, charset);
+        } catch (NoSuchMethodException ie) {
+            LOGGER.debug("Cannot invoke get methed: ", ie);
+            throw new FdfsColumnMapException(ie);
+        } catch (IllegalAccessException iae) {
+            LOGGER.debug("Illegal access: ", iae);
+            throw new FdfsColumnMapException(iae);
+        } catch (InvocationTargetException ite) {
+            LOGGER.debug("Cannot invoke method: ", ite);
+            throw new FdfsColumnMapException(ite);
+        }
+
+    }
+
+    /**
+     * 将属性转换为byte
+     * 
+     * @param objectMap
+     * @param object
+     * @param charset
+     * @return
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     */
+    private static byte[] convertFieldToByte(ObjectMateData objectMap, Object object, Charset charset)
+            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        List<FieldMateData> mappingFields = objectMap.getFieldList();
+        // 获取报文长度 (固定长度+动态长度)
+        byte[] result = new byte[objectMap.getFieldsSendTotalByteSize(object, charset)];
+        int offsize = 0;
+        for (int i = 0; i < mappingFields.size(); i++) {
+            FieldMateData field = mappingFields.get(i);
+            byte[] fieldByte = field.toByte(object, charset);
+            System.arraycopy(fieldByte, 0, result, offsize, fieldByte.length);
+            offsize += fieldByte.length;
+        }
+        return result;
+    }
+
+}

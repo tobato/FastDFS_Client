@@ -1,0 +1,78 @@
+package com.github.tobato.fastdfs.conn;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+
+import com.github.tobato.fastdfs.exception.FdfsException;
+
+/**
+ * 表示一个客户端与服务端的连接
+ * 
+ * 负责连接的管理
+ * 
+ * @author tobato
+ *
+ */
+public interface Connection {
+
+    /**
+     * 关闭连接
+     * 
+     * @throws FdfsException
+     */
+    void close();
+
+    /**
+     * 连接是否关闭
+     * 
+     * @return
+     */
+    boolean isClosed();
+
+    /**
+     * 测试连接是否有效
+     * 
+     * @return
+     */
+    boolean isValid();
+
+    /**
+     * 使用Fdfs协议进行通信
+     * 
+     * @param request
+     * @return
+     */
+    // ------------ TODO 带清理
+    // FdfsResponse excuteFdfsCmd(FdfsRequest request);
+    //
+    // void sendRequest(FdfsRequest request);
+    //
+    // FdfsResponse receiveResponse();
+    // ------------
+
+    /**
+     * 获取输出流
+     * 
+     * @return
+     * @throws IOException
+     */
+    public OutputStream getOutputStream() throws IOException;
+
+    /**
+     * 获取输入流
+     * 
+     * @return
+     * @throws IOException
+     */
+    public InputStream getInputStream() throws IOException;
+
+    /**
+     * 获取字符集
+     * 
+     * @return
+     */
+    public Charset getCharset();
+
+}
