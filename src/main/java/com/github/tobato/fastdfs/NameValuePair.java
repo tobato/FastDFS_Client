@@ -7,8 +7,8 @@ package com.github.tobato.fastdfs;
  *
  */
 public class NameValuePair {
-    protected String name;
-    protected String value;
+    private String name;
+    private String value;
 
     public NameValuePair() {
     }

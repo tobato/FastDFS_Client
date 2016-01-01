@@ -4,8 +4,8 @@ import java.io.InputStream;
 
 import com.github.tobato.fastdfs.StorePath;
 import com.github.tobato.fastdfs.cmd.AbstractFdfsCommand;
+import com.github.tobato.fastdfs.cmd.FdfsResponse;
 import com.github.tobato.fastdfs.cmd.storage.internal.StorageUploadFileRequest;
-import com.github.tobato.fastdfs.cmd.storage.internal.StorageUploadFileResponse;
 
 /**
  * 文件上传命令
@@ -28,7 +28,10 @@ public class StorageUploadFileCommand extends AbstractFdfsCommand<StorePath> {
             boolean isAppenderFile) {
         super();
         this.request = new StorageUploadFileRequest(storeIndex, inputStream, fileExtName, fileSize, isAppenderFile);
-        this.response = new StorageUploadFileResponse();
+        // 输出响应
+        this.response = new FdfsResponse<StorePath>() {
+            // default response
+        };
     }
 
 }

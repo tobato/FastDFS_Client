@@ -8,12 +8,12 @@ import com.github.tobato.fastdfs.proto.CmdConstants;
 import com.github.tobato.fastdfs.proto.OtherConstants;
 
 /**
- * 文件上传命令
+ * 查询文件信息命令
  * 
  * @author wuyf
  *
  */
-public class StorageDeleteFileRequest extends FdfsRequest {
+public class StorageQueryFileInfoRequest extends FdfsRequest {
 
     /** 组名 */
     @FdfsColumn(index = 0, max = OtherConstants.FDFS_GROUP_NAME_MAX_LEN)
@@ -28,11 +28,11 @@ public class StorageDeleteFileRequest extends FdfsRequest {
      * @param groupName
      * @param path
      */
-    public StorageDeleteFileRequest(String groupName, String path) {
+    public StorageQueryFileInfoRequest(String groupName, String path) {
         super();
         this.groupName = groupName;
         this.path = path;
-        this.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_DELETE_FILE);
+        this.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_QUERY_FILE_INFO);
     }
 
     public String getGroupName() {

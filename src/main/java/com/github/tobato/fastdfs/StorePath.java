@@ -1,5 +1,6 @@
 package com.github.tobato.fastdfs;
 
+import com.github.tobato.fastdfs.cmd.mark.DynamicFieldType;
 import com.github.tobato.fastdfs.cmd.mark.FdfsColumn;
 import com.github.tobato.fastdfs.proto.OtherConstants;
 
@@ -14,7 +15,7 @@ public class StorePath {
     @FdfsColumn(index = 0, max = OtherConstants.FDFS_GROUP_NAME_MAX_LEN)
     private String group;
 
-    @FdfsColumn(index = 1, isAllRestByte = true)
+    @FdfsColumn(index = 1, dynamicField = DynamicFieldType.allRestByte)
     private String path;
 
     /**

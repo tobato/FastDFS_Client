@@ -1,8 +1,9 @@
 package com.github.tobato.fastdfs.cmd.storage;
 
+import com.github.tobato.fastdfs.FileInfo;
 import com.github.tobato.fastdfs.cmd.AbstractFdfsCommand;
 import com.github.tobato.fastdfs.cmd.FdfsResponse;
-import com.github.tobato.fastdfs.cmd.storage.internal.StorageDeleteFileRequest;
+import com.github.tobato.fastdfs.cmd.storage.internal.StorageQueryFileInfoRequest;
 
 /**
  * 文件删除命令
@@ -10,7 +11,7 @@ import com.github.tobato.fastdfs.cmd.storage.internal.StorageDeleteFileRequest;
  * @author wuyf
  *
  */
-public class StorageDeleteFileCommand extends AbstractFdfsCommand<Void> {
+public class StorageQueryFileInfoCommand extends AbstractFdfsCommand<FileInfo> {
 
     /**
      * 文件上传命令
@@ -21,11 +22,11 @@ public class StorageDeleteFileCommand extends AbstractFdfsCommand<Void> {
      * @param size 文件大小
      * @param isAppenderFile 是否添加模式
      */
-    public StorageDeleteFileCommand(String groupName, String path) {
+    public StorageQueryFileInfoCommand(String groupName, String path) {
         super();
-        this.request = new StorageDeleteFileRequest(groupName, path);
+        this.request = new StorageQueryFileInfoRequest(groupName, path);
         // 输出响应
-        this.response = new FdfsResponse<Void>() {
+        this.response = new FdfsResponse<FileInfo>() {
             // default response
         };
     }

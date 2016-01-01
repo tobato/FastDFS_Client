@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.github.tobato.fastdfs.StorageClient;
+import com.github.tobato.fastdfs.cmd.CommandTestBase;
 
 /**
  * 获取存储节点交易
@@ -12,7 +13,7 @@ import com.github.tobato.fastdfs.StorageClient;
  * @author wuyf
  *
  */
-public class TrackerGetStoreStorageCommandTest extends CommandTestBase<StorageClient> {
+public class TrackerGetStoreStorageCommandTest extends CommandTestBase {
 
     @Test
     public void testTrackerGetStoreStorageCommand() {

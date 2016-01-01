@@ -22,6 +22,7 @@ public @interface FdfsColumn {
     /** String最大值 */
     int max() default 0;
 
-    /** 所有剩余数据 */
-    boolean isAllRestByte() default false;
+    /** 动态属性 */
+    DynamicFieldType dynamicField() default DynamicFieldType.NULL;
+
 }

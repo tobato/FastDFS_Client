@@ -39,7 +39,7 @@ public class FdfsParamMapper {
         // 获取映射对象
         ObjectMateData objectMap = getObjectMap(genericType);
         if (LOGGER.isDebugEnabled()) {
-            dumpObjectMateData(objectMap);
+            objectMap.dumpObjectMateData();
         }
 
         try {
@@ -97,19 +97,6 @@ public class FdfsParamMapper {
     }
 
     /**
-     * 导出调试信息
-     * 
-     * @param objectMap
-     */
-    private static void dumpObjectMateData(ObjectMateData objectMap) {
-        LOGGER.debug("dump class={}", objectMap.getClassName());
-        LOGGER.debug("----------------------------------------");
-        for (FieldMateData md : objectMap.getFieldList()) {
-            LOGGER.debug(md.toString());
-        }
-    }
-
-    /**
      * 序列化为Byte
      * 
      * @param object
@@ -148,13 +135,16 @@ public class FdfsParamMapper {
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         List<FieldMateData> mappingFields = objectMap.getFieldList();
         // 获取报文长度 (固定长度+动态长度)
-        byte[] result = new byte[objectMap.getFieldsSendTotalByteSize(object, charset)];
+        int size = objectMap.getFieldsSendTotalByteSize(object, charset);
+        byte[] result = new byte[size];
         int offsize = 0;
         for (int i = 0; i < mappingFields.size(); i++) {
             FieldMateData field = mappingFields.get(i);
             byte[] fieldByte = field.toByte(object, charset);
-            System.arraycopy(fieldByte, 0, result, offsize, fieldByte.length);
-            offsize += fieldByte.length;
+            if (null != fieldByte) {
+                System.arraycopy(fieldByte, 0, result, offsize, fieldByte.length);
+                offsize += fieldByte.length;
+            }
         }
         return result;
     }

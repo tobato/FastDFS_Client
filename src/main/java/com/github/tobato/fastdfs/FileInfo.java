@@ -1,5 +1,8 @@
 package com.github.tobato.fastdfs;
 
+import com.github.tobato.fastdfs.cmd.mark.FdfsColumn;
+import com.github.tobato.fastdfs.proto.OtherConstants;
+
 /**
  * 文件的基础信息
  * 
@@ -7,11 +10,18 @@ package com.github.tobato.fastdfs;
  * 
  */
 public class FileInfo {
-
-    private String sourceIpAddr;
+    /** 长度 */
+    @FdfsColumn(index = 0)
     private long size;
+    /** 创建时间 */
+    @FdfsColumn(index = 1)
     private int createTime;
+    /** 校验码 */
+    @FdfsColumn(index = 2)
     private int crc32;
+    /** ip地址 */
+    @FdfsColumn(index = 3, max = OtherConstants.FDFS_IPADDR_SIZE)
+    private String sourceIpAddr;
 
     /**
      * 
@@ -92,6 +102,12 @@ public class FileInfo {
      */
     public void setCrc32(int crc32) {
         this.crc32 = crc32;
+    }
+
+    @Override
+    public String toString() {
+        return "FileInfo [size=" + size + ", createTime=" + createTime + ", crc32=" + crc32 + ", sourceIpAddr="
+                + sourceIpAddr + "]";
     }
 
 }

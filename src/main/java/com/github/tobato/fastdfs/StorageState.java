@@ -2,6 +2,9 @@ package com.github.tobato.fastdfs;
 
 import java.util.Date;
 
+import com.github.tobato.fastdfs.cmd.mark.FdfsColumn;
+import com.github.tobato.fastdfs.proto.OtherConstants;
+
 /**
  * fastdfs中storage节点的状态信息
  * 
@@ -10,66 +13,190 @@ import java.util.Date;
  */
 public class StorageState {
 
-    byte status;
-    String id;
-    String ipAddr;
-    String srcIpAddr;
-    String domainName; // http domain name
-    String version;
-    long totalMB; // total disk storage in MB
-    long freeMB; // free disk storage in MB
-    int uploadPriority; // upload priority
-    Date joinTime; // storage join timestamp (create timestamp)
-    Date upTime; // storage service started timestamp
-    int storePathCount; // store base path count of each storage
-                        // server
-    int subdirCountPerPath;
-    int storagePort;
-    int storageHttpPort; // storage http server port
-    int currentWritePath; // current write path index
-    long totalUploadCount;
-    long successUploadCount;
-    long totalAppendCount;
-    long successAppendCount;
-    long totalModifyCount;
-    long successModifyCount;
-    long totalTruncateCount;
-    long successTruncateCount;
-    long totalSetMetaCount;
-    long successSetMetaCount;
-    long totalDeleteCount;
-    long successDeleteCount;
-    long totalDownloadCount;
-    long successDownloadCount;
-    long totalGetMetaCount;
-    long successGetMetaCount;
-    long totalCreateLinkCount;
-    long successCreateLinkCount;
-    long totalDeleteLinkCount;
-    long successDeleteLinkCount;
-    long totalUploadBytes;
-    long successUploadBytes;
-    long totalAppendBytes;
-    long successAppendBytes;
-    long totalModifyBytes;
-    long successModifyBytes;
-    long totalDownloadloadBytes;
-    long successDownloadloadBytes;
-    long totalSyncInBytes;
-    long successSyncInBytes;
-    long totalSyncOutBytes;
-    long successSyncOutBytes;
-    long totalFileOpenCount;
-    long successFileOpenCount;
-    long totalFileReadCount;
-    long successFileReadCount;
-    long totalFileWriteCount;
-    long successFileWriteCount;
-    Date lastSourceUpdate;
-    Date lastSyncUpdate;
-    Date lastSyncedTimestamp;
-    Date lastHeartBeatTime;
-    boolean isTrunkServer;
+    /** 状态代码 */
+    @FdfsColumn(index = 0)
+    private byte status;
+    /** id */
+    @FdfsColumn(index = 1, max = OtherConstants.FDFS_STORAGE_ID_MAX_SIZE)
+    private String id;
+    /** ip地址 */
+    @FdfsColumn(index = 2, max = OtherConstants.FDFS_IPADDR_SIZE)
+    private String ipAddr;
+    /** domain */
+    @FdfsColumn(index = 3, max = OtherConstants.FDFS_DOMAIN_NAME_MAX_SIZE)
+    private String domainName; // http domain name
+    /** 源ip地址 */
+    @FdfsColumn(index = 4, max = OtherConstants.FDFS_IPADDR_SIZE)
+    private String srcIpAddr;
+    /** version */
+    @FdfsColumn(index = 5, max = OtherConstants.FDFS_VERSION_SIZE)
+    private String version;
+    /** 存储加入时间 */
+    @FdfsColumn(index = 6)
+    private Date joinTime; // storage join timestamp (create timestamp)
+    /** 存储更新时间 */
+    @FdfsColumn(index = 7)
+    private Date upTime; // storage service started timestamp
+    /** 存储总容量 */
+    @FdfsColumn(index = 8)
+    private long totalMB; // total disk storage in MB
+    /** 空闲存储 */
+    @FdfsColumn(index = 9)
+    private long freeMB; // free disk storage in MB
+    /** 文件上传权重 */
+    @FdfsColumn(index = 10)
+    private int uploadPriority; // upload priority
+    /** 存储路径数 */
+    @FdfsColumn(index = 11)
+    private int storePathCount; // store base path count of each storage
+    // server
+    /** 存储路径子目录数 */
+    @FdfsColumn(index = 12)
+    private int subdirCountPerPath;
+    /** 当前写路径 */
+    @FdfsColumn(index = 13)
+    private int currentWritePath; // current write path index
+    /** 存储端口 */
+    @FdfsColumn(index = 14)
+    private int storagePort;
+    /** 存储http端口 */
+    @FdfsColumn(index = 15)
+    private int storageHttpPort; // storage http server port
+    @FdfsColumn(index = 16, max = OtherConstants.FDFS_PROTO_CONNECTION_LEN)
+    private int connectionAllocCount;
+    @FdfsColumn(index = 17, max = OtherConstants.FDFS_PROTO_CONNECTION_LEN)
+    private int connectionCurrentCount;
+    @FdfsColumn(index = 18, max = OtherConstants.FDFS_PROTO_CONNECTION_LEN)
+    private int connectionMaxCount;
+    /** 总上传文件数 */
+    @FdfsColumn(index = 19)
+    private long totalUploadCount;
+    /** 成功上传文件数 */
+    @FdfsColumn(index = 20)
+    private long successUploadCount;
+    /** 合并存储文件数 */
+    @FdfsColumn(index = 21)
+    private long totalAppendCount;
+    /** 成功合并文件数 */
+    @FdfsColumn(index = 22)
+    private long successAppendCount;
+    /** 文件修改数 */
+    @FdfsColumn(index = 23)
+    private long totalModifyCount;
+    /** 文件成功修改数 */
+    @FdfsColumn(index = 24)
+    private long successModifyCount;
+    /** 总清除数 */
+    @FdfsColumn(index = 25)
+    private long totalTruncateCount;
+    /** 成功清除数 */
+    @FdfsColumn(index = 26)
+    private long successTruncateCount;
+    /** 总设置标签数 */
+    @FdfsColumn(index = 27)
+    private long totalSetMetaCount;
+    /** 成功设置标签数 */
+    @FdfsColumn(index = 28)
+    private long successSetMetaCount;
+    /** 总删除文件数 */
+    @FdfsColumn(index = 29)
+    private long totalDeleteCount;
+    /** 成功删除文件数 */
+    @FdfsColumn(index = 30)
+    private long successDeleteCount;
+    /** 总下载量 */
+    @FdfsColumn(index = 31)
+    private long totalDownloadCount;
+    /** 成功下载量 */
+    @FdfsColumn(index = 32)
+    private long successDownloadCount;
+    /** 总获取标签数 */
+    @FdfsColumn(index = 33)
+    private long totalGetMetaCount;
+    /** 成功获取标签数 */
+    @FdfsColumn(index = 34)
+    private long successGetMetaCount;
+    /** 总创建链接数 */
+    @FdfsColumn(index = 35)
+    private long totalCreateLinkCount;
+    /** 成功创建链接数 */
+    @FdfsColumn(index = 36)
+    private long successCreateLinkCount;
+    /** 总删除链接数 */
+    @FdfsColumn(index = 37)
+    private long totalDeleteLinkCount;
+    /** 成功删除链接数 */
+    @FdfsColumn(index = 38)
+    private long successDeleteLinkCount;
+    /** 总上传数据量 */
+    @FdfsColumn(index = 39)
+    private long totalUploadBytes;
+    /** 成功上传数据量 */
+    @FdfsColumn(index = 40)
+    private long successUploadBytes;
+    /** 合并数据量 */
+    @FdfsColumn(index = 41)
+    private long totalAppendBytes;
+    /** 成功合并数据量 */
+    @FdfsColumn(index = 42)
+    private long successAppendBytes;
+    /** 修改数据量 */
+    @FdfsColumn(index = 43)
+    private long totalModifyBytes;
+    /** 成功修改数据量 */
+    @FdfsColumn(index = 44)
+    private long successModifyBytes;
+    /** 下载数据量 */
+    @FdfsColumn(index = 45)
+    private long totalDownloadloadBytes;
+    /** 成功下载数据量 */
+    @FdfsColumn(index = 46)
+    private long successDownloadloadBytes;
+    /** 同步数据量 */
+    @FdfsColumn(index = 47)
+    private long totalSyncInBytes;
+    /** 成功同步数据量 */
+    @FdfsColumn(index = 48)
+    private long successSyncInBytes;
+    /** 同步输出数据量 */
+    @FdfsColumn(index = 49)
+    private long totalSyncOutBytes;
+    /** 成功同步输出数据量 */
+    @FdfsColumn(index = 50)
+    private long successSyncOutBytes;
+    /** 打开文件数量 */
+    @FdfsColumn(index = 51)
+    private long totalFileOpenCount;
+    /** 成功打开文件数量 */
+    @FdfsColumn(index = 52)
+    private long successFileOpenCount;
+    /** 文件读取数量 */
+    @FdfsColumn(index = 53)
+    private long totalFileReadCount;
+    /** 文件成功读取数量 */
+    @FdfsColumn(index = 54)
+    private long successFileReadCount;
+    /** 文件写数量 */
+    @FdfsColumn(index = 56)
+    private long totalFileWriteCount;
+    /** 文件成功写数量 */
+    @FdfsColumn(index = 57)
+    private long successFileWriteCount;
+    /** 最后上传时间 */
+    @FdfsColumn(index = 58)
+    private Date lastSourceUpdate;
+    /** 最后同步时间 */
+    @FdfsColumn(index = 59)
+    private Date lastSyncUpdate;
+    /** 最后同步时间戳 */
+    @FdfsColumn(index = 60)
+    private Date lastSyncedTimestamp;
+    /** 最后心跳时间 */
+    @FdfsColumn(index = 61)
+    private Date lastHeartBeatTime;
+    /** 是否trunk服务器 */
+    @FdfsColumn(index = 62)
+    private boolean isTrunkServer;
 
     /**
      * @return the status
@@ -954,6 +1081,63 @@ public class StorageState {
      */
     public void setTrunkServer(boolean isTrunkServer) {
         this.isTrunkServer = isTrunkServer;
+    }
+
+    public int getConnectionAllocCount() {
+        return connectionAllocCount;
+    }
+
+    public void setConnectionAllocCount(int connectionAllocCount) {
+        this.connectionAllocCount = connectionAllocCount;
+    }
+
+    public int getConnectionCurrentCount() {
+        return connectionCurrentCount;
+    }
+
+    public void setConnectionCurrentCount(int connectionCurrentCount) {
+        this.connectionCurrentCount = connectionCurrentCount;
+    }
+
+    public int getConnectionMaxCount() {
+        return connectionMaxCount;
+    }
+
+    public void setConnectionMaxCount(int connectionMaxCount) {
+        this.connectionMaxCount = connectionMaxCount;
+    }
+
+    @Override
+    public String toString() {
+        return "StorageState [status=" + status + ", id=" + id + ", ipAddr=" + ipAddr + ", domainName=" + domainName
+                + ", srcIpAddr=" + srcIpAddr + ", version=" + version + ", joinTime=" + joinTime + ", upTime=" + upTime
+                + ", totalMB=" + totalMB + ", freeMB=" + freeMB + ", uploadPriority=" + uploadPriority
+                + ", storePathCount=" + storePathCount + ", subdirCountPerPath=" + subdirCountPerPath
+                + ", currentWritePath=" + currentWritePath + ", storagePort=" + storagePort + ", storageHttpPort="
+                + storageHttpPort + ", connectionAllocCount=" + connectionAllocCount + ", connectionCurrentCount="
+                + connectionCurrentCount + ", connectionMaxCount=" + connectionMaxCount + ", totalUploadCount="
+                + totalUploadCount + ", successUploadCount=" + successUploadCount + ", totalAppendCount="
+                + totalAppendCount + ", successAppendCount=" + successAppendCount + ", totalModifyCount="
+                + totalModifyCount + ", successModifyCount=" + successModifyCount + ", totalTruncateCount="
+                + totalTruncateCount + ", successTruncateCount=" + successTruncateCount + ", totalSetMetaCount="
+                + totalSetMetaCount + ", successSetMetaCount=" + successSetMetaCount + ", totalDeleteCount="
+                + totalDeleteCount + ", successDeleteCount=" + successDeleteCount + ", totalDownloadCount="
+                + totalDownloadCount + ", successDownloadCount=" + successDownloadCount + ", totalGetMetaCount="
+                + totalGetMetaCount + ", successGetMetaCount=" + successGetMetaCount + ", totalCreateLinkCount="
+                + totalCreateLinkCount + ", successCreateLinkCount=" + successCreateLinkCount
+                + ", totalDeleteLinkCount=" + totalDeleteLinkCount + ", successDeleteLinkCount="
+                + successDeleteLinkCount + ", totalUploadBytes=" + totalUploadBytes + ", successUploadBytes="
+                + successUploadBytes + ", totalAppendBytes=" + totalAppendBytes + ", successAppendBytes="
+                + successAppendBytes + ", totalModifyBytes=" + totalModifyBytes + ", successModifyBytes="
+                + successModifyBytes + ", totalDownloadloadBytes=" + totalDownloadloadBytes
+                + ", successDownloadloadBytes=" + successDownloadloadBytes + ", totalSyncInBytes=" + totalSyncInBytes
+                + ", successSyncInBytes=" + successSyncInBytes + ", totalSyncOutBytes=" + totalSyncOutBytes
+                + ", successSyncOutBytes=" + successSyncOutBytes + ", totalFileOpenCount=" + totalFileOpenCount
+                + ", successFileOpenCount=" + successFileOpenCount + ", totalFileReadCount=" + totalFileReadCount
+                + ", successFileReadCount=" + successFileReadCount + ", totalFileWriteCount=" + totalFileWriteCount
+                + ", successFileWriteCount=" + successFileWriteCount + ", lastSourceUpdate=" + lastSourceUpdate
+                + ", lastSyncUpdate=" + lastSyncUpdate + ", lastSyncedTimestamp=" + lastSyncedTimestamp
+                + ", lastHeartBeatTime=" + lastHeartBeatTime + ", isTrunkServer=" + isTrunkServer + "]";
     }
 
 }

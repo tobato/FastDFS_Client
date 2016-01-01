@@ -28,8 +28,10 @@ class FieldMateData {
     private int size;
     /** 列偏移量 */
     private int offsize;
+    /** 动态属性类型 */
+    DynamicFieldType dynamicFieldType;
     /** 是否所有剩余数据 */
-    private boolean isAllRestByte;
+    // private boolean isAllRestByte;
 
     /**
      * 构造函数
@@ -44,7 +46,11 @@ class FieldMateData {
         this.max = column.max();
         this.size = getFieldSize(field);
         this.offsize = offsize;
-        this.isAllRestByte = column.isAllRestByte();
+        this.dynamicFieldType = column.dynamicField();
+        // 如果强制设置了最大值，以最大值为准
+        if (this.max > 0 && this.size > this.max) {
+            this.size = this.max;
+        }
     }
 
     /**
@@ -54,18 +60,20 @@ class FieldMateData {
      * @return
      */
     private int getFieldSize(Field field) {//
-        if (String.class.equals(field.getType())) {
+        if (String.class == field.getType()) {
             return this.max;
-        } else if (long.class.equals(field.getType())) {
+        } else if (long.class == field.getType()) {
             return OtherConstants.FDFS_PROTO_PKG_LEN_SIZE;
-        } else if (int.class.equals(field.getType())) {
+        } else if (int.class == field.getType()) {
             return OtherConstants.FDFS_PROTO_PKG_LEN_SIZE;
-        } else if (Date.class.equals(field.getType())) {
+        } else if (java.util.Date.class == field.getType()) {
             return OtherConstants.FDFS_PROTO_PKG_LEN_SIZE;
-        } else if (byte.class.equals(field.getType())) {
+        } else if (byte.class == field.getType()) {
+            return 1;
+        } else if (boolean.class == field.getType()) {
             return 1;
         }
-        throw new FdfsColumnMapException("获取Field大小时未识别的FdfsColumn类型");
+        throw new FdfsColumnMapException(field.getName() + "获取Field大小时未识别的FdfsColumn类型" + field.getType());
     }
 
     /**
@@ -75,23 +83,23 @@ class FieldMateData {
      * @return
      */
     public Object getValue(byte[] bs, Charset charset) {
-        if (String.class.equals(field.getType())) {
-            if (isAllRestByte) {
+        if (String.class == field.getType()) {
+            if (isDynamicField()) {
                 return (new String(bs, offsize, bs.length - offsize, charset)).trim();
             }
             return (new String(bs, offsize, size, charset)).trim();
-        } else if (long.class.equals(field.getType())) {
+        } else if (long.class == field.getType()) {
             return BytesUtil.buff2long(bs, offsize);
-        } else if (int.class.equals(field.getType())) {
+        } else if (int.class == field.getType()) {
             return (int) BytesUtil.buff2long(bs, offsize);
-        } else if (Date.class.equals(field.getType())) {
+        } else if (java.util.Date.class == field.getType()) {
             return new Date(BytesUtil.buff2long(bs, offsize) * 1000);
-        } else if (byte.class.equals(field.getType())) {
+        } else if (byte.class == field.getType()) {
             return bs[offsize];
-        } else if (boolean.class.equals(field.getType())) {
+        } else if (boolean.class == field.getType()) {
             return bs[offsize] != 0;
         }
-        throw new FdfsColumnMapException("获取值时未识别的FdfsColumn类型");
+        throw new FdfsColumnMapException(field.getName() + "获取值时未识别的FdfsColumn类型" + field.getType());
     }
 
     public Field getField() {
@@ -111,6 +119,19 @@ class FieldMateData {
     }
 
     public int getSize() {
+        return size;
+    }
+
+    /**
+     * 获取真实属性
+     * 
+     * @return
+     */
+    public int getRealeSize() {
+        // 如果是动态属性
+        if (isDynamicField()) {
+            return 0;
+        }
         return size;
     }
 
@@ -138,7 +159,7 @@ class FieldMateData {
         Object value = this.getFieldValue(bean);
         if (String.class.equals(field.getType())) {
             // 如果是动态属性
-            if (isAllRestByte) {
+            if (isDynamicField()) {
                 return BytesUtil.objString2Byte((String) value, charset);
             }
             return BytesUtil.objString2Byte((String) value, max, charset);
@@ -187,13 +208,23 @@ class FieldMateData {
         String value = (String) PropertyUtils.getProperty(bean, field.getName());
         if (null == value) {
             return 0;
-        } else {
+        }
+        // 如果是打包剩余的所有Byte
+        if (DynamicFieldType.allRestByte.equals(dynamicFieldType)) {
             return value.getBytes(charset).length;
+        } else {
+            // 可以为空的属性
+            return getFieldSize(field);
         }
     }
 
-    public boolean isAllRestByte() {
-        return isAllRestByte;
+    /**
+     * 是否动态属性
+     * 
+     * @return
+     */
+    public boolean isDynamicField() {
+        return (!DynamicFieldType.NULL.equals(dynamicFieldType));
     }
 
 }

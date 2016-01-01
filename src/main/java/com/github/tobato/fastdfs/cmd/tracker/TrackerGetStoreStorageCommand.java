@@ -2,8 +2,8 @@ package com.github.tobato.fastdfs.cmd.tracker;
 
 import com.github.tobato.fastdfs.StorageClient;
 import com.github.tobato.fastdfs.cmd.AbstractFdfsCommand;
+import com.github.tobato.fastdfs.cmd.FdfsResponse;
 import com.github.tobato.fastdfs.cmd.tracker.internal.TrackerGetStoreStorageRequest;
-import com.github.tobato.fastdfs.cmd.tracker.internal.TrackerGetStoreStorageResponse;
 import com.github.tobato.fastdfs.cmd.tracker.internal.TrackerGetStoreStorageWithGroupRequest;
 
 /**
@@ -16,12 +16,16 @@ public class TrackerGetStoreStorageCommand extends AbstractFdfsCommand<StorageCl
 
     public TrackerGetStoreStorageCommand(String groupName) {
         super.request = new TrackerGetStoreStorageWithGroupRequest(groupName);
-        super.response = new TrackerGetStoreStorageResponse();
+        super.response = new FdfsResponse<StorageClient>() {
+            // default response
+        };
     }
 
     public TrackerGetStoreStorageCommand() {
         super.request = new TrackerGetStoreStorageRequest();
-        super.response = new TrackerGetStoreStorageResponse();
+        super.response = new FdfsResponse<StorageClient>() {
+            // default response
+        };
     }
 
 }

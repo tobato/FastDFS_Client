@@ -68,7 +68,7 @@ public class ObjectMateData {
                 FieldMateData fieldMateData = new FieldMateData(fields[i], fieldsTotalSize);
                 mapedFieldList.add(fieldMateData);
                 // 计算偏移量
-                fieldsTotalSize += fieldMateData.getSize();
+                fieldsTotalSize += fieldMateData.getRealeSize();
             }
         }
         return mapedFieldList;
@@ -108,7 +108,7 @@ public class ObjectMateData {
      */
     private boolean hasDynamicField() {
         for (FieldMateData field : fieldList) {
-            if (field.isAllRestByte()) {
+            if (field.isDynamicField()) {
                 return true;
             }
         }
@@ -122,7 +122,7 @@ public class ObjectMateData {
      */
     private FieldMateData getDynamicField() {
         for (FieldMateData field : fieldList) {
-            if (field.isAllRestByte()) {
+            if (field.isDynamicField()) {
                 return field;
             }
         }
@@ -194,6 +194,19 @@ public class ObjectMateData {
         } catch (InvocationTargetException ite) {
             LOGGER.debug("Cannot invoke method: ", ite);
             throw new FdfsColumnMapException(ite);
+        }
+    }
+
+    /**
+     * 导出调试信息
+     * 
+     * @param objectMap
+     */
+    public void dumpObjectMateData() {
+        LOGGER.debug("dump class={}", className);
+        LOGGER.debug("----------------------------------------");
+        for (FieldMateData md : fieldList) {
+            LOGGER.debug(md.toString());
         }
     }
 
