@@ -25,6 +25,7 @@ public final class CmdConstants {
     public static final byte TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITHOUT_GROUP_ALL = 106;
     public static final byte TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITH_GROUP_ALL = 107;
 
+    /** 上传文件 */
     public static final byte STORAGE_PROTO_CMD_UPLOAD_FILE = 11;
     public static final byte STORAGE_PROTO_CMD_DELETE_FILE = 12;
     public static final byte STORAGE_PROTO_CMD_SET_METADATA = 13;
@@ -32,13 +33,17 @@ public final class CmdConstants {
     public static final byte STORAGE_PROTO_CMD_GET_METADATA = 15;
     public static final byte STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE = 21;
     public static final byte STORAGE_PROTO_CMD_QUERY_FILE_INFO = 22;
+    /** 创建一个支持断点续传的文件 */
     public static final byte STORAGE_PROTO_CMD_UPLOAD_APPENDER_FILE = 23; // create
                                                                           // appender
                                                                           // file
+    /** 对文件断点续传(附加在原来为上传完全的文件后面) */
     public static final byte STORAGE_PROTO_CMD_APPEND_FILE = 24; // append file
+    /** 修改支持断点续传的文件 */
     public static final byte STORAGE_PROTO_CMD_MODIFY_FILE = 34; // modify
                                                                  // appender
                                                                  // file
+    /** 清空支持断点的文件 */
     public static final byte STORAGE_PROTO_CMD_TRUNCATE_FILE = 36; // truncate
                                                                    // appender
                                                                    // file

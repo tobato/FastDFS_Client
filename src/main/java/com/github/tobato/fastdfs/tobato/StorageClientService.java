@@ -2,9 +2,9 @@ package com.github.tobato.fastdfs.tobato;
 
 import java.io.InputStream;
 
-import com.github.tobato.fastdfs.FileInfo;
-import com.github.tobato.fastdfs.NameValuePair;
-import com.github.tobato.fastdfs.StorePath;
+import com.github.tobato.fastdfs.domain.FileInfo;
+import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.IFdfsFileInputStreamHandler;
 
 /**
@@ -112,7 +112,7 @@ public interface StorageClientService {
      * @param path
      * @return
      */
-    NameValuePair[] getMetadata(String groupName, String path);
+    MateData[] getMetadata(String groupName, String path);
 
     /**
      * 修改文件元信息（覆盖）
@@ -122,7 +122,7 @@ public interface StorageClientService {
      * @param path
      * @param metaList
      */
-    void overwriteMetadata(String groupName, String path, NameValuePair[] metaList);
+    void overwriteMetadata(String groupName, String path, MateData[] metaList);
 
     /**
      * 修改文件元信息（合并）
@@ -132,7 +132,7 @@ public interface StorageClientService {
      * @param path
      * @param metaList
      */
-    void mergeMetadata(String groupName, String path, NameValuePair[] metaList);
+    void mergeMetadata(String groupName, String path, MateData[] metaList);
 
     /**
      * 查看文件的信息

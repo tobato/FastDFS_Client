@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
-import com.github.tobato.fastdfs.proto.BytesUtil;
 import com.github.tobato.fastdfs.proto.CmdConstants;
 import com.github.tobato.fastdfs.proto.OtherConstants;
+import com.github.tobato.fastdfs.proto.mapper.BytesUtil;
 
 /**
  * represent a Fdfs connection

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.tobato.fastdfs.conn.Connection;
 import com.github.tobato.fastdfs.conn.ConnectionPool;
+import com.github.tobato.fastdfs.domain.CircularList;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
 import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
 
@@ -65,8 +66,6 @@ public class TrackerConnectionManager {
             trackerAddresses.add(new TrackerAddressHolder(address));
         }
     }
-
-    // public
 
     /**
      * 一个ip取不到就取下一个ip的连接，直到所有的ip都取过一遍还没取到报异常

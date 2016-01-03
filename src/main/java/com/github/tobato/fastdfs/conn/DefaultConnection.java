@@ -13,9 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
-import com.github.tobato.fastdfs.proto.BytesUtil;
 import com.github.tobato.fastdfs.proto.CmdConstants;
 import com.github.tobato.fastdfs.proto.OtherConstants;
+import com.github.tobato.fastdfs.proto.mapper.BytesUtil;
 
 /**
  * 默认连接实现
@@ -109,65 +109,6 @@ public class DefaultConnection implements Connection {
             return false;
         }
     }
-
-    // /**
-    // * 执行Fdfs命令
-    // */
-    // public FdfsResponse excuteFdfsCmd(FdfsRequest request) {
-    // // 发出请求
-    // sendRequest(request);
-    // // 接收请求
-    // return receiveResponse();
-    // // if (errorCode == ErrorCodeConstants.SUCCESS) {
-    // // return result;
-    // // }
-    // // throw FdfsServerException.byCode(errorCode);
-    // }
-    //
-    // /**
-    // * 发送请求
-    // *
-    // * @param request
-    // */
-    // public void sendRequest(FdfsRequest request) {
-    // OutputStream out = null;
-    // try {
-    // out = socket.getOutputStream();
-    // out.write(request.getByteContent());
-    // } catch (IOException e) {
-    // throw new FdfsIOException("socket io exception occured while sending
-    // cmd", e);
-    // } finally {
-    // // 确保输出流被关闭
-    // // IOUtils.closeQuietly(out);
-    // }
-    // }
-    //
-    // /**
-    // * 接收反馈
-    // *
-    // * @return
-    // */
-    // public FdfsResponse receiveResponse() {
-    // InputStream in = null;
-    // try {
-    // in = socket.getInputStream();
-    // // 解析报文头
-    // ProtoHead head = ProtoHead.readFromInput(in);
-    // LOGGER.debug("服务端返回报文头{}", head);
-    // // 校验报文头
-    // head.validateResponseHead();
-    //
-    // // 解析报文体
-    // return new TrackerListGroupsResponse(head, in);
-    // } catch (IOException e) {
-    // throw new FdfsIOException("socket io exception occured while receive
-    // content", e);
-    // } finally {
-    // // 确保输入流被关闭
-    // // IOUtils.closeQuietly(in);
-    // }
-    // }
 
     /**
      * 获取输出流

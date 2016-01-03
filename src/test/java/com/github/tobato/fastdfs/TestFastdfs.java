@@ -13,6 +13,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
+import com.github.tobato.fastdfs.domain.GroupState;
+import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.service.IStorageClientService;
 import com.github.tobato.fastdfs.service.TrackerClientService;
 import com.github.tobato.fastdfs.service.impl.ByteArrayFdfsFileInputStreamHandler;

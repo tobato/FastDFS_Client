@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.github.tobato.fastdfs.cmd.FdfsCommand;
 import com.github.tobato.fastdfs.exception.FdfsException;
+import com.github.tobato.fastdfs.proto.FdfsCommand;
 
 /**
  * 连接池管理

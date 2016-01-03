@@ -1,8 +1,8 @@
 package com.github.tobato.fastdfs.service;
 
-import com.github.tobato.fastdfs.GroupState;
-import com.github.tobato.fastdfs.StorageClient;
-import com.github.tobato.fastdfs.StorageState;
+import com.github.tobato.fastdfs.domain.GroupState;
+import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageState;
 
 /**
  * TrackerClientService

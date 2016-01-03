@@ -7,6 +7,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.tobato.fastdfs.domain.CircularList;
+
 /**
  * 循环列表测试
  * 

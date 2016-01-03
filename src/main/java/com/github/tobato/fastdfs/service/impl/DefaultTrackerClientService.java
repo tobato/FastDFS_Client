@@ -9,9 +9,9 @@ import java.util.Set;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.github.tobato.fastdfs.GroupState;
-import com.github.tobato.fastdfs.StorageClient;
-import com.github.tobato.fastdfs.StorageState;
+import com.github.tobato.fastdfs.domain.GroupState;
+import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageState;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
 import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
 import com.github.tobato.fastdfs.proto.handler.ICmdProtoHandler;

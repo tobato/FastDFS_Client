@@ -3,7 +3,7 @@ package com.github.tobato.fastdfs.service;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Test;
 
-import com.github.tobato.fastdfs.GroupState;
+import com.github.tobato.fastdfs.domain.GroupState;
 import com.github.tobato.fastdfs.service.impl.DefaultTrackerClientService;
 import com.github.tobato.fastdfs.socket.FdfsSocketService;
 

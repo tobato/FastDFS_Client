@@ -5,10 +5,10 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
-import com.github.tobato.fastdfs.FileInfo;
-import com.github.tobato.fastdfs.NameValuePair;
-import com.github.tobato.fastdfs.StorageClient;
-import com.github.tobato.fastdfs.StorePath;
+import com.github.tobato.fastdfs.domain.FileInfo;
+import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsIOException;
 import com.github.tobato.fastdfs.proto.OtherConstants;
 import com.github.tobato.fastdfs.proto.handler.ICmdProtoHandler;
@@ -154,16 +154,16 @@ public class StorageClientService implements IStorageClientService {
     }
 
     @Override
-    public NameValuePair[] getMetadata(String groupName, String path) {
+    public MateData[] getMetadata(String groupName, String path) {
         StorageClient storageClient = trackerClientService.getFetchStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
-        ICmdProtoHandler<NameValuePair[]> handler = new StorageGetMetadataHandler(socket, groupName, path,
+        ICmdProtoHandler<MateData[]> handler = new StorageGetMetadataHandler(socket, groupName, path,
                 storageClient.getCharset());
         return process(socket, handler);
     }
 
     @Override
-    public void overwriteMetadata(String groupName, String path, NameValuePair[] metaList) {
+    public void overwriteMetadata(String groupName, String path, MateData[] metaList) {
         StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageSetMetadataHandler(socket, groupName, path, metaList,
@@ -173,7 +173,7 @@ public class StorageClientService implements IStorageClientService {
     }
 
     @Override
-    public void mergeMetadata(String groupName, String path, NameValuePair[] metaList) {
+    public void mergeMetadata(String groupName, String path, MateData[] metaList) {
         StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageSetMetadataHandler(socket, groupName, path, metaList,

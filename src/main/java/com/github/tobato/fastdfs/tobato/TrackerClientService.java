@@ -1,11 +1,11 @@
 package com.github.tobato.fastdfs.tobato;
 
-import com.github.tobato.fastdfs.GroupState;
-import com.github.tobato.fastdfs.StorageClient;
-import com.github.tobato.fastdfs.StorageState;
+import com.github.tobato.fastdfs.domain.GroupState;
+import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageState;
 
 /**
- * 目录服务接口
+ * 目录服务(Tracker)客户端接口
  * 
  * @author tobato
  */
