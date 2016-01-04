@@ -2,9 +2,12 @@ package com.github.tobato.fastdfs.domain;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,6 +15,10 @@ import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
 
 /**
  * 表示Tracker服务器位置
+ * 
+ * <pre>
+ * 支持负载均衡对IP轮询
+ * </pre>
  * 
  * @author wuyf
  *
@@ -24,8 +31,11 @@ public class TrackerLocator {
     /** tracker服务配置地址列表 */
     private List<String> trackerList = new ArrayList<String>();
 
-    /** 目录服务地址 */
+    /** 目录服务地址-为了加速处理，增加了一个map */
     private Map<InetSocketAddress, TrackerAddressHolder> trackerAddressMap = new HashMap<InetSocketAddress, TrackerAddressHolder>();
+
+    /** 轮询圈 */
+    private CircularList<TrackerAddressHolder> trackerAddressCircular = new CircularList<TrackerAddressHolder>();
 
     /** 连接中断以后经过N秒重试 */
     private int retryAfterSecend = DEFAULT_RETRY_AFTER_SECEND;
@@ -46,6 +56,7 @@ public class TrackerLocator {
      * 分析TrackerAddress
      */
     private void buildTrackerAddresses() {
+        Set<InetSocketAddress> addressSet = new HashSet<InetSocketAddress>();
         for (String item : trackerList) {
             if (StringUtils.isBlank(item)) {
                 continue;
@@ -56,7 +67,13 @@ public class TrackerLocator {
                         "the value of item \"tracker_server\" is invalid, the correct format is host:port");
             }
             InetSocketAddress address = new InetSocketAddress(parts[0].trim(), Integer.parseInt(parts[1].trim()));
-            trackerAddressMap.put(address, new TrackerAddressHolder(address));
+            addressSet.add(address);
+        }
+        // 放到轮询圈
+        for (InetSocketAddress item : addressSet) {
+            TrackerAddressHolder holder = new TrackerAddressHolder(item);
+            trackerAddressCircular.add(holder);
+            trackerAddressMap.put(item, holder);
         }
 
     }
@@ -75,10 +92,12 @@ public class TrackerLocator {
      * @return
      */
     public InetSocketAddress getTrackerAddress() {
+        TrackerAddressHolder holder;
         // 遍历连接地址,抓取当前有效的地址
-        for (TrackerAddressHolder value : trackerAddressMap.values()) {
-            if (value.canTryToConnect(retryAfterSecend)) {
-                return value.getAddress();
+        for (int i = 0; i < trackerAddressCircular.size(); i++) {
+            holder = trackerAddressCircular.next();
+            if (holder.canTryToConnect(retryAfterSecend)) {
+                return holder.getAddress();
             }
         }
         throw new FdfsUnavailableException("找不到可用的tracker");
@@ -103,4 +122,9 @@ public class TrackerLocator {
         TrackerAddressHolder holder = trackerAddressMap.get(address);
         holder.setInActive();
     }
+
+    public List<String> getTrackerList() {
+        return Collections.unmodifiableList(trackerList);
+    }
+
 }

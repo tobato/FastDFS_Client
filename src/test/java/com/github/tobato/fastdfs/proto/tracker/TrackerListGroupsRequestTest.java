@@ -2,7 +2,7 @@ package com.github.tobato.fastdfs.proto.tracker;
 
 import org.junit.Test;
 
-import com.github.tobato.fastdfs.proto.RemoteServiceDefine;
+import com.github.tobato.fastdfs.RemoteServiceDefine;
 import com.github.tobato.fastdfs.proto.tracker.internal.TrackerListGroupsRequest;
 
 /**

@@ -1,7 +1,10 @@
 package com.github.tobato.fastdfs.tobato;
 
+import java.util.List;
+
 import com.github.tobato.fastdfs.domain.GroupState;
-import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageNode;
+import com.github.tobato.fastdfs.domain.StorageNodeInfo;
 import com.github.tobato.fastdfs.domain.StorageState;
 
 /**
@@ -9,14 +12,14 @@ import com.github.tobato.fastdfs.domain.StorageState;
  * 
  * @author tobato
  */
-public interface TrackerClientService {
+public interface TrackerClient {
 
     /**
      * 获取存储节点 get the StoreStorage Client
      * 
      * @return
      */
-    StorageClient getStoreStorage();
+    StorageNode getStoreStorage();
 
     /**
      * 按组获取存储节点 get the StoreStorage Client by group
@@ -24,7 +27,7 @@ public interface TrackerClientService {
      * @param groupName
      * @return
      */
-    StorageClient getStoreStorage(String groupName);
+    StorageNode getStoreStorage(String groupName);
 
     /**
      * 获取读取存储节点 get the fetchStorage Client by group and filename
@@ -33,7 +36,7 @@ public interface TrackerClientService {
      * @param filename
      * @return
      */
-    StorageClient getFetchStorage(String groupName, String filename);
+    StorageNodeInfo getFetchStorage(String groupName, String filename);
 
     /**
      * 获取更新节点 get the updateStorage Client by group and filename
@@ -42,14 +45,14 @@ public interface TrackerClientService {
      * @param filename
      * @return
      */
-    StorageClient getUpdateStorage(String groupName, String filename);
+    StorageNodeInfo getUpdateStorage(String groupName, String filename);
 
     /**
      * 获取组状态list groups
      * 
      * @return
      */
-    GroupState[] listGroups();
+    List<GroupState> listGroups();
 
     /**
      * 按组名获取存储节点状态list storages by groupName
@@ -57,7 +60,7 @@ public interface TrackerClientService {
      * @param groupName
      * @return
      */
-    StorageState[] listStorages(String groupName);
+    List<StorageState> listStorages(String groupName);
 
     /**
      * 获取存储状态 list storages by groupName and storageIpAddr
@@ -66,7 +69,7 @@ public interface TrackerClientService {
      * @param storageIpAddr
      * @return
      */
-    StorageState[] listStorages(String groupName, String storageIpAddr);
+    List<StorageState> listStorages(String groupName, String storageIpAddr);
 
     /**
      * 删除存储节点 delete storage from TrackerServer

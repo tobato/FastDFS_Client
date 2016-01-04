@@ -1,4 +1,4 @@
-package com.github.tobato.fastdfs.proto;
+package com.github.tobato.fastdfs;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -16,5 +16,8 @@ public class RemoteServiceDefine {
     public static final int soTimeout = 550;
     public static final int connectTimeout = 500;
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+
+    public static final String DEFAULT_GROUP = "group1";
+    public static final String DEFAULT_STORAGE_IP = "192.168.174.49";
 
 }

@@ -6,6 +6,8 @@ import java.nio.charset.Charset;
 import org.apache.commons.pool2.BaseKeyedPooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * pooled FdfsSocket factory
@@ -17,6 +19,8 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
  * @author tobato
  *
  */
+@Component
+@ConfigurationProperties(prefix = "fdfs")
 public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSocketAddress, Connection> {
 
     /** 读取时间 */

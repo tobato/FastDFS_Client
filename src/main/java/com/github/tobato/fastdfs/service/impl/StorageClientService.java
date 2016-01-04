@@ -7,7 +7,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.github.tobato.fastdfs.domain.FileInfo;
 import com.github.tobato.fastdfs.domain.MateData;
-import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsIOException;
 import com.github.tobato.fastdfs.proto.OtherConstants;
@@ -52,7 +52,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public StorePath uploadFile(String groupName, InputStream ins, long size, String ext) {
-        StorageClient storageClient = trackerClientService.getStoreStorage(groupName);
+        StorageNode storageClient = trackerClientService.getStoreStorage(groupName);
 
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<StorePath> handler = new StorageUploadHandler(socket, false, ins, size,
@@ -62,7 +62,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public StorePath uploadAppenderFile(String groupName, InputStream ins, long size, String ext) {
-        StorageClient storageClient = trackerClientService.getStoreStorage(groupName);
+        StorageNode storageClient = trackerClientService.getStoreStorage(groupName);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<StorePath> handler = new StorageUploadHandler(socket, true, ins, size,
                 storageClient.getStoreIndex(), ext, storageClient.getCharset());
@@ -72,7 +72,7 @@ public class StorageClientService implements IStorageClientService {
     @Override
     public StorePath uploadSlaveFile(String groupName, String masterFilename, InputStream ins, long size,
             String prefixName, String ext) {
-        StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, masterFilename);
+        StorageNode storageClient = trackerClientService.getUpdateStorage(groupName, masterFilename);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<StorePath> handler = new StorageUploadSlaveHandler(socket, ins, size, masterFilename,
                 prefixName, ext, storageClient.getCharset());
@@ -81,7 +81,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public void appendFile(String groupName, String path, InputStream ins, long size) {
-        StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getUpdateStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageAppendHandler(socket, ins, size, path, storageClient.getCharset());
         process(socket, handler);
@@ -89,7 +89,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public void modifyFile(String groupName, String path, long offset, InputStream ins, long size) {
-        StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getUpdateStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageModifyHandler(socket, ins, size, path, offset,
                 storageClient.getCharset());
@@ -98,7 +98,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public void deleteFile(String groupName, String path) {
-        StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getUpdateStorage(groupName, path);
 
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageDeleteHandler(socket, groupName, path, storageClient.getCharset());
@@ -107,7 +107,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public void truncateFile(String groupName, String path, long truncatedFileSize) {
-        StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getUpdateStorage(groupName, path);
 
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageTruncateHandler(socket, path, truncatedFileSize,
@@ -127,7 +127,7 @@ public class StorageClientService implements IStorageClientService {
     @Override
     public <T> T downloadFile(String groupName, String path, long offset, long size,
             IFdfsFileInputStreamHandler<T> handling) {
-        StorageClient storageClient = trackerClientService.getFetchStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getFetchStorage(groupName, path);
 
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<FdfsInputStream> handler = new StorageDownloadHandler(socket, groupName, path, offset, size,
@@ -155,7 +155,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public MateData[] getMetadata(String groupName, String path) {
-        StorageClient storageClient = trackerClientService.getFetchStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getFetchStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<MateData[]> handler = new StorageGetMetadataHandler(socket, groupName, path,
                 storageClient.getCharset());
@@ -164,7 +164,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public void overwriteMetadata(String groupName, String path, MateData[] metaList) {
-        StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getUpdateStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageSetMetadataHandler(socket, groupName, path, metaList,
                 OtherConstants.STORAGE_SET_METADATA_FLAG_OVERWRITE, storageClient.getCharset());
@@ -174,7 +174,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public void mergeMetadata(String groupName, String path, MateData[] metaList) {
-        StorageClient storageClient = trackerClientService.getUpdateStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getUpdateStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<Void> handler = new StorageSetMetadataHandler(socket, groupName, path, metaList,
                 OtherConstants.STORAGE_SET_METADATA_FLAG_MERGE, storageClient.getCharset());
@@ -184,7 +184,7 @@ public class StorageClientService implements IStorageClientService {
 
     @Override
     public FileInfo queryFileInfo(String groupName, String path) {
-        StorageClient storageClient = trackerClientService.getFetchStorage(groupName, path);
+        StorageNode storageClient = trackerClientService.getFetchStorage(groupName, path);
         FdfsConnection socket = fdfsSocketService.getSocket(storageClient.getInetSocketAddress());
         ICmdProtoHandler<FileInfo> handler = new StorageQueryFileInfoHandler(socket, groupName, path,
                 storageClient.getCharset());

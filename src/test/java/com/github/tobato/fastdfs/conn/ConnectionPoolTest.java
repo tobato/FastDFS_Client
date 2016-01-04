@@ -19,7 +19,7 @@ public class ConnectionPoolTest extends MockServerTestBase {
      */
     @Test
     public void testPoolUsage() {
-        ConnectionPool pool = createPool();
+        FdfsConnectionPool pool = createPool();
         try {
             // 获取连接
             Connection connA = pool.borrowObject(address);
@@ -37,7 +37,7 @@ public class ConnectionPoolTest extends MockServerTestBase {
 
     @Test
     public void testPoolStatus() {
-        ConnectionPool pool = createPool();
+        FdfsConnectionPool pool = createPool();
         try {
             // 获取连接
             printPoolStates("未获取前", address, pool);
@@ -68,11 +68,11 @@ public class ConnectionPoolTest extends MockServerTestBase {
         }
     }
 
-    private ConnectionPool createPool() {
-        return new ConnectionPool(new PooledConnectionFactory());
+    private FdfsConnectionPool createPool() {
+        return new FdfsConnectionPool(new PooledConnectionFactory());
     }
 
-    private void printPoolStates(String msg, InetSocketAddress address, ConnectionPool pool) {
+    private void printPoolStates(String msg, InetSocketAddress address, FdfsConnectionPool pool) {
         LOGGER.debug("=============={}================", msg);
         LOGGER.debug("活动连接{}", pool.getNumActive(address));
         LOGGER.debug("空闲连接{}", pool.getNumIdle(address));

@@ -11,7 +11,7 @@ import com.github.tobato.fastdfs.proto.mapper.FdfsColumn;
  * @author yuqih
  *
  */
-public class StorageClientInfo {
+public class StorageNodeInfo {
 
     @FdfsColumn(index = 0, max = OtherConstants.FDFS_GROUP_NAME_MAX_LEN)
     private String groupName;
@@ -27,13 +27,13 @@ public class StorageClientInfo {
      * @param port
      * @param storeIndex
      */
-    public StorageClientInfo(String ip, int port) {
+    public StorageNodeInfo(String ip, int port) {
         super();
         this.ip = ip;
         this.port = port;
     }
 
-    public StorageClientInfo() {
+    public StorageNodeInfo() {
         super();
     }
 

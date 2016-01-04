@@ -34,9 +34,8 @@ public class StorageTruncateRequest extends FdfsRequest {
     /**
      * 文件Truncate命令
      * 
-     * @param inputStream
      * @param path
-     * @param fileSize
+     * @param fileSize 截取文件长度
      */
     public StorageTruncateRequest(String path, long fileSize) {
         super();

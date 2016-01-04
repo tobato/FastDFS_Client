@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.proto.CommandTestBase;
 import com.github.tobato.fastdfs.proto.tracker.TrackerGetStoreStorageCommand;
 
@@ -18,7 +18,7 @@ public class TrackerGetStoreStorageCommandTest extends CommandTestBase {
 
     @Test
     public void testTrackerGetStoreStorageCommand() {
-        StorageClient client = executeTrackerCmd(new TrackerGetStoreStorageCommand());
+        StorageNode client = executeTrackerCmd(new TrackerGetStoreStorageCommand());
         assertNotNull(client.getInetSocketAddress());
         LOGGER.debug("-----获取存储节点交易处理结果-----{}");
         LOGGER.debug(client.toString());
@@ -31,7 +31,7 @@ public class TrackerGetStoreStorageCommandTest extends CommandTestBase {
 
     @Test
     public void testTrackerGetStoreStorageWithGroupCommand() {
-        StorageClient client = executeTrackerCmd(new TrackerGetStoreStorageCommand("group1"));
+        StorageNode client = executeTrackerCmd(new TrackerGetStoreStorageCommand("group1"));
         assertNotNull(client.getInetSocketAddress());
         LOGGER.debug("-----按组获取存储节点交易处理结果-----");
         LOGGER.debug(client.toString());

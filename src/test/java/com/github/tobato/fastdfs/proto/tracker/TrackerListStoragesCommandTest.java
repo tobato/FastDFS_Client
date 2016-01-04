@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.github.tobato.fastdfs.RemoteServiceDefine;
 import com.github.tobato.fastdfs.domain.StorageState;
 import com.github.tobato.fastdfs.proto.CommandTestBase;
-import com.github.tobato.fastdfs.proto.RemoteServiceDefine;
 import com.github.tobato.fastdfs.proto.tracker.TrackerListStoragesCommand;
 
 /**

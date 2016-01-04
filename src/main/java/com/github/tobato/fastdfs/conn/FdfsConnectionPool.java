@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import org.apache.commons.pool2.KeyedPooledObjectFactory;
 import org.apache.commons.pool2.impl.GenericKeyedObjectPool;
 import org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class ConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Connection> {
+public class FdfsConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Connection> {
 
     /**
      * 默认构造函数
@@ -26,7 +27,8 @@ public class ConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Co
      * @param factory
      * @param config
      */
-    public ConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory,
+    @Autowired
+    public FdfsConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory,
             GenericKeyedObjectPoolConfig config) {
         super(factory, config);
     }
@@ -36,7 +38,7 @@ public class ConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Co
      * 
      * @param factory
      */
-    public ConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory) {
+    public FdfsConnectionPool(KeyedPooledObjectFactory<InetSocketAddress, Connection> factory) {
         super(factory);
     }
 

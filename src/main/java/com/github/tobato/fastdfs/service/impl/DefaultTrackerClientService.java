@@ -10,7 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.tobato.fastdfs.domain.GroupState;
-import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.domain.StorageState;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
 import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
@@ -120,30 +120,30 @@ public class DefaultTrackerClientService implements TrackerClientService {
     }
 
     @Override
-    public StorageClient getStoreStorage() {
+    public StorageNode getStoreStorage() {
         return getStoreStorage(null);
     }
 
     @Override
-    public StorageClient getStoreStorage(String groupName) {
+    public StorageNode getStoreStorage(String groupName) {
         FdfsConnection socket = getTrackerSocket();
-        ICmdProtoHandler<StorageClient> handler = new TrackerGetStoreStorageHandler(socket, groupName, charset);
+        ICmdProtoHandler<StorageNode> handler = new TrackerGetStoreStorageHandler(socket, groupName, charset);
         return process(socket, handler);
     }
 
     @Override
-    public StorageClient getFetchStorage(String groupName, String path) {
+    public StorageNode getFetchStorage(String groupName, String path) {
         FdfsConnection socket = getTrackerSocket();
-        ICmdProtoHandler<StorageClient> handler = new TrackerGetFetchStorageHandler(socket, false, groupName, path,
+        ICmdProtoHandler<StorageNode> handler = new TrackerGetFetchStorageHandler(socket, false, groupName, path,
                 charset);
         return process(socket, handler);
 
     }
 
     @Override
-    public StorageClient getUpdateStorage(String groupName, String path) {
+    public StorageNode getUpdateStorage(String groupName, String path) {
         FdfsConnection socket = getTrackerSocket();
-        ICmdProtoHandler<StorageClient> handler = new TrackerGetFetchStorageHandler(socket, true, groupName, path,
+        ICmdProtoHandler<StorageNode> handler = new TrackerGetFetchStorageHandler(socket, true, groupName, path,
                 charset);
         return process(socket, handler);
     }

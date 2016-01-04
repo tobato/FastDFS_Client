@@ -1,7 +1,7 @@
 package com.github.tobato.fastdfs.service;
 
 import com.github.tobato.fastdfs.domain.GroupState;
-import com.github.tobato.fastdfs.domain.StorageClient;
+import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.domain.StorageState;
 
 /**
@@ -16,7 +16,7 @@ public interface TrackerClientService {
      * 
      * @return
      */
-    StorageClient getStoreStorage();
+    StorageNode getStoreStorage();
 
     /**
      * get the StoreStorage Client by group
@@ -24,7 +24,7 @@ public interface TrackerClientService {
      * @param groupName
      * @return
      */
-    StorageClient getStoreStorage(String groupName);
+    StorageNode getStoreStorage(String groupName);
 
     /**
      * get the fetchStorage Client by group and filename
@@ -33,7 +33,7 @@ public interface TrackerClientService {
      * @param filename
      * @return
      */
-    StorageClient getFetchStorage(String groupName, String filename);
+    StorageNode getFetchStorage(String groupName, String filename);
 
     /**
      * get the updateStorage Client by group and filename
@@ -42,7 +42,7 @@ public interface TrackerClientService {
      * @param filename
      * @return
      */
-    StorageClient getUpdateStorage(String groupName, String filename);
+    StorageNode getUpdateStorage(String groupName, String filename);
 
     /**
      * list groups

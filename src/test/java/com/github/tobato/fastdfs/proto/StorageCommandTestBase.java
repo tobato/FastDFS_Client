@@ -12,6 +12,7 @@ import java.net.URL;
 
 import org.apache.commons.io.FilenameUtils;
 
+import com.github.tobato.fastdfs.RemoteServiceDefine;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
 import com.github.tobato.fastdfs.proto.storage.StorageUploadSlaveFileCommandTest;
@@ -72,7 +73,7 @@ public abstract class StorageCommandTestBase extends CommandTestBase {
      * @throws IOException
      */
     protected InputStream getTextInputStream(String text) throws IOException {
-        // 在内存当中生成缩略图
+        // 将String转换为InputStream
         return new ByteArrayInputStream(text.getBytes(RemoteServiceDefine.DEFAULT_CHARSET));
     }
 

@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.github.tobato.fastdfs.exception.FdfsException;
 import com.github.tobato.fastdfs.proto.FdfsCommand;
@@ -19,13 +20,14 @@ import com.github.tobato.fastdfs.proto.FdfsCommand;
  * @author wuyf
  *
  */
+@Component
 public class ConnectionManager {
 
     /** 连接池 */
     @Autowired
-    private ConnectionPool pool;
+    private FdfsConnectionPool pool;
     /** 日志 */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManager.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManager.class);
 
     /**
      * 构造函数
@@ -39,7 +41,7 @@ public class ConnectionManager {
      * 
      * @param pool
      */
-    public ConnectionManager(ConnectionPool pool) {
+    public ConnectionManager(FdfsConnectionPool pool) {
         super();
         this.pool = pool;
     }
@@ -67,7 +69,7 @@ public class ConnectionManager {
      * @param command
      * @return
      */
-    private <T> T execute(InetSocketAddress address, Connection conn, FdfsCommand<T> command) {
+    protected <T> T execute(InetSocketAddress address, Connection conn, FdfsCommand<T> command) {
         try {
             // 执行交易
             return command.execute(conn);
@@ -93,7 +95,7 @@ public class ConnectionManager {
      * @param address
      * @return
      */
-    private Connection getConnection(InetSocketAddress address) {
+    protected Connection getConnection(InetSocketAddress address) {
         Connection conn = null;
         try {
             // 获取连接
@@ -105,6 +107,25 @@ public class ConnectionManager {
             throw new RuntimeException("Unable to borrow buffer from pool", e);
         }
         return conn;
+    }
+
+    public FdfsConnectionPool getPool() {
+        return pool;
+    }
+
+    public void setPool(FdfsConnectionPool pool) {
+        this.pool = pool;
+    }
+
+    public void dumpPoolInfo(InetSocketAddress address) {
+
+        LOGGER.debug("==============Dump Pool Info================");
+        LOGGER.debug("活动连接{}", pool.getNumActive(address));
+        LOGGER.debug("空闲连接{}", pool.getNumIdle(address));
+        LOGGER.debug("连接获取总数统计{}", pool.getBorrowedCount());
+        LOGGER.debug("连接返回总数统计{}", pool.getReturnedCount());
+        LOGGER.debug("连接销毁总数统计{}", pool.getDestroyedCount());
+
     }
 
 }

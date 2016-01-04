@@ -3,15 +3,15 @@ package com.github.tobato.fastdfs.proto.storage;
 import com.github.tobato.fastdfs.proto.AbstractFdfsCommand;
 import com.github.tobato.fastdfs.proto.storage.internal.StorageDownloadRequest;
 import com.github.tobato.fastdfs.proto.storage.internal.StorageDownloadResponse;
-import com.github.tobato.fastdfs.socket.FdfsInputStream;
 
 /**
  * 文件下载命令
  * 
  * @author wuyf
+ * @param <T>
  *
  */
-public class StorageDownloadCommand extends AbstractFdfsCommand<FdfsInputStream> {
+public class StorageDownloadCommand<T> extends AbstractFdfsCommand<T> {
 
     /**
      * 下载文件
@@ -21,11 +21,12 @@ public class StorageDownloadCommand extends AbstractFdfsCommand<FdfsInputStream>
      * @param fileOffset
      * @param fileSize
      */
-    public StorageDownloadCommand(String groupName, String path, long fileOffset, long fileSize) {
+    public StorageDownloadCommand(String groupName, String path, long fileOffset, long fileSize,
+            DownloadCallback<T> callback) {
         super();
         this.request = new StorageDownloadRequest(groupName, path, fileOffset, fileSize);
         // 输出响应
-        this.response = new StorageDownloadResponse();
+        this.response = new StorageDownloadResponse<T>(callback);
     }
 
     /**
@@ -34,10 +35,10 @@ public class StorageDownloadCommand extends AbstractFdfsCommand<FdfsInputStream>
      * @param groupName
      * @param path
      */
-    public StorageDownloadCommand(String groupName, String path) {
+    public StorageDownloadCommand(String groupName, String path, DownloadCallback<T> callback) {
         super();
         this.request = new StorageDownloadRequest(groupName, path, 0, 0);
         // 输出响应
-        this.response = new StorageDownloadResponse();
+        this.response = new StorageDownloadResponse<T>(callback);
     }
 }

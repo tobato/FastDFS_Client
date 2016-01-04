@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.tobato.fastdfs.RemoteServiceDefine;
 import com.github.tobato.fastdfs.proto.OtherConstants;
-import com.github.tobato.fastdfs.proto.RemoteServiceDefine;
 import com.github.tobato.fastdfs.proto.mapper.BytesUtil;
 import com.github.tobato.fastdfs.proto.mapper.FdfsParamMapper;
 

@@ -1,6 +1,6 @@
 package com.github.tobato.fastdfs.proto.tracker;
 
-import com.github.tobato.fastdfs.domain.StorageClientInfo;
+import com.github.tobato.fastdfs.domain.StorageNodeInfo;
 import com.github.tobato.fastdfs.proto.AbstractFdfsCommand;
 import com.github.tobato.fastdfs.proto.FdfsResponse;
 import com.github.tobato.fastdfs.proto.tracker.internal.TrackerGetFetchStorageRequest;
@@ -11,11 +11,11 @@ import com.github.tobato.fastdfs.proto.tracker.internal.TrackerGetFetchStorageRe
  * @author wuyf
  *
  */
-public class TrackerGetFetchStorageCommand extends AbstractFdfsCommand<StorageClientInfo> {
+public class TrackerGetFetchStorageCommand extends AbstractFdfsCommand<StorageNodeInfo> {
 
     public TrackerGetFetchStorageCommand(String groupName, String path, boolean toUpdate) {
         super.request = new TrackerGetFetchStorageRequest(groupName, path, toUpdate);
-        super.response = new FdfsResponse<StorageClientInfo>() {
+        super.response = new FdfsResponse<StorageNodeInfo>() {
             // default response
         };
     }
