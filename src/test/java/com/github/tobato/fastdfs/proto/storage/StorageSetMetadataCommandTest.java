@@ -5,11 +5,10 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.domain.MateData;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.StorageCommandTestBase;
-import com.github.tobato.fastdfs.proto.storage.StorageGetMetadataCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageSetMetadataCommand;
 import com.github.tobato.fastdfs.proto.storage.enums.StorageMetdataSetType;
 
 /**
@@ -26,7 +25,7 @@ public class StorageSetMetadataCommandTest extends StorageCommandTestBase {
     @Test
     public void testStorageSetMetadataCommand() {
         // 上传主文件
-        StorePath path = execStorageUploadFileCommand(FILE_PATH, false);
+        StorePath path = execStorageUploadFileCommand(TestConstants.CAT_IMAGE_FILE, false);
         Set<MateData> metaDataSet = new HashSet<MateData>();
 
         metaDataSet.add(new MateData("width", "800"));

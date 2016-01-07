@@ -72,6 +72,7 @@ public class ConnectionManager {
     protected <T> T execute(InetSocketAddress address, Connection conn, FdfsCommand<T> command) {
         try {
             // 执行交易
+            LOGGER.debug("对地址{}发出交易请求{}", address, command.getClass().getSimpleName());
             return command.execute(conn);
         } catch (FdfsException e) {
             throw e;

@@ -8,13 +8,11 @@
     </appender>
      
     <logger name="com.github.tobato" level="DEBUG" /> 
-
-    <logger name="org.springframework.web" level="WARN" />
-
+    <!-- 关闭报文日志 -->
+    <logger name="com.github.tobato.fastdfs.proto" level="WARN" /> 
     <logger name="org.springframework" level="WARN" />
  
  
-
     <root level="INFO">
         <appender-ref ref="console" />
         <appender-ref ref="file" />

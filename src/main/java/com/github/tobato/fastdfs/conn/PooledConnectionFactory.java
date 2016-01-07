@@ -9,6 +9,8 @@ import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import com.github.tobato.fastdfs.FdfsClientConstants;
+
 /**
  * pooled FdfsSocket factory
  * 
@@ -20,7 +22,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-@ConfigurationProperties(prefix = "fdfs")
+@ConfigurationProperties(prefix = FdfsClientConstants.ROOT_CONFIG_PREFIX)
 public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSocketAddress, Connection> {
 
     /** 读取时间 */

@@ -1,42 +1,27 @@
-package com.github.tobato.fastdfs.tobato;
+package com.github.tobato.fastdfs.service;
 
 import static org.junit.Assert.*;
 
 import java.io.IOException;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.tobato.fastdfs.FastdfsTestApplication;
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.domain.FileInfo;
 import com.github.tobato.fastdfs.domain.RandomTextFile;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
 
 /**
- * 存储节点服务测试
+ * 文件基础操作测试演示
  * 
  * @author wuyf
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = FastdfsTestApplication.class)
-public class AppendFileStorageClientTest {
-
-    @Autowired
-    private AppendFileStorageClient storageClient;
-
-    /** 日志 */
-    private static Logger LOGGER = LoggerFactory.getLogger(AppendFileStorageClientTest.class);
+public class StorageClientBasicTest extends StorageClientTestBase {
 
     /**
-     * 文件上传测试
+     * 基本文件上传操作测试
      * 
      * @throws IOException
      */
@@ -44,7 +29,7 @@ public class AppendFileStorageClientTest {
     public void testGenerateStorageClient() throws IOException {
         LOGGER.debug("##上传文件..##");
         RandomTextFile file = new RandomTextFile();
-        StorePath path = storageClient.uploadFile(RemoteServiceDefine.DEFAULT_GROUP, file.getInputStream(),
+        StorePath path = storageClient.uploadFile(TestConstants.DEFAULT_GROUP, file.getInputStream(),
                 file.getFileSize(), file.getFileExtName());
         assertNotNull(path);
         LOGGER.debug("上传文件 result={}", path);
@@ -72,44 +57,23 @@ public class AppendFileStorageClientTest {
 
     }
 
+    /**
+     * 演示上传文件的时候Group可以为空
+     * 
+     * @throws IOException
+     */
     @Test
-    public void testTruncateFile() {
-        fail("Not yet implemented");
-    }
+    public void testGenerateStorageClientWithGroupNull() throws IOException {
 
-    @Test
-    public void testAppenderFile() {
-        LOGGER.debug("testUploadAppenderFile..");
+        LOGGER.debug("##上传文件..##");
         RandomTextFile file = new RandomTextFile();
-        StorePath path = storageClient.uploadAppenderFile(RemoteServiceDefine.DEFAULT_GROUP, file.getInputStream(),
-                file.getFileSize(), file.getFileExtName());
+        StorePath path = storageClient.uploadFile(null, file.getInputStream(), file.getFileSize(),
+                file.getFileExtName());
         assertNotNull(path);
-        LOGGER.debug("result={}", path);
-    }
+        LOGGER.debug("上传文件 result={}", path);
 
-    @Test
-    public void testAppendFile() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testModifyFile() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetMetadata() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testOverwriteMetadata() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testMergeMetadata() {
-        fail("Not yet implemented");
+        LOGGER.debug("##删除文件..##");
+        storageClient.deleteFile(path.getGroup(), path.getPath());
     }
 
 }

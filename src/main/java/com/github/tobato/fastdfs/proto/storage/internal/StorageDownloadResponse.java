@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 
 import com.github.tobato.fastdfs.proto.FdfsResponse;
 import com.github.tobato.fastdfs.proto.storage.DownloadCallback;
-import com.github.tobato.fastdfs.socket.FdfsInputStream;
+import com.github.tobato.fastdfs.proto.storage.FdfsInputStream;
 
 /**
  * 文件下载结果

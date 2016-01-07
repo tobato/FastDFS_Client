@@ -1,4 +1,4 @@
-package com.github.tobato.fastdfs.tobato;
+package com.github.tobato.fastdfs.service;
 
 import java.io.InputStream;
 import java.util.Set;

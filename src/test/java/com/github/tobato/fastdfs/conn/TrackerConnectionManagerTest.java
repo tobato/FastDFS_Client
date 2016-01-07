@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.domain.GroupState;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
 import com.github.tobato.fastdfs.proto.tracker.TrackerListGroupsCommand;
@@ -58,8 +58,8 @@ public class TrackerConnectionManagerTest {
 
     private FdfsConnectionPool createPool() {
         PooledConnectionFactory factory = new PooledConnectionFactory();
-        factory.setConnectTimeout(RemoteServiceDefine.connectTimeout);
-        factory.setSoTimeout(RemoteServiceDefine.soTimeout);
+        factory.setConnectTimeout(TestConstants.connectTimeout);
+        factory.setSoTimeout(TestConstants.soTimeout);
         return new FdfsConnectionPool(factory);
     }
 

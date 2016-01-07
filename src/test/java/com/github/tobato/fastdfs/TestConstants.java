@@ -5,12 +5,17 @@ import java.nio.charset.Charset;
 
 import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
 
+/**
+ * 测试常量定义
+ * 
+ * @author wuyf
+ *
+ */
 @SuppressWarnings("unused")
-public class RemoteServiceDefine {
+public class TestConstants {
     private static String ip_home = "192.168.1.105";
-    private static String ip_neusoft_home = "192.168.149.105";
-    private static String ip_neusoft = "192.168.174.47";
-    private static String ip_neusoft_store = "192.168.174.49";
+    private static String ip_work = "192.168.174.47";
+    private static String ip_work_store = "192.168.174.49";
     public static InetSocketAddress address = new InetSocketAddress(ip_home, FdfsMockSocketServer.PORT);
     public static InetSocketAddress store_address = new InetSocketAddress(ip_home, FdfsMockSocketServer.STORE_PORT);
     public static final int soTimeout = 550;
@@ -18,6 +23,9 @@ public class RemoteServiceDefine {
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
     public static final String DEFAULT_GROUP = "group1";
-    public static final String DEFAULT_STORAGE_IP = "192.168.174.49";
+    public static final String DEFAULT_STORAGE_IP = ip_work_store;
+
+    public static final String PERFORM_FILE_PATH = "/images/gs.jpg";
+    public static final String CAT_IMAGE_FILE = "/images/cat.jpg";
 
 }

@@ -4,18 +4,16 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 import org.apache.commons.io.FilenameUtils;
 
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
+import com.github.tobato.fastdfs.TestUtils;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageUploadSlaveFileCommandTest;
 
 /**
  * command测试基类
@@ -25,8 +23,6 @@ import com.github.tobato.fastdfs.proto.storage.StorageUploadSlaveFileCommandTest
  */
 public abstract class StorageCommandTestBase extends CommandTestBase {
 
-    protected static final String FILE_PATH = "/images/cat.jpg";
-
     /**
      * 文件上传操作
      * 
@@ -34,12 +30,12 @@ public abstract class StorageCommandTestBase extends CommandTestBase {
      */
     public StorePath execStorageUploadFileCommand(String filePath, boolean isAppenderFile) {
         InputStream in = null;
-        File file = getFile(filePath);
+        File file = TestUtils.getFile(filePath);
         String fileExtName = FilenameUtils.getExtension(file.getName());
         long fileSize = file.length();
 
         try {
-            in = getFileInputStream(filePath);
+            in = TestUtils.getFileInputStream(filePath);
             return uploadInputStream(in, fileExtName, fileSize, isAppenderFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -55,16 +51,6 @@ public abstract class StorageCommandTestBase extends CommandTestBase {
         return null;
     }
 
-    protected InputStream getFileInputStream(String path) throws FileNotFoundException {
-        return new FileInputStream(getFile(path));
-    }
-
-    protected File getFile(String path) {
-        URL url = StorageUploadSlaveFileCommandTest.class.getResource(path);
-        File file = new File(url.getFile());
-        return file;
-    }
-
     /**
      * 获取传输文件第一个部分
      * 
@@ -74,7 +60,7 @@ public abstract class StorageCommandTestBase extends CommandTestBase {
      */
     protected InputStream getTextInputStream(String text) throws IOException {
         // 将String转换为InputStream
-        return new ByteArrayInputStream(text.getBytes(RemoteServiceDefine.DEFAULT_CHARSET));
+        return new ByteArrayInputStream(text.getBytes(TestConstants.DEFAULT_CHARSET));
     }
 
     /**
@@ -84,7 +70,7 @@ public abstract class StorageCommandTestBase extends CommandTestBase {
      */
     protected StorePath uploadDefaultFile() {
         // 上传文件
-        return execStorageUploadFileCommand(FILE_PATH, false);
+        return execStorageUploadFileCommand(TestConstants.CAT_IMAGE_FILE, false);
     }
 
     /**

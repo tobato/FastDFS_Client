@@ -1,10 +1,12 @@
-package com.github.tobato.fastdfs.tobato;
+package com.github.tobato.fastdfs.service;
 
 import java.io.InputStream;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.github.tobato.fastdfs.conn.ConnectionManager;
@@ -39,6 +41,9 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
     /** connectManager */
     @Resource
     protected ConnectionManager connectionManager;
+
+    /** 日志 */
+    protected static Logger LOGGER = LoggerFactory.getLogger(DefaultGenerateStorageClient.class);
 
     /**
      * 上传不支持断点续传的文件

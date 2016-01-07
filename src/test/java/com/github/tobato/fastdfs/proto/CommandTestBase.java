@@ -3,7 +3,7 @@ package com.github.tobato.fastdfs.proto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.conn.ConnectionManager;
 import com.github.tobato.fastdfs.conn.FdfsConnectionPool;
 import com.github.tobato.fastdfs.conn.PooledConnectionFactory;
@@ -31,7 +31,7 @@ public class CommandTestBase {
      * @return
      */
     protected <T> T executeTrackerCmd(FdfsCommand<T> command) {
-        return manager.executeFdfsCmd(RemoteServiceDefine.address, command);
+        return manager.executeFdfsCmd(TestConstants.address, command);
     }
 
     /**
@@ -41,7 +41,7 @@ public class CommandTestBase {
      * @return
      */
     protected <T> T executeStoreCmd(FdfsCommand<T> command) {
-        return manager.executeFdfsCmd(RemoteServiceDefine.store_address, command);
+        return manager.executeFdfsCmd(TestConstants.store_address, command);
     }
 
     private ConnectionManager createConnectionManager() {
@@ -50,8 +50,8 @@ public class CommandTestBase {
 
     private FdfsConnectionPool createPool() {
         PooledConnectionFactory factory = new PooledConnectionFactory();
-        factory.setConnectTimeout(RemoteServiceDefine.connectTimeout);
-        factory.setSoTimeout(RemoteServiceDefine.soTimeout);
+        factory.setConnectTimeout(TestConstants.connectTimeout);
+        factory.setSoTimeout(TestConstants.soTimeout);
         return new FdfsConnectionPool(new PooledConnectionFactory());
     }
 

@@ -2,7 +2,7 @@ package com.github.tobato.fastdfs.proto.tracker;
 
 import org.junit.Test;
 
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.proto.tracker.internal.TrackerListGroupsRequest;
 
 /**
@@ -16,7 +16,7 @@ public class TrackerListGroupsRequestTest {
     @Test
     public void testGetByteContent() {
         TrackerListGroupsRequest request = new TrackerListGroupsRequest();
-        printRequest(request.getHeadByte(RemoteServiceDefine.DEFAULT_CHARSET));
+        printRequest(request.getHeadByte(TestConstants.DEFAULT_CHARSET));
     }
 
     private void printRequest(byte[] request) {

@@ -37,12 +37,14 @@ public abstract class AbstractFdfsCommand<T> implements FdfsCommand<T> {
         try {
             send(conn.getOutputStream(), conn.getCharset());
         } catch (IOException e) {
+            LOGGER.error("send conent error", e);
             throw new FdfsIOException("socket io exception occured while sending cmd", e);
         }
 
         try {
             return receive(conn.getInputStream(), conn.getCharset());
         } catch (IOException e) {
+            LOGGER.error("receive conent error", e);
             throw new FdfsIOException("socket io exception occured while receive content", e);
         }
 

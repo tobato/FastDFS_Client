@@ -11,9 +11,10 @@ import java.io.InputStream;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.Test;
 
+import com.github.tobato.fastdfs.TestConstants;
+import com.github.tobato.fastdfs.TestUtils;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.StorageCommandTestBase;
-import com.github.tobato.fastdfs.proto.storage.StorageUploadSlaveFileCommand;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -31,12 +32,12 @@ public class StorageUploadSlaveFileCommandTest extends StorageCommandTestBase {
     @Test
     public void testStorageSlaveUploadFileCommand() {
         // 上传主文件
-        StorePath path = execStorageUploadFileCommand(FILE_PATH, false);
+        StorePath path = execStorageUploadFileCommand(TestConstants.CAT_IMAGE_FILE, false);
 
         String masterFilename = path.getPath();
         String prefixName = "_120x120";
         // 生成从文件
-        execStorageUploadSlaveFileCommand(FILE_PATH, masterFilename, prefixName);
+        execStorageUploadSlaveFileCommand(TestConstants.CAT_IMAGE_FILE, masterFilename, prefixName);
     }
 
     /**
@@ -47,7 +48,7 @@ public class StorageUploadSlaveFileCommandTest extends StorageCommandTestBase {
     public StorePath execStorageUploadSlaveFileCommand(String filePath, String masterFilename, String prefixName) {
 
         InputStream in = null;
-        File file = getFile(filePath);
+        File file = TestUtils.getFile(filePath);
         String fileExtName = FilenameUtils.getExtension(file.getName());
 
         try {
@@ -85,7 +86,7 @@ public class StorageUploadSlaveFileCommandTest extends StorageCommandTestBase {
     private InputStream getThumbImageStream(String filePath) throws IOException {
         // 在内存当中生成缩略图
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        Thumbnails.of(getFile(filePath)).size(120, 120).toOutputStream(out);
+        Thumbnails.of(TestUtils.getFile(filePath)).size(120, 120).toOutputStream(out);
         return new ByteArrayInputStream(out.toByteArray());
     }
 

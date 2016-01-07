@@ -2,6 +2,7 @@ package com.github.tobato.fastdfs.proto.storage;
 
 import org.junit.Test;
 
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.proto.StorageCommandTestBase;
 
 /**
@@ -18,13 +19,13 @@ public class StorageUploadFileCommandTest extends StorageCommandTestBase {
     @Test
     public void testStorageUploadFileCommand() {
         // 非append模式
-        execStorageUploadFileCommand(FILE_PATH, false);
+        execStorageUploadFileCommand(TestConstants.CAT_IMAGE_FILE, false);
     }
 
     @Test
     public void testStorageUploadFileCommandByAppend() {
         // append模式
-        execStorageUploadFileCommand(FILE_PATH, true);
+        execStorageUploadFileCommand(TestConstants.CAT_IMAGE_FILE, true);
     }
 
 }

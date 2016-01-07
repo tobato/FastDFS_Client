@@ -1,4 +1,4 @@
-package com.github.tobato.fastdfs.tobato;
+package com.github.tobato.fastdfs.service;
 
 import java.io.InputStream;
 
@@ -61,6 +61,15 @@ public class DefaultAppendFileStorageClient extends DefaultGenerateStorageClient
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageTruncateCommand command = new StorageTruncateCommand(path, truncatedFileSize);
         connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+    }
+
+    /**
+     * 清除文件
+     */
+    @Override
+    public void truncateFile(String groupName, String path) {
+        long truncatedFileSize = 0;
+        truncateFile(groupName, path, truncatedFileSize);
     }
 
 }

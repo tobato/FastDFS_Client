@@ -1,9 +1,10 @@
-package com.github.tobato.fastdfs.tobato;
+package com.github.tobato.fastdfs.service;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.github.tobato.fastdfs.conn.TrackerConnectionManager;
@@ -43,7 +44,13 @@ public class DefaultTrackerClient implements TrackerClient {
      */
     @Override
     public StorageNode getStoreStorage(String groupName) {
-        TrackerGetStoreStorageCommand command = new TrackerGetStoreStorageCommand(groupName);
+        TrackerGetStoreStorageCommand command;
+        if (StringUtils.isBlank(groupName)) {
+            command = new TrackerGetStoreStorageCommand();
+        } else {
+            command = new TrackerGetStoreStorageCommand(groupName);
+        }
+
         return trackerConnectionManager.executeFdfsTrackerCmd(command);
     }
 
@@ -100,7 +107,5 @@ public class DefaultTrackerClient implements TrackerClient {
         TrackerDeleteStorageCommand command = new TrackerDeleteStorageCommand(groupName, storageIpAddr);
         trackerConnectionManager.executeFdfsTrackerCmd(command);
     }
-
-
 
 }

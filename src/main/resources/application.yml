@@ -2,8 +2,11 @@
 # 分布式文件系统FDFS配置
 # ===================================================================
 fdfs:
-  soTimeout: 501
-  connectTimeout: 601
+  soTimeout: 1501
+  connectTimeout: 601 
+  thumbImage:
+    width: 150
+    height: 150
   trackerList:
     - 192.168.1.105:22122
 #    - 192.168.174.47:22122

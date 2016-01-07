@@ -1,4 +1,4 @@
-package com.github.tobato.fastdfs.tobato;
+package com.github.tobato.fastdfs.service;
 
 import static org.junit.Assert.*;
 
@@ -14,12 +14,13 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.tobato.fastdfs.FastdfsTestApplication;
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.domain.GroupState;
 import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.domain.StorageState;
 import com.github.tobato.fastdfs.exception.FdfsServerException;
 import com.github.tobato.fastdfs.proto.ErrorCodeConstants;
+import com.github.tobato.fastdfs.service.TrackerClient;
 
 /**
  * unit test for TrackerClientService
@@ -49,7 +50,7 @@ public class TrackerClientTest {
     @Test
     public void testGetStoreStorageByGroup() {
         LOGGER.debug("testGetStoreStorageByGroup..");
-        StorageNode client = trackerClient.getStoreStorage(RemoteServiceDefine.DEFAULT_GROUP);
+        StorageNode client = trackerClient.getStoreStorage(TestConstants.DEFAULT_GROUP);
         assertNotNull(client.getInetSocketAddress());
         LOGGER.debug("result={}", client);
     }
@@ -65,7 +66,7 @@ public class TrackerClientTest {
     @Test
     public void testListStoragesByGroup() {
         LOGGER.debug("testListStoragesByGroup..");
-        List<StorageState> list = trackerClient.listStorages(RemoteServiceDefine.DEFAULT_GROUP);
+        List<StorageState> list = trackerClient.listStorages(TestConstants.DEFAULT_GROUP);
         assertNotNull(list);
         LOGGER.debug("result={}", list);
     }
@@ -73,8 +74,8 @@ public class TrackerClientTest {
     @Test
     public void testListStoragesByGroupAndIp() {
         LOGGER.debug("testListStoragesByGroupAndIp..");
-        List<StorageState> list = trackerClient.listStorages(RemoteServiceDefine.DEFAULT_GROUP,
-                RemoteServiceDefine.DEFAULT_STORAGE_IP);
+        List<StorageState> list = trackerClient.listStorages(TestConstants.DEFAULT_GROUP,
+                TestConstants.DEFAULT_STORAGE_IP);
         assertNotNull(list);
         LOGGER.debug("result={}", list);
     }
@@ -83,8 +84,8 @@ public class TrackerClientTest {
     public void testDeleteStorage() {
         LOGGER.debug("testDeleteStorage..");
         try {
-            trackerClient.deleteStorage(RemoteServiceDefine.DEFAULT_GROUP,
-                    RemoteServiceDefine.DEFAULT_STORAGE_IP);
+            trackerClient.deleteStorage(TestConstants.DEFAULT_GROUP,
+                    TestConstants.DEFAULT_STORAGE_IP);
             fail("No exception thrown.");
         } catch (Exception e) {
             assertTrue(e instanceof FdfsServerException);

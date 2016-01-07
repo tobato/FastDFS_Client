@@ -1,8 +1,14 @@
-package com.github.tobato.fastdfs.socket;
+package com.github.tobato.fastdfs.proto.storage;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * FdfsInputStream包装类
+ * 
+ * @author wuyf
+ *
+ */
 public class FdfsInputStream extends InputStream {
 
     private final InputStream ins;

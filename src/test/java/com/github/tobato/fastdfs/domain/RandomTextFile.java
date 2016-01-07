@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.TestUtils;
 
 /**
@@ -25,7 +25,11 @@ public class RandomTextFile {
 
     public RandomTextFile() {
         this.text = RandomStringUtils.random(30, "762830abdcefghijklmnopqrstuvwxyz0991822-");
-        this.inputStream = TestUtils.getTextInputStream(text);
+        this.fileSize = TestUtils.getTextLength(text);
+    }
+
+    public RandomTextFile(String text) {
+        this.text = text;
         this.fileSize = TestUtils.getTextLength(text);
     }
 
@@ -34,6 +38,7 @@ public class RandomTextFile {
     }
 
     public InputStream getInputStream() {
+        this.inputStream = TestUtils.getTextInputStream(text);
         return inputStream;
     }
 
@@ -46,7 +51,7 @@ public class RandomTextFile {
     }
 
     public byte[] toByte() {
-        return this.text.getBytes(RemoteServiceDefine.DEFAULT_CHARSET);
+        return this.text.getBytes(TestConstants.DEFAULT_CHARSET);
     }
 
 }

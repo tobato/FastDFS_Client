@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.tobato.fastdfs.RemoteServiceDefine;
+import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.proto.OtherConstants;
 import com.github.tobato.fastdfs.proto.mapper.BytesUtil;
 import com.github.tobato.fastdfs.proto.mapper.FdfsParamMapper;
@@ -22,7 +22,7 @@ import com.github.tobato.fastdfs.proto.mapper.FdfsParamMapper;
  */
 public class FdfsParamMapperTest {
 
-    private static final Charset charset = RemoteServiceDefine.DEFAULT_CHARSET;
+    private static final Charset charset = TestConstants.DEFAULT_CHARSET;
 
     private static final long PORT = 23000;
     private static final String GROUP_NAME = "group1";
