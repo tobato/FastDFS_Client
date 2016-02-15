@@ -8,7 +8,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageQueryFileInfoRequ
 /**
  * 文件删除命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageQueryFileInfoCommand extends AbstractFdfsCommand<FileInfo> {

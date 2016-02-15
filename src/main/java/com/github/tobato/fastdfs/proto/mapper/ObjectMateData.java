@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * 映射对象元数据必须由{@code @FdfsColumn}注解
  * </pre>
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class ObjectMateData {

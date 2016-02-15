@@ -15,7 +15,7 @@ import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
 /**
  * TrackerLocator创建
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerLocatorTest {

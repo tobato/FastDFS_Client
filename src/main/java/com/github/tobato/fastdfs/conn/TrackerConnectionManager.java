@@ -18,7 +18,7 @@ import com.github.tobato.fastdfs.proto.FdfsCommand;
 /**
  * 管理TrackerClient连接池分配
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @Component

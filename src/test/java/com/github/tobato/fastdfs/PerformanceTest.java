@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -15,7 +14,7 @@ import com.github.tobato.fastdfs.service.AppendFileStorageClient;
 /**
  * 性能测试
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class PerformanceTest {
@@ -23,7 +22,7 @@ public class PerformanceTest {
     @Autowired
     protected AppendFileStorageClient storageClient;
 
-    @Test
+    // @Test
     public void testPerformance() {
         final AtomicInteger failCount = new AtomicInteger(0);
         final AtomicInteger count = new AtomicInteger(0);

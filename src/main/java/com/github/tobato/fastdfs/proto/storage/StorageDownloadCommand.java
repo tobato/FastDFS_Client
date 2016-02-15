@@ -7,7 +7,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageDownloadResponse;
 /**
  * 文件下载命令
  * 
- * @author wuyf
+ * @author tobato
  * @param <T>
  *
  */

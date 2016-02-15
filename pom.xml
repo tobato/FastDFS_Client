@@ -4,11 +4,32 @@
 
     <groupId>com.github.tobato</groupId>
     <artifactId>fastdfs-client</artifactId>
-    <version>1.25.0-SNAPSHOT</version>
+    <version>1.25.0-RC-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>fastdfs-client</name>
     <description>基于yuqih发布的代码与fastdfs-client 官方1.25版本的重构</description>
+    <url>https://github.com/tobato/FastDFS_Client</url>
+
+    <licenses>
+        <license>
+            <name>The GNU Lesser General Public License, version 3.0</name>
+            <url>http://opensource.org/licenses/LGPL-3.0</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>tobato</name>
+            <email>tobato@msn.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:tobato/FastDFS_Client.git</connection>
+        <developerConnection>scm:git:git@github.com:tobato/FastDFS_Client.git</developerConnection>
+        <url>git@github.com:tobato/FastDFS_Client.git</url>
+    </scm>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,16 +46,109 @@
         <mockito.version>1.9.5</mockito.version>
 
         <!-- 软件发布版本 -->
-        <copyright.year>2015</copyright.year>
+        <copyright.year>2016</copyright.year>
 
         <!-- Plugin的属性定义 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
 
+        <!-- 本地发布服务器 -->
+        <local.nexus>192.168.129.12:8081</local.nexus>
+
     </properties>
 
-    <dependencies>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc <plugin> <groupId>org.apache.maven.plugins</groupId> 
+                        <artifactId>maven-javadoc-plugin</artifactId> <version>2.9.1</version> <executions> 
+                        <execution> <id>attach-javadocs</id> <phase>install</phase> <goals> <goal>jar</goal> 
+                        </goals> <configuration> <encoding>UTF-8</encoding> </configuration> </execution> 
+                        </executions> </plugin> -->
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>local-release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc <plugin> <groupId>org.apache.maven.plugins</groupId> 
+                        <artifactId>maven-javadoc-plugin</artifactId> <version>2.9.1</version> <executions> 
+                        <execution> <id>attach-javadocs</id> <phase>install</phase> <goals> <goal>jar</goal> 
+                        </goals> <configuration> <encoding>UTF-8</encoding> </configuration> </execution> 
+                        </executions> </plugin> -->
+                </plugins>
+            </build>
+            <distributionManagement>
+                <repository>
+                    <id>local-releases</id>
+                    <name>Nexus Release Repository</name>
+                    <url>http://${local.nexus}/nexus/content/repositories/releases/</url>
+                </repository>
+                <snapshotRepository>
+                    <id>local-snapshots</id>
+                    <name>Nexus Snapshot Repository</name>
+                    <url>http://${local.nexus}/nexus/content/repositories/snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
+    <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -78,12 +192,6 @@
 
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
@@ -98,7 +206,12 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -108,13 +221,11 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -126,7 +237,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -138,9 +248,8 @@
         <!-- 图片缩略图生成 -->
         <dependency>
             <groupId>net.coobird</groupId>
-            <artifactId>thumbnailator</artifactId> 
+            <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

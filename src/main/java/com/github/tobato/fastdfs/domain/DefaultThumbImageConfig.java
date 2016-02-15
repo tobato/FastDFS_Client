@@ -9,7 +9,7 @@ import com.github.tobato.fastdfs.FdfsClientConstants;
 /**
  * 缩略图配置参数
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @Component

@@ -7,7 +7,7 @@ import com.github.tobato.fastdfs.proto.ProtoHead;
 /**
  * 列出分组命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerListGroupsRequest extends FdfsRequest {

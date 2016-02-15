@@ -12,7 +12,7 @@ import com.github.tobato.fastdfs.proto.storage.StorageModifyCommand;
 /**
  * 文件修改命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageModifyCommandTest extends StorageCommandTestBase {

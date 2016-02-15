@@ -15,7 +15,7 @@ import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
 /**
  * 存储服务客户端接口实现
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @Component

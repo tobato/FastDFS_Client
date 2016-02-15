@@ -25,7 +25,7 @@ import com.github.tobato.fastdfs.service.TrackerClient;
 /**
  * unit test for TrackerClientService
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)

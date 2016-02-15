@@ -20,7 +20,7 @@ import com.github.tobato.fastdfs.proto.mapper.BytesUtil;
 /**
  * 默认连接实现
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class DefaultConnection implements Connection {
@@ -49,7 +49,7 @@ public class DefaultConnection implements Connection {
             this.charset = charset;
             socket.connect(address, connectTimeout);
         } catch (IOException e) {
-            throw new FdfsConnectException("can't create connection", e);
+            throw new FdfsConnectException("can't create connection to" + address, e);
         }
     }
 

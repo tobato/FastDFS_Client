@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 /**
  * 管理TrackerAddress当前状态
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerAddressHolder {

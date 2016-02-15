@@ -12,7 +12,7 @@ import com.github.tobato.fastdfs.proto.storage.StorageQueryFileInfoCommand;
 /**
  * 文件查询处理
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageQueryFileInfoCommandTest extends StorageCommandTestBase {

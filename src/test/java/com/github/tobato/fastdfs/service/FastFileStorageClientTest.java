@@ -30,7 +30,7 @@ import com.github.tobato.fastdfs.domain.ThumbImageConfig;
 /**
  * FastFileStorageClient客户端
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)

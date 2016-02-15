@@ -10,7 +10,7 @@ import org.apache.commons.io.IOUtils;
 /**
  * 文件下载回调方法
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class DownloadFileWriter implements DownloadCallback<String> {

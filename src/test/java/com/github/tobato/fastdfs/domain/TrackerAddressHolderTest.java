@@ -9,7 +9,7 @@ import org.junit.Test;
 /**
  * TrackerAddressHolder测试
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerAddressHolderTest {

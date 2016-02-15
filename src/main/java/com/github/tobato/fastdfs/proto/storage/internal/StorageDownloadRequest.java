@@ -10,7 +10,7 @@ import com.github.tobato.fastdfs.proto.mapper.FdfsColumn;
 /**
  * 文件下载请求
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageDownloadRequest extends FdfsRequest {

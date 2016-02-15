@@ -8,7 +8,7 @@ import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
 /**
  * 测试常量定义
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @SuppressWarnings("unused")
@@ -16,8 +16,9 @@ public class TestConstants {
     private static String ip_home = "192.168.1.105";
     private static String ip_work = "192.168.174.47";
     private static String ip_work_store = "192.168.174.49";
-    public static InetSocketAddress address = new InetSocketAddress(ip_home, FdfsMockSocketServer.PORT);
-    public static InetSocketAddress store_address = new InetSocketAddress(ip_home, FdfsMockSocketServer.STORE_PORT);
+    public static InetSocketAddress address = new InetSocketAddress(ip_work, FdfsMockSocketServer.PORT);
+    public static InetSocketAddress store_address = new InetSocketAddress(ip_work_store,
+            FdfsMockSocketServer.STORE_PORT);
     public static final int soTimeout = 550;
     public static final int connectTimeout = 500;
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");

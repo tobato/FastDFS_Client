@@ -12,7 +12,7 @@ import com.github.tobato.fastdfs.proto.storage.StorageTruncateCommand;
 /**
  * 文件截取命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageTruncateCommandTest extends StorageCommandTestBase {

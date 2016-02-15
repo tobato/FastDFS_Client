@@ -18,7 +18,7 @@ import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
 /**
  * command测试基类
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public abstract class StorageCommandTestBase extends CommandTestBase {

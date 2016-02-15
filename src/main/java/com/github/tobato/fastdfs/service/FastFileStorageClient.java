@@ -9,7 +9,7 @@ import com.github.tobato.fastdfs.domain.StorePath;
 /**
  * 面向普通应用的文件操作接口封装
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public interface FastFileStorageClient extends GenerateStorageClient {

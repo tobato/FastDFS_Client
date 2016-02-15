@@ -9,7 +9,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageAppendFileRequest
 /**
  * 添加文件命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageAppendFileCommand extends AbstractFdfsCommand<Void> {

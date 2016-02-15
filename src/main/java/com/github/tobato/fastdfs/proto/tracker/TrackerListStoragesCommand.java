@@ -10,7 +10,7 @@ import com.github.tobato.fastdfs.proto.tracker.internal.TrackerListStoragesRespo
 /**
  * 列出组命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerListStoragesCommand extends AbstractFdfsCommand<List<StorageState>> {

@@ -1,7 +1,7 @@
 /**
  * FDFS领域对象
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 package com.github.tobato.fastdfs.domain;

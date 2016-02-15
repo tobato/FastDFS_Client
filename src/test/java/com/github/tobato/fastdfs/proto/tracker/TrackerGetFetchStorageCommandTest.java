@@ -10,7 +10,7 @@ import com.github.tobato.fastdfs.proto.tracker.TrackerGetFetchStorageCommand;
 /**
  * 获取源服务器
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerGetFetchStorageCommandTest extends StorageCommandTestBase {

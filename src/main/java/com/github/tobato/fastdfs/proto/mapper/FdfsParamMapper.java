@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * param对象与byte映射器
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class FdfsParamMapper {

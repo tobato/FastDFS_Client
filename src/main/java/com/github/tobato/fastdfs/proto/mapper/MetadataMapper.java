@@ -10,7 +10,7 @@ import com.github.tobato.fastdfs.proto.OtherConstants;
 /**
  * 文件标签（元数据）映射对象
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class MetadataMapper {

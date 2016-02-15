@@ -14,7 +14,7 @@ import com.github.tobato.fastdfs.exception.FdfsIOException;
 /**
  * 交易命令抽象类
  * 
- * @author wuyf
+ * @author tobato
  * @param <T>
  *
  */

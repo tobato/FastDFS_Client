@@ -11,7 +11,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageSetMetadataReques
 /**
  * 设置文件标签
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageSetMetadataCommand extends AbstractFdfsCommand<Void> {

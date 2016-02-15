@@ -29,7 +29,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageUploadSlaveFileRe
  * 
  * </pre>
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageUploadSlaveFileCommand extends AbstractFdfsCommand<StorePath> {

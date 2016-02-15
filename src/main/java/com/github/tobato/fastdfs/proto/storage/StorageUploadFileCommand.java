@@ -10,7 +10,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageUploadFileRequest
 /**
  * 文件上传命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageUploadFileCommand extends AbstractFdfsCommand<StorePath> {

@@ -11,7 +11,7 @@ import com.github.tobato.fastdfs.proto.storage.FdfsInputStream;
 /**
  * 文件下载结果
  * 
- * @author wuyf
+ * @author tobato
  * @param <T>
  *
  */

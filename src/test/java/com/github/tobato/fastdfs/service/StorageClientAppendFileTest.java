@@ -14,7 +14,7 @@ import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
 /**
  * 支持断点续传的文件操作演示
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageClientAppendFileTest extends StorageClientTestBase {

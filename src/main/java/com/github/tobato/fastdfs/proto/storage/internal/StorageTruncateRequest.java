@@ -16,7 +16,7 @@ import com.github.tobato.fastdfs.proto.mapper.FdfsColumn;
  * size使用也有限制
  * </pre>
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageTruncateRequest extends FdfsRequest {

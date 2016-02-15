@@ -10,7 +10,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageGetMetadataRespon
 /**
  * 设置文件标签
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageGetMetadataCommand extends AbstractFdfsCommand<Set<MateData>> {

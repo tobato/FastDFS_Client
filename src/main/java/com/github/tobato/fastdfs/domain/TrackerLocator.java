@@ -20,7 +20,7 @@ import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
  * 支持负载均衡对IP轮询
  * </pre>
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerLocator {

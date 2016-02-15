@@ -12,7 +12,7 @@ import com.github.tobato.fastdfs.proto.FdfsCommand;
 /**
  * command测试基类
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class CommandTestBase {

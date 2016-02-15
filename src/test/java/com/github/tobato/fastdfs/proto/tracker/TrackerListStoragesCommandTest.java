@@ -14,7 +14,7 @@ import com.github.tobato.fastdfs.proto.tracker.TrackerListStoragesCommand;
 /**
  * 列举存储目录服务器状态
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerListStoragesCommandTest extends CommandTestBase {

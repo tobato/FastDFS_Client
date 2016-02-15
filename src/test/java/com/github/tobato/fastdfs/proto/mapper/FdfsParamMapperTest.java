@@ -11,13 +11,11 @@ import org.slf4j.LoggerFactory;
 
 import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.proto.OtherConstants;
-import com.github.tobato.fastdfs.proto.mapper.BytesUtil;
-import com.github.tobato.fastdfs.proto.mapper.FdfsParamMapper;
 
 /**
  * 测试对象序列化
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class FdfsParamMapperTest {
@@ -25,8 +23,8 @@ public class FdfsParamMapperTest {
     private static final Charset charset = TestConstants.DEFAULT_CHARSET;
 
     private static final long PORT = 23000;
-    private static final String GROUP_NAME = "group1";
-    private static final String IP = "192.168.1.105";
+    private static final String GROUP_NAME = TestConstants.DEFAULT_GROUP;
+    private static final String IP = TestConstants.DEFAULT_STORAGE_IP;
 
     /** 日志 */
     protected static Logger LOGGER = LoggerFactory.getLogger(FdfsParamMapperTest.class);

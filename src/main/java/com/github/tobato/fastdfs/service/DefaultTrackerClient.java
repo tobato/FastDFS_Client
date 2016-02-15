@@ -21,7 +21,7 @@ import com.github.tobato.fastdfs.proto.tracker.TrackerListStoragesCommand;
 /**
  * 目录服务客户端默认实现
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @Service

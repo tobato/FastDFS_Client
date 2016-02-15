@@ -9,7 +9,7 @@ import org.junit.Test;
 /**
  * 连接池创建测试
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class ConnectionPoolTest extends MockServerTestBase {

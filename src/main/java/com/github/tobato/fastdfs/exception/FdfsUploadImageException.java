@@ -3,7 +3,7 @@ package com.github.tobato.fastdfs.exception;
 /**
  * 上传图片例外
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class FdfsUploadImageException extends FdfsException {

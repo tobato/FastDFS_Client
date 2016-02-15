@@ -3,7 +3,7 @@ package com.github.tobato.fastdfs.domain;
 /**
  * 缩略图生成配置支持
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public interface ThumbImageConfig {

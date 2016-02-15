@@ -12,7 +12,7 @@ import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
 /**
  * socket 测试基类
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class MockServerTestBase {

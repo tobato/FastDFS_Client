@@ -30,7 +30,7 @@ import net.coobird.thumbnailator.Thumbnails;
 /**
  * 面向应用的接口实现
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @Component

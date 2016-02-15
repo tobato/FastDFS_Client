@@ -11,7 +11,7 @@ import com.github.tobato.fastdfs.proto.tracker.TrackerGetStoreStorageCommand;
 /**
  * 获取存储节点交易
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerGetStoreStorageCommandTest extends CommandTestBase {

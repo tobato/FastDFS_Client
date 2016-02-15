@@ -7,7 +7,7 @@ import com.github.tobato.fastdfs.proto.ProtoHead;
 /**
  * 获取存储节点请求
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerGetStoreStorageRequest extends FdfsRequest {

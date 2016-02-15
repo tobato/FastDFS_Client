@@ -17,7 +17,7 @@ import com.github.tobato.fastdfs.proto.ErrorCodeConstants;
 /**
  * Metadata操作演示
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageClientMetadataTest extends StorageClientTestBase {

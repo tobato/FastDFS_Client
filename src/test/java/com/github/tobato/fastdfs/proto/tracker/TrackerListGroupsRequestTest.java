@@ -8,7 +8,7 @@ import com.github.tobato.fastdfs.proto.tracker.internal.TrackerListGroupsRequest
 /**
  * 列举Groups请求
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerListGroupsRequestTest {

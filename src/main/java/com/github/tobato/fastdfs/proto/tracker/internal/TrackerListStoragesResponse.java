@@ -14,7 +14,7 @@ import com.github.tobato.fastdfs.proto.mapper.ObjectMateData;
 /**
  * 列出分组信息执行结果
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerListStoragesResponse extends FdfsResponse<List<StorageState>> {

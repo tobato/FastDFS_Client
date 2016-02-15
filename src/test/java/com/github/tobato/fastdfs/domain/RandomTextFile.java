@@ -10,7 +10,7 @@ import com.github.tobato.fastdfs.TestUtils;
 /**
  * 测试用随机字符文件
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class RandomTextFile {

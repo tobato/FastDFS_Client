@@ -8,7 +8,7 @@ import com.github.tobato.fastdfs.proto.StorageCommandTestBase;
 /**
  * 文件上传命令测试
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageUploadFileCommandTest extends StorageCommandTestBase {

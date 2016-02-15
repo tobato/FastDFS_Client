@@ -15,7 +15,7 @@ import com.github.tobato.fastdfs.FastdfsTestApplication;
 /**
  * 缩略图配置测试
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -11,7 +11,7 @@ import com.github.tobato.fastdfs.proto.mapper.FdfsColumn;
 /**
  * 文件上传命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageUploadFileRequest extends FdfsRequest {

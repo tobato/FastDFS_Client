@@ -14,7 +14,7 @@ import com.github.tobato.fastdfs.proto.storage.StorageAppendFileCommand;
 /**
  * 文件续传命令
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageAppendFileCommandTest extends StorageCommandTestBase {

@@ -28,7 +28,7 @@ import com.github.tobato.fastdfs.proto.storage.enums.StorageMetdataSetType;
 /**
  * 基本存储客户端操作实现
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @Component

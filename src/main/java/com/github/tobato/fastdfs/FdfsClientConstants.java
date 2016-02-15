@@ -3,7 +3,7 @@ package com.github.tobato.fastdfs;
 /**
  * 客户端常量配置
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class FdfsClientConstants {

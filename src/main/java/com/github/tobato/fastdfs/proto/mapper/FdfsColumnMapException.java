@@ -3,7 +3,7 @@ package com.github.tobato.fastdfs.proto.mapper;
 /**
  * 映射例外
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class FdfsColumnMapException extends RuntimeException {

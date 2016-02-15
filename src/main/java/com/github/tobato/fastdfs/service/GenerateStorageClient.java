@@ -11,7 +11,7 @@ import com.github.tobato.fastdfs.proto.storage.DownloadCallback;
 /**
  * 基本文件存储客户端操作
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public interface GenerateStorageClient {
@@ -59,7 +59,7 @@ public interface GenerateStorageClient {
      * 
      * @param groupName
      * @param path
-     * @param metaList
+     * @param metaDataSet
      */
     void overwriteMetadata(String groupName, String path, Set<MateData> metaDataSet);
 
@@ -68,7 +68,7 @@ public interface GenerateStorageClient {
      * 
      * @param groupName
      * @param path
-     * @param metaList
+     * @param metaDataSet
      */
     void mergeMetadata(String groupName, String path, Set<MateData> metaDataSet);
 

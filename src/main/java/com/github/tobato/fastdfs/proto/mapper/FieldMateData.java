@@ -14,7 +14,7 @@ import com.github.tobato.fastdfs.proto.OtherConstants;
 /**
  * 属性映射MateData定义
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 class FieldMateData {

@@ -15,7 +15,7 @@ import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
 /**
  * 文件基础操作测试演示
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class StorageClientBasicTest extends StorageClientTestBase {

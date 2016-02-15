@@ -6,7 +6,7 @@ import com.github.tobato.fastdfs.proto.mapper.FdfsColumn;
 /**
  * 测试类
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class Foo {

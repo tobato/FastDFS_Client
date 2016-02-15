@@ -13,7 +13,7 @@ import com.github.tobato.fastdfs.proto.tracker.TrackerListGroupsCommand;
 /**
  * 列举存储目录分组情况
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerListGroupsCommandTest extends CommandTestBase {

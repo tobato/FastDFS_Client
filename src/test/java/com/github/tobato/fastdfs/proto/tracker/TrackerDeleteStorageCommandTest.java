@@ -14,7 +14,7 @@ import com.github.tobato.fastdfs.proto.tracker.TrackerGetStoreStorageCommand;
 /**
  * 删除存储服务器
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public class TrackerDeleteStorageCommandTest extends StorageCommandTestBase {

@@ -13,7 +13,7 @@ import com.github.tobato.fastdfs.service.AppendFileStorageClient;
 /**
  * StorageClient测试基类
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -17,7 +17,7 @@ import com.github.tobato.fastdfs.proto.FdfsCommand;
  * 负责借出连接，在连接上执行业务逻辑，然后归还连
  * </pre>
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 @Component

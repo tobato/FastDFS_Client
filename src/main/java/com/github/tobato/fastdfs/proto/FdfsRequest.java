@@ -9,7 +9,7 @@ import com.github.tobato.fastdfs.proto.mapper.ObjectMateData;
 /**
  * Fdfs交易请求基类
  * 
- * @author wuyf
+ * @author tobato
  *
  */
 public abstract class FdfsRequest {
