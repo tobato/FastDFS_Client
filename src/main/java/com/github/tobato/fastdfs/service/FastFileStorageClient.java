@@ -41,4 +41,11 @@ public interface FastFileStorageClient extends GenerateStorageClient {
     StorePath uploadImageAndCrtThumbImage(InputStream inputStream, long fileSize, String fileExtName,
             Set<MateData> metaDataSet);
 
+    /**
+     * 删除文件
+     * 
+     * @param filePath 文件路径(groupName/path)
+     */
+    void deleteFile(String filePath);
+
 }

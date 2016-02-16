@@ -10,7 +10,7 @@
     <name>fastdfs-client</name>
     <description>基于yuqih发布的代码与fastdfs-client 官方1.25版本的重构</description>
     <url>https://github.com/tobato/FastDFS_Client</url>
-
+ 
     <licenses>
         <license>
             <name>The GNU Lesser General Public License, version 3.0</name>

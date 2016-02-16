@@ -187,4 +187,13 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         return new ByteArrayInputStream(out.toByteArray());
     }
 
+    /**
+     * 删除文件
+     */
+    @Override
+    public void deleteFile(String filePath) {
+        StorePath storePath = StorePath.praseFromUrl(filePath);
+        super.deleteFile(storePath.getGroup(), storePath.getPath());
+    }
+
 }

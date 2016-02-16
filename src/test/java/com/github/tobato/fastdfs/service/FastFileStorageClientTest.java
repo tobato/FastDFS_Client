@@ -84,7 +84,7 @@ public class FastFileStorageClientTest {
         assertNotNull(path);
 
         LOGGER.debug("##删除文件..##");
-        storageClient.deleteFile(path.getGroup(), path.getPath());
+        storageClient.deleteFile(path.getFullPath());
     }
 
     /**
