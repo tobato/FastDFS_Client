@@ -1,7 +1,7 @@
 FastDFS-Client
 ---
 
-This is a java client lib for [FastDF](Shttps://github.com/happyfish100/fastdfs).
+This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
 
 ##介绍
 
@@ -11,7 +11,8 @@ This is a java client lib for [FastDF](Shttps://github.com/happyfish100/fastdfs)
 
 1. 对关键部分代码加入了单元测试，便于理解与服务端的接口交易，提高接口质量
 2. 将以前对byte硬解析风格重构为使用 对象+注解 的形式，尽量增强了代码的可读性
-3. 支持上传图片时候检查图片格式，并且自动生成缩略图
+3. 支持对服务端的连接池管理(commons-pool2)
+4. 支持上传图片时候检查图片格式，并且自动生成缩略图
 
 ##运行环境要求
 
@@ -27,17 +28,18 @@ JDK环境要求  1.7
 ##单元测试
 
 由于工作时间关系与解析原代码的复杂性，单元测试无法完全做到脱离FastDFS服务端，请见谅。
+
 执行单元测试需要配置main/resources/application.yml
 
       fdfs
         trackerList:
           - 192.168.1.105:22122  #服务端路径
 
-##使用方式
+##FastDFS-Client使用方式
 
-###1.加入Pom项目依赖
+###1.在项目Pom当中加入依赖
 
-在项目pom当中加入Maven依赖
+Maven依赖为
 
     <dependency>
         <groupId>com.github.tobato</groupId>
@@ -51,7 +53,7 @@ JDK环境要求  1.7
 将FastDFS-Client客户端引入本地化项目的方式非常简单，在SpringBoot项目当中
 
     /**
-     * 导入组件
+     * 导入FastDFS-Client组件
      * 
      * @author tobato
      *
@@ -77,5 +79,15 @@ JDK环境要求  1.7
       trackerList:            #TrackerList参数,支持多个
         - 192.168.1.105:22122
         - 192.168.1.106:22122 
+
+###4.使用接口服务对Fdfs服务端进行操作
+
+主要接口包括
+
+1. TrackerClient - TrackerServer接口 
+2. GenerateStorageClient - 一般文件存储接口 (StorageServer接口)
+3. FastFileStorageClient - 为方便项目开发集成的简单接口(StorageServer接口)
+4. AppendFileStorageClient - 支持文件续传操作的接口 (StorageServer接口)
+
 
 
