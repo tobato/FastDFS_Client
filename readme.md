@@ -29,11 +29,26 @@ JDK环境要求  1.7
 
 由于工作时间关系与解析原代码的复杂性，单元测试无法完全做到脱离FastDFS服务端，请见谅。
 
-执行单元测试需要配置main/resources/application.yml
+执行单元测试需要配置TestConstants文件当中参数
 
-      fdfs
-        trackerList:
-          - 192.168.1.105:22122  #服务端路径
+在Tracker与Storage都在一个机器的环境下
+
+      private static String ip_home = "192.168.1.105";
+      public static InetSocketAddress address = new InetSocketAddress(ip_home, FdfsMockSocketServer.PORT);
+      public static InetSocketAddress store_address = new InetSocketAddress(ip_home, FdfsMockSocketServer.STORE_PORT);
+      
+      public static final String DEFAULT_STORAGE_IP = ip_home;
+  
+      
+在Tracker与Storage不在一个机器的环境下      
+     
+    private static String ip_work = "192.168.174.47";
+    private static String ip_work_store = "192.168.174.49";
+    public static InetSocketAddress address = new InetSocketAddress(ip_work, FdfsMockSocketServer.PORT);
+    public static InetSocketAddress store_address = new InetSocketAddress(ip_work_store, FdfsMockSocketServer.STORE_PORT);
+    
+    public static final String DEFAULT_STORAGE_IP = ip_work_store;
+   
 
 ##FastDFS-Client使用方式
 
