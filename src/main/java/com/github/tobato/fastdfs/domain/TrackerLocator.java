@@ -100,7 +100,22 @@ public class TrackerLocator {
                 return holder.getAddress();
             }
         }
-        throw new FdfsUnavailableException("找不到可用的tracker");
+        throw new FdfsUnavailableException("找不到可用的tracker " + getTrackerAddressConfigString());
+    }
+
+    /**
+     * 获取配置地址列表
+     * 
+     * @return
+     */
+    private String getTrackerAddressConfigString() {
+        StringBuffer config = new StringBuffer();
+        for (int i = 0; i < trackerAddressCircular.size(); i++) {
+            TrackerAddressHolder holder = trackerAddressCircular.next();
+            InetSocketAddress address = holder.getAddress();
+            config.append(address.toString()).append(",");
+        }
+        return new String(config);
     }
 
     /**

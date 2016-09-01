@@ -60,6 +60,7 @@ public class FastFileStorageClientTest {
         StorePath path = storageClient.uploadFile(file.getInputStream(), file.getFileSize(), file.getFileExtName(),
                 metaDataSet);
         assertNotNull(path);
+        LOGGER.debug("上传文件路径{}", path);
 
         // 验证获取MataData
         LOGGER.debug("##获取Metadata##");
@@ -95,6 +96,7 @@ public class FastFileStorageClientTest {
         LOGGER.debug("##上传文件..##");
         Set<MateData> metaDataSet = createMateData();
         StorePath path = uploadImageAndCrtThumbImage(TestConstants.PERFORM_FILE_PATH, metaDataSet);
+        LOGGER.debug("上传文件路径{}", path);
 
         // 验证获取MataData
         LOGGER.debug("##获取Metadata##");
