@@ -60,7 +60,7 @@ public class StorageSetMetadataRequest extends FdfsRequest {
         this.groupName = groupName;
         this.path = path;
         this.metaDataSet = metaDataSet;
-        this.opFlag = OtherConstants.STORAGE_SET_METADATA_FLAG_MERGE;
+        this.opFlag = type.getType();
         head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_SET_METADATA);
     }
 
