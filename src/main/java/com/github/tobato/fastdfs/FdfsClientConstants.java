@@ -17,5 +17,7 @@ public class FdfsClientConstants {
 
     public static final String THUMB_IMAGE_CONFIG_PREFIX = "fdfs.thumbImage";
 
+    public static final String POOL_CONFIG_PREFIX = "fdfs.pool";
+
     // public static final String CONFIG_PREFIX = "fdfs";
 }
