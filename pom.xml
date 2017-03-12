@@ -28,7 +28,7 @@
     <scm>
         <connection>scm:git:git@github.com:tobato/FastDFS_Client.git</connection>
         <developerConnection>scm:git:git@github.com:tobato/FastDFS_Client.git</developerConnection>
-        <url>git@github.com:tobato/FastDFS_Client.git</url>
+        <url>https://github.com/tobato/FastDFS_Client</url>
     </scm>
 
     <parent>
