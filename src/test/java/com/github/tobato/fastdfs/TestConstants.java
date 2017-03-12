@@ -13,9 +13,9 @@ import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
  */
 @SuppressWarnings("unused")
 public class TestConstants {
-    private static String ip_home = "192.168.1.105";
-    private static String ip_work = "192.168.174.47";
-    private static String ip_work_store = "192.168.174.49";
+    private static String ip_home = "10.0.75.2";
+    private static String ip_work = "192.168.174.42";
+    private static String ip_work_store = "192.168.174.43";
     public static InetSocketAddress address = new InetSocketAddress(ip_home, FdfsMockSocketServer.PORT);
     public static InetSocketAddress store_address = new InetSocketAddress(ip_home, FdfsMockSocketServer.STORE_PORT);
     public static final int soTimeout = 550;

@@ -1,3 +1,24 @@
+## 1.25.3 (2017-03-11)
+
+Features:
+
+  - 支持缓存连接池配置
+      
+        fdfs:
+          soTimeout: 1501
+          connectTimeout: 601 
+          thumbImage:
+            width: 150
+            height: 150
+          trackerList:
+             - 192.168.1.105:22122
+          pool:
+            #从池中借出的对象的最大数目
+            maxTotal: 153
+            #获取连接时的最大等待毫秒数100
+            maxWaitMillis: 102
+
+
 ## 1.25.2 (2016-09-01)
 
 Features:
