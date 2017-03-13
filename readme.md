@@ -23,7 +23,8 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
     <version>1.2.7.RELEASE</version>
     <relativePath />
     
-JDK环境要求  1.7
+* JDK环境要求  1.7
+* FastDFS服务端 5.07 测试通过
 
 ##单元测试
 
@@ -59,7 +60,7 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.25.2-RELEASE</version>
+        <version>1.25.3-RELEASE</version>
     </dependency>
 
 
@@ -95,6 +96,16 @@ Maven依赖为
         - 192.168.1.105:22122
         - 192.168.1.106:22122 
 
+如果有必要可以参考 apache.pool2 参数配置连接池属性
+
+    fdfs:
+       ..其他配置信息..
+      pool:
+        #从池中借出的对象的最大数目
+        maxTotal: 153
+        #获取连接时的最大等待毫秒数100
+        maxWaitMillis: 102
+
 ###4.使用接口服务对Fdfs服务端进行操作
 
 主要接口包括
@@ -105,4 +116,7 @@ Maven依赖为
 4. AppendFileStorageClient - 支持文件续传操作的接口 (StorageServer接口)
 
 
+##修改日志
+
+查看[修改日志](/CHANGELOG.md)
 
