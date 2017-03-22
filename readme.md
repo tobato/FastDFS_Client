@@ -3,9 +3,11 @@ FastDFS-Client 1.25.3-RELEASE(2017-03-11)
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
 
-##介绍
+## 介绍
 
 在原作者YuQing与yuqih发布的java客户端基础上进行了大量重构工作，便于Java工作者学习与阅读。
+
+当前客户端单元测试全部通过，服务端版本是FastDFS_V5.07
 
 主要特性
 
@@ -14,7 +16,7 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
 3. 支持对服务端的连接池管理(commons-pool2)
 4. 支持上传图片时候检查图片格式，并且自动生成缩略图
 
-##运行环境要求
+## 运行环境要求
 
 由于笔者主要工作环境是SpringBoot，因此目前客户端主要依赖于SpringBoot
 
@@ -26,7 +28,7 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
 * JDK环境要求  1.7
 * FastDFS服务端 5.07 测试通过
 
-##单元测试
+## 单元测试
 
 由于工作时间关系与解析原代码的复杂性，单元测试无法完全做到脱离FastDFS服务端，请见谅。
 
@@ -51,9 +53,9 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
     public static final String DEFAULT_STORAGE_IP = ip_work_store;
    
 
-##FastDFS-Client使用方式
+## FastDFS-Client使用方式
 
-###1.在项目Pom当中加入依赖
+### 1.在项目Pom当中加入依赖
 
 Maven依赖为
 
@@ -64,7 +66,7 @@ Maven依赖为
     </dependency>
 
 
-###2.将Fdfs配置引入项目
+### 2.将Fdfs配置引入项目
 
 将FastDFS-Client客户端引入本地化项目的方式非常简单，在SpringBoot项目当中
 
@@ -82,7 +84,7 @@ Maven依赖为
     
 是的，只需要一行注解 @Import(FdfsClientConfig.class)
 
-###3.在application.yml当中配置Fdfs相关参数
+### 3.在application.yml当中配置Fdfs相关参数
     # ===================================================================
     # 分布式文件系统FDFS配置
     # ===================================================================
@@ -106,7 +108,7 @@ Maven依赖为
         #获取连接时的最大等待毫秒数100
         maxWaitMillis: 102
 
-###4.使用接口服务对Fdfs服务端进行操作
+### 4.使用接口服务对Fdfs服务端进行操作
 
 主要接口包括
 
@@ -116,7 +118,7 @@ Maven依赖为
 4. AppendFileStorageClient - 支持文件续传操作的接口 (StorageServer接口)
 
 
-##修改日志
+## 修改日志
 
 查看[修改日志](/CHANGELOG.md)
 
