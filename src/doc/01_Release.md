@@ -27,7 +27,7 @@
 
 ### 3.正式发布提交
 
-    mvn release:peform -P release
+    mvn release:perform -P release
 
 ## 参考资料
 

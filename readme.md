@@ -86,7 +86,7 @@ Maven依赖为
     
 对的，只需要一行注解 @Import(FdfsClientConfig.class)就可以拥有带有连接池的FastDFS Java客户端了。
 
->注意：`@EnableMBeanExport`解决问题JMX重复注册问题,[issue #8](./issues/8) [issue #18](./issues/8)，不要再配置 `spring.jmx.enabled=false`，以免影响SpringBoot默认的JMX监控。
+>注意：`@EnableMBeanExport`解决问题JMX重复注册问题,[issue #8](../../issues/8) [issue #18](../../issues/8)，不要再配置 `spring.jmx.enabled=false`，以免影响SpringBoot默认的JMX监控。
 
 ### 3.在application.yml当中配置Fdfs相关参数
     # ===================================================================
