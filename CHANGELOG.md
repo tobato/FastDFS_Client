@@ -1,3 +1,23 @@
+## 1.25.4 (2017-06-14)
+
+Bugfixes:
+
+  - 解决在SpringBoot项目当中JMX重复注册的问题 (#8,#18,@flykarry,@SevenSecondsOfMemory)
+  
+    错误信息
+
+        javax.management.InstanceAlreadyExistsException: MXBean already registered with name org.apache.commons.pool2:type=GenericKeyedObjectPool,name=pool
+
+    解决办法配置
+
+        @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
+    
+  
+  
+Docs:
+
+  - 增加文档目录，把相关文档完善提交一下
+
 ## 1.25.3 (2017-03-11)
 
 Features:

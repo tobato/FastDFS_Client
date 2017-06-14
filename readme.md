@@ -1,4 +1,4 @@
-FastDFS-Client 1.25.3-RELEASE(2017-03-11)
+FastDFS-Client 1.25.4-RELEASE(2017-06-14)
 ---
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
@@ -62,13 +62,13 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.25.3-RELEASE</version>
+        <version>1.25.4-RELEASE</version>
     </dependency>
 
 
 ### 2.将Fdfs配置引入项目
 
-将FastDFS-Client客户端引入本地化项目的方式非常简单，在SpringBoot项目当中
+将FastDFS-Client客户端引入本地化项目的方式非常简单，在SpringBoot项目`/src/[com.xxx.主目录]/conf`当中配置
 
     /**
      * 导入FastDFS-Client组件
@@ -78,11 +78,15 @@ Maven依赖为
      */
     @Configuration
     @Import(FdfsClientConfig.class)
+    // 解决jmx重复注册bean的问题
+    @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
     public class ComponetImport {
         // 导入依赖组件
     }
     
-是的，只需要一行注解 @Import(FdfsClientConfig.class)
+对的，只需要一行注解 @Import(FdfsClientConfig.class)就可以拥有带有连接池的FastDFS Java客户端了。
+
+>注意：`@EnableMBeanExport`解决问题JMX重复注册问题,[issue #8](./issues/8) [issue #18](./issues/8)，不要再配置 `spring.jmx.enabled=false`，以免影响SpringBoot默认的JMX监控。
 
 ### 3.在application.yml当中配置Fdfs相关参数
     # ===================================================================

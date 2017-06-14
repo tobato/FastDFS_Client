@@ -13,8 +13,6 @@ fdfs:
 #    - 192.168.174.42:22122
 #    - 192.168.174.48:22122
 
-spring.jmx.enabled: false
-
 ---
 spring:
     profiles: customized_pool
@@ -31,8 +29,3 @@ fdfs:
     maxTotal: 153
     #获取连接时的最大等待毫秒数100
     maxWaitMillis: 102
-    
-    
-spring.jmx.enabled: false
-    
-

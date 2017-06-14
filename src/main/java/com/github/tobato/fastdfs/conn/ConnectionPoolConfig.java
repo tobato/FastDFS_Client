@@ -48,6 +48,12 @@ public class ConnectionPoolConfig extends GenericKeyedObjectPoolConfig {
      */
     public static final int FDFS_NUM_TESTS_PEREVICTION_RUN = -1;
 
+    /** 默认jmx域名 */
+    public static final String FDFS_JMX_NAME_BASE = "com.github.tobato.fastdfs.conn:type=FdfsConnectionPool";
+
+    /** 默认jmx prefix名称 */
+    public static final String FDFS_JMX_NAME_PREFIX = "fdfsPool";
+
     public ConnectionPoolConfig() {
         // 从池中借出的对象的最大数目
         setMaxTotal(FDFS_MAX_TOTAL);
@@ -63,6 +69,9 @@ public class ConnectionPoolConfig extends GenericKeyedObjectPoolConfig {
         setTimeBetweenEvictionRunsMillis(FDFS_TIME_BETWEEN_EVICTION_RUNS_MILLIS);
         // 清理时候检查所有线程
         setNumTestsPerEvictionRun(FDFS_NUM_TESTS_PEREVICTION_RUN);
+        // 配置jmx
+        this.setJmxNameBase(FDFS_JMX_NAME_BASE);
+        this.setJmxNamePrefix(FDFS_JMX_NAME_PREFIX);
     }
 
 }
