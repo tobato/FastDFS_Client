@@ -1,19 +1,17 @@
 package com.github.tobato.fastdfs.conn;
 
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 import com.github.tobato.fastdfs.FdfsClientConstants;
 import com.github.tobato.fastdfs.domain.TrackerLocator;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
 import com.github.tobato.fastdfs.proto.FdfsCommand;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.validation.constraints.NotNull;
+import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 管理TrackerClient连接池分配
@@ -52,7 +50,6 @@ public class TrackerConnectionManager extends ConnectionManager {
     /**
      * 获取连接并执行交易
      * 
-     * @param address
      * @param command
      * @return
      */

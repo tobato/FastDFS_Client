@@ -1,6 +1,17 @@
 package com.github.tobato.fastdfs.service;
 
-import static org.junit.Assert.*;
+import com.github.tobato.fastdfs.FastdfsTestApplication;
+import com.github.tobato.fastdfs.TestConstants;
+import com.github.tobato.fastdfs.TestUtils;
+import com.github.tobato.fastdfs.domain.*;
+import org.apache.commons.io.FilenameUtils;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,23 +20,8 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.io.FilenameUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.github.tobato.fastdfs.FastdfsTestApplication;
-import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.TestUtils;
-import com.github.tobato.fastdfs.domain.FileInfo;
-import com.github.tobato.fastdfs.domain.MateData;
-import com.github.tobato.fastdfs.domain.RandomTextFile;
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.domain.ThumbImageConfig;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * FastFileStorageClient客户端
@@ -34,7 +30,7 @@ import com.github.tobato.fastdfs.domain.ThumbImageConfig;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = FastdfsTestApplication.class)
+@SpringBootTest(classes = FastdfsTestApplication.class)
 public class FastFileStorageClientTest {
 
     @Autowired
