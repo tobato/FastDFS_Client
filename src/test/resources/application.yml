@@ -2,12 +2,12 @@
 # 分布式文件系统FDFS配置
 # ===================================================================
 fdfs:
-  soTimeout: 1501
-  connectTimeout: 601 
-  thumbImage:
+  so-timeout: 1501
+  connect-timeout: 601
+  thumb-image:
     width: 150
     height: 150
-  trackerList:
+  tracker-list:
      - 10.0.75.2:22122
 #    - 185.25.103.20:22122
 #    - 192.168.174.42:22122
@@ -17,16 +17,18 @@ fdfs:
 spring:
     profiles: customized_pool
 fdfs:
-  soTimeout: 1501
-  connectTimeout: 601 
-  thumbImage:
+  so-timeout: 1501
+  connect-timeout: 601
+  thumb-image:
     width: 150
     height: 150
-  trackerList:
+  tracker-list:
      - 10.0.75.2:22122
+
   pool:
     #从池中借出的对象的最大数目
-    maxTotal: 153
-    #获取连接时的最大等待毫秒数100
-    maxWaitMillis: 102
+    max-total: 153
+    max-wait-millis: 102
+    jmx-name-base: 1
+    jmx-name-prefix: 1
 
