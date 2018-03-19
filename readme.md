@@ -1,4 +1,4 @@
-FastDFS-Client 1.25.4-RELEASE(2017-06-14)
+FastDFS-Client 1.25.4-RELEASE(2018-03-20)
 ---
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
@@ -22,7 +22,7 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
 
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.2.7.RELEASE</version>
+    <version>2.0.0.RELEASE</version>
     <relativePath />
     
 * JDK环境要求  1.7
@@ -62,7 +62,7 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.25.4-RELEASE</version>
+        <version>1.26.1-RELEASE</version>
     </dependency>
 
 
@@ -93,12 +93,12 @@ Maven依赖为
     # 分布式文件系统FDFS配置
     # ===================================================================
     fdfs:
-      soTimeout: 1501
-      connectTimeout: 601 
-      thumbImage:             #缩略图生成参数
+      so-timeout: 1501
+      connect-timeout: 601 
+      thumb-image:             #缩略图生成参数
         width: 150
         height: 150
-      trackerList:            #TrackerList参数,支持多个
+      tracker-list:            #TrackerList参数,支持多个
         - 192.168.1.105:22122
         - 192.168.1.106:22122 
 
@@ -108,9 +108,9 @@ Maven依赖为
        ..其他配置信息..
       pool:
         #从池中借出的对象的最大数目
-        maxTotal: 153
+        max-total: 153
         #获取连接时的最大等待毫秒数100
-        maxWaitMillis: 102
+         max-wait-millis: 102
 
 ### 4.使用接口服务对Fdfs服务端进行操作
 
@@ -124,5 +124,5 @@ Maven依赖为
 
 ## 修改日志
 
-查看[修改日志](/CHANGELOG.md)
+版本更新情况请查看[修改日志](/CHANGELOG.md)
 

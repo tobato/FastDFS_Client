@@ -1,3 +1,12 @@
+## 1.26.1 (2018-03-20)
+
+update:
+
+  - SpringBoot依赖升级为2.0.0.RELEASE版本 (#35,#18,@zer0Black,@zhanwenjie,@caokaizz)
+  
+     感谢zer0Black提交升级，同时与大余JAVA客户端同步更新版本号为1.26主版本
+
+
 ## 1.25.4 (2017-06-14)
 
 Bugfixes:
