@@ -28,6 +28,18 @@
 ### 3.正式发布提交
 
     mvn release:perform -P release
+    
+### 4.中央仓库地址
+
+    构件发布地址 https://oss.sonatype.org/    
+    
+### 5.发布问题处理
+
+* 如果需要跳过单元测试，可以加入参数 -Darguments="-DskipTests"
+* 在执行mvn release:perform时默认会生成api文档，如果默写注释不符合规范的话会造成构建失败，可以加参数-DuseReleaseProfile=false取消构建api文档
+  
+      mvn release:prepare -Darguments="-DskipTests"
+      mvn release:perform  -DuseReleaseProfile=false
 
 ## 参考资料
 
