@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.MataData;
 import com.github.tobato.fastdfs.proto.OtherConstants;
 
 /**
@@ -26,12 +26,12 @@ public class MetadataMapper {
      * @param charset
      * @return
      */
-    public static byte[] toByte(Set<MateData> metadataSet, Charset charset) {
+    public static byte[] toByte(Set<MataData> metadataSet, Charset charset) {
         if (null == metadataSet || metadataSet.isEmpty()) {
             return new byte[0];
         }
         StringBuilder sb = new StringBuilder(32 * metadataSet.size());
-        for (MateData md : metadataSet) {
+        for (MataData md : metadataSet) {
             sb.append(md.getName()).append(OtherConstants.FDFS_FIELD_SEPERATOR).append(md.getValue());
             sb.append(OtherConstants.FDFS_RECORD_SEPERATOR);
         }
@@ -47,8 +47,8 @@ public class MetadataMapper {
      * @param charset
      * @return
      */
-    public static Set<MateData> fromByte(byte[] content, Charset charset) {
-        Set<MateData> mdSet = new HashSet<MateData>();
+    public static Set<MataData> fromByte(byte[] content, Charset charset) {
+        Set<MataData> mdSet = new HashSet<MataData>();
         if (null == content) {
             return mdSet;
         }
@@ -57,7 +57,7 @@ public class MetadataMapper {
 
         for (int i = 0; i < rows.length; i++) {
             String[] cols = rows[i].split(OtherConstants.FDFS_FIELD_SEPERATOR, 2);
-            MateData md = new MateData(cols[0]);
+            MataData md = new MataData(cols[0]);
             if (cols.length == 2) {
                 md.setValue(cols[1]);
             }

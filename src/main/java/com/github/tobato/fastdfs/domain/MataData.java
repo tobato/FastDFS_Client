@@ -1,25 +1,25 @@
 package com.github.tobato.fastdfs.domain;
 
 /**
- * 文件元数据(MateData)
+ * 文件元数据(MataData)
  * 
  * @author tobato
  *
  */
-public class MateData {
+public class MataData {
 
     private String name;
 
     private String value;
 
-    public MateData() {
+    public MataData() {
     }
 
-    public MateData(String name) {
+    public MataData(String name) {
         this.name = name;
     }
 
-    public MateData(String name, String value) {
+    public MataData(String name, String value) {
         this.name = name;
         this.value = value;
     }
@@ -57,7 +57,7 @@ public class MateData {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MateData other = (MateData) obj;
+        MataData other = (MataData) obj;
         if (name == null) {
             if (other.name != null)
                 return false;

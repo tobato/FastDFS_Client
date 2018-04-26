@@ -83,4 +83,5 @@ public class StorageClientAppendFileTest extends StorageClientTestBase {
         System.arraycopy(secendFile.toByte(), 0, fullContent, fileSize, secendFileSize);
         return fullContent;
     }
+
 }

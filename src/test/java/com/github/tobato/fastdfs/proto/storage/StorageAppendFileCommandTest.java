@@ -42,10 +42,12 @@ public class StorageAppendFileCommandTest extends StorageCommandTestBase {
         secendIn.close();
     }
 
+
     /**
      * 文件续传操作
-     * 
-     * @param isAppenderFile
+     * @param in
+     * @param fileSize
+     * @param path
      */
     public void execStorageAppendFileCommand(InputStream in, long fileSize, String path) {
         StorageAppendFileCommand command = new StorageAppendFileCommand(in, fileSize, path);

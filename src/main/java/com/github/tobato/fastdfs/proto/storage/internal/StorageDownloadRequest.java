@@ -20,7 +20,7 @@ public class StorageDownloadRequest extends FdfsRequest {
     private long fileOffset;
     /** 读取文件长度 */
     @FdfsColumn(index = 1)
-    private long fileSize;
+    private long downloadBytes;
     /** 组名 */
     @FdfsColumn(index = 2, max = OtherConstants.FDFS_GROUP_NAME_MAX_LEN)
     private String groupName;
@@ -34,12 +34,12 @@ public class StorageDownloadRequest extends FdfsRequest {
      * @param groupName
      * @param path
      * @param fileOffset
-     * @param fileSize
+     * @param downloadBytes
      */
-    public StorageDownloadRequest(String groupName, String path, long fileOffset, long fileSize) {
+    public StorageDownloadRequest(String groupName, String path, long fileOffset, long downloadBytes) {
         super();
         this.groupName = groupName;
-        this.fileSize = fileSize;
+        this.downloadBytes = downloadBytes;
         this.path = path;
         this.fileOffset = fileOffset;
         head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_DOWNLOAD_FILE);
@@ -58,9 +58,7 @@ public class StorageDownloadRequest extends FdfsRequest {
         return path;
     }
 
-    @Override
-    public long getFileSize() {
-        return fileSize;
+    public long getDownloadBytes() {
+        return downloadBytes;
     }
-
 }

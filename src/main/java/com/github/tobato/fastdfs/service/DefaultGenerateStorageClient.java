@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.github.tobato.fastdfs.conn.ConnectionManager;
 import com.github.tobato.fastdfs.domain.FileInfo;
-import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.MataData;
 import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.domain.StorageNodeInfo;
 import com.github.tobato.fastdfs.domain.StorePath;
@@ -72,7 +72,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      * 获取metadata
      */
     @Override
-    public Set<MateData> getMetadata(String groupName, String path) {
+    public Set<MataData> getMetadata(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageGetMetadataCommand command = new StorageGetMetadataCommand(groupName, path);
         return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
@@ -82,7 +82,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      * 覆盖metadata
      */
     @Override
-    public void overwriteMetadata(String groupName, String path, Set<MateData> metaDataSet) {
+    public void overwriteMetadata(String groupName, String path, Set<MataData> metaDataSet) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
                 StorageMetdataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
@@ -93,7 +93,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      * 合并metadata
      */
     @Override
-    public void mergeMetadata(String groupName, String path, Set<MateData> metaDataSet) {
+    public void mergeMetadata(String groupName, String path, Set<MataData> metaDataSet) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
                 StorageMetdataSetType.STORAGE_SET_METADATA_FLAG_MERGE);
@@ -137,7 +137,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
     public <T> T downloadFile(String groupName, String path, long fileOffset, long fileSize,
             DownloadCallback<T> callback) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
-        StorageDownloadCommand<T> command = new StorageDownloadCommand<T>(groupName, path, 0, 0, callback);
+        StorageDownloadCommand<T> command = new StorageDownloadCommand<T>(groupName, path, fileOffset, fileSize, callback);
         return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 

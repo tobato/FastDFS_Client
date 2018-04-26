@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Set;
 
-import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.MataData;
 import com.github.tobato.fastdfs.proto.FdfsResponse;
 import com.github.tobato.fastdfs.proto.mapper.MetadataMapper;
 
@@ -15,13 +15,13 @@ import com.github.tobato.fastdfs.proto.mapper.MetadataMapper;
  * @author tobato
  *
  */
-public class StorageGetMetadataResponse extends FdfsResponse<Set<MateData>> {
+public class StorageGetMetadataResponse extends FdfsResponse<Set<MataData>> {
 
     /**
      * 解析反馈内容
      */
     @Override
-    public Set<MateData> decodeContent(InputStream in, Charset charset) throws IOException {
+    public Set<MataData> decodeContent(InputStream in, Charset charset) throws IOException {
         // 解析报文内容
         byte[] bytes = new byte[(int) getContentLength()];
         int contentSize = in.read(bytes);

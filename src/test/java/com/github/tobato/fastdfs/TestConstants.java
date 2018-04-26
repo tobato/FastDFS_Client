@@ -13,8 +13,8 @@ import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
  */
 @SuppressWarnings("unused")
 public class TestConstants {
-    private static String ip_home = "10.0.75.2";
-    private static String ip_work = "192.168.174.42";
+    private static String ip_home = "172.17.0.2";
+    private static String ip_work = "10.0.75.2";
     private static String ip_work_store = "192.168.174.43";
     public static InetSocketAddress address = new InetSocketAddress(ip_home, FdfsMockSocketServer.PORT);
     public static InetSocketAddress store_address = new InetSocketAddress(ip_home, FdfsMockSocketServer.STORE_PORT);

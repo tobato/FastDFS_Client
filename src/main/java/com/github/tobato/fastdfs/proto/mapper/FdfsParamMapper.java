@@ -23,23 +23,25 @@ public class FdfsParamMapper {
     }
 
     /** 对象映射缓存 */
-    private static Map<String, ObjectMateData> mapCache = new HashMap<String, ObjectMateData>();
+    private static Map<String, ObjectMataData> mapCache = new HashMap<String, ObjectMataData>();
 
     /** 日志 */
     private static Logger LOGGER = LoggerFactory.getLogger(FdfsParamMapper.class);
 
+
     /**
      * 将byte解码为对象
-     * 
-     * @param objectArrayList
+     * @param content
      * @param genericType
+     * @param charset
+     * @param <T>
      * @return
      */
     public static <T> T map(byte[] content, Class<T> genericType, Charset charset) {
         // 获取映射对象
-        ObjectMateData objectMap = getObjectMap(genericType);
+        ObjectMataData objectMap = getObjectMap(genericType);
         if (LOGGER.isDebugEnabled()) {
-            objectMap.dumpObjectMateData();
+            objectMap.dumpObjectMataData();
         }
 
         try {
@@ -62,10 +64,10 @@ public class FdfsParamMapper {
      * @param genericType
      * @return
      */
-    public static <T> ObjectMateData getObjectMap(Class<T> genericType) {
+    public static <T> ObjectMataData getObjectMap(Class<T> genericType) {
         if (null == mapCache.get(genericType.getName())) {
             // 还未缓存过
-            mapCache.put(genericType.getName(), new ObjectMateData(genericType));
+            mapCache.put(genericType.getName(), new ObjectMataData(genericType));
         }
         return mapCache.get(genericType.getName());
     }
@@ -81,13 +83,13 @@ public class FdfsParamMapper {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    private static <T> T mapByIndex(byte[] content, Class<T> genericType, ObjectMateData objectMap, Charset charset)
+    private static <T> T mapByIndex(byte[] content, Class<T> genericType, ObjectMataData objectMap, Charset charset)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        List<FieldMateData> mappingFields = objectMap.getFieldList();
+        List<FieldMataData> mappingFields = objectMap.getFieldList();
         T obj = genericType.newInstance();
         for (int i = 0; i < mappingFields.size(); i++) {
-            FieldMateData field = mappingFields.get(i);
+            FieldMataData field = mappingFields.get(i);
             // 设置属性值
             LOGGER.debug("设置值是 " + field + field.getValue(content, charset));
             BeanUtils.setProperty(obj, field.getFieldName(), field.getValue(content, charset));
@@ -104,7 +106,7 @@ public class FdfsParamMapper {
      * @return
      */
     public static byte[] toByte(Object object, Charset charset) {
-        ObjectMateData objectMap = getObjectMap(object.getClass());
+        ObjectMataData objectMap = getObjectMap(object.getClass());
         try {
             return convertFieldToByte(objectMap, object, charset);
         } catch (NoSuchMethodException ie) {
@@ -131,15 +133,15 @@ public class FdfsParamMapper {
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
      */
-    private static byte[] convertFieldToByte(ObjectMateData objectMap, Object object, Charset charset)
+    private static byte[] convertFieldToByte(ObjectMataData objectMap, Object object, Charset charset)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        List<FieldMateData> mappingFields = objectMap.getFieldList();
+        List<FieldMataData> mappingFields = objectMap.getFieldList();
         // 获取报文长度 (固定长度+动态长度)
         int size = objectMap.getFieldsSendTotalByteSize(object, charset);
         byte[] result = new byte[size];
         int offsize = 0;
         for (int i = 0; i < mappingFields.size(); i++) {
-            FieldMateData field = mappingFields.get(i);
+            FieldMataData field = mappingFields.get(i);
             byte[] fieldByte = field.toByte(object, charset);
             if (null != fieldByte) {
                 System.arraycopy(fieldByte, 0, result, offsize, fieldByte.length);

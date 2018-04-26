@@ -54,7 +54,7 @@ public abstract class StorageCommandTestBase extends CommandTestBase {
     /**
      * 获取传输文件第一个部分
      * 
-     * @param filePath
+     * @param text
      * @return
      * @throws IOException
      */

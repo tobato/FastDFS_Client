@@ -14,17 +14,17 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageDownloadResponse;
 public class StorageDownloadCommand<T> extends AbstractFdfsCommand<T> {
 
     /**
-     * 下载文件
+     * 下载部分文件
      * 
      * @param groupName
      * @param path
      * @param fileOffset
-     * @param fileSize
+     * @param downloadBytes
      */
-    public StorageDownloadCommand(String groupName, String path, long fileOffset, long fileSize,
+    public StorageDownloadCommand(String groupName, String path, long fileOffset, long downloadBytes,
             DownloadCallback<T> callback) {
         super();
-        this.request = new StorageDownloadRequest(groupName, path, fileOffset, fileSize);
+        this.request = new StorageDownloadRequest(groupName, path, fileOffset, downloadBytes);
         // 输出响应
         this.response = new StorageDownloadResponse<T>(callback);
     }

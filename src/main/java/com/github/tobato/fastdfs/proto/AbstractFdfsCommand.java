@@ -83,7 +83,6 @@ public abstract class AbstractFdfsCommand<T> implements FdfsCommand<T> {
         if (null != inputFile) {
             sendFileContent(inputFile, fileSize, out);
         }
-
     }
 
     /**

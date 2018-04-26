@@ -3,7 +3,7 @@ package com.github.tobato.fastdfs.service;
 import java.io.InputStream;
 import java.util.Set;
 
-import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.MataData;
 import com.github.tobato.fastdfs.domain.StorePath;
 
 /**
@@ -23,7 +23,7 @@ public interface FastFileStorageClient extends GenerateStorageClient {
      * @param metaDataSet
      * @return
      */
-    StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MateData> metaDataSet);
+    StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MataData> metaDataSet);
 
     /**
      * 上传图片并且生成缩略图
@@ -39,7 +39,7 @@ public interface FastFileStorageClient extends GenerateStorageClient {
      * @return
      */
     StorePath uploadImageAndCrtThumbImage(InputStream inputStream, long fileSize, String fileExtName,
-            Set<MateData> metaDataSet);
+            Set<MataData> metaDataSet);
 
     /**
      * 删除文件

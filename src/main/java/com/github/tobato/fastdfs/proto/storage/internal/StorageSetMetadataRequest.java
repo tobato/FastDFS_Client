@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.Validate;
 
-import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.MataData;
 import com.github.tobato.fastdfs.proto.CmdConstants;
 import com.github.tobato.fastdfs.proto.FdfsRequest;
 import com.github.tobato.fastdfs.proto.OtherConstants;
@@ -39,8 +39,8 @@ public class StorageSetMetadataRequest extends FdfsRequest {
     @FdfsColumn(index = 4, dynamicField = DynamicFieldType.allRestByte)
     private String path;
     /** 元数据 */
-    @FdfsColumn(index = 5, dynamicField = DynamicFieldType.matedata)
-    private Set<MateData> metaDataSet;
+    @FdfsColumn(index = 5, dynamicField = DynamicFieldType.matadata)
+    private Set<MataData> metaDataSet;
 
     /**
      * 设置文件元数据
@@ -50,7 +50,7 @@ public class StorageSetMetadataRequest extends FdfsRequest {
      * @param metaDataSet
      * @param type
      */
-    public StorageSetMetadataRequest(String groupName, String path, Set<MateData> metaDataSet,
+    public StorageSetMetadataRequest(String groupName, String path, Set<MataData> metaDataSet,
             StorageMetdataSetType type) {
         super();
         Validate.notBlank(groupName, "分组不能为空");
@@ -90,7 +90,7 @@ public class StorageSetMetadataRequest extends FdfsRequest {
         return groupName;
     }
 
-    public Set<MateData> getMetaDataSet() {
+    public Set<MataData> getMetaDataSet() {
         return metaDataSet;
     }
 

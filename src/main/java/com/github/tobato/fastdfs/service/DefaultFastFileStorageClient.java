@@ -10,11 +10,11 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import com.github.tobato.fastdfs.domain.MataData;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;
 
-import com.github.tobato.fastdfs.domain.MateData;
 import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.domain.ThumbImageConfig;
@@ -47,11 +47,11 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      * 上传文件
      */
     @Override
-    public StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MateData> metaDataSet) {
+    public StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MataData> metaDataSet) {
         Validate.notNull(inputStream, "上传文件流不能为空");
         Validate.notBlank(fileExtName, "文件扩展名不能为空");
         StorageNode client = trackerClient.getStoreStorage();
-        return uploadFileAndMateData(client, inputStream, fileSize, fileExtName, metaDataSet);
+        return uploadFileAndMataData(client, inputStream, fileSize, fileExtName, metaDataSet);
     }
 
     /**
@@ -59,7 +59,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      */
     @Override
     public StorePath uploadImageAndCrtThumbImage(InputStream inputStream, long fileSize, String fileExtName,
-            Set<MateData> metaDataSet) {
+            Set<MataData> metaDataSet) {
         Validate.notNull(inputStream, "上传文件流不能为空");
         Validate.notBlank(fileExtName, "文件扩展名不能为空");
         // 检查是否能处理此类图片
@@ -69,8 +69,8 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         StorageNode client = trackerClient.getStoreStorage();
         byte[] bytes = inputStreamToByte(inputStream);
 
-        // 上传文件和mateData
-        StorePath path = uploadFileAndMateData(client, new ByteArrayInputStream(bytes), fileSize, fileExtName,
+        // 上传文件和mataData
+        StorePath path = uploadFileAndMataData(client, new ByteArrayInputStream(bytes), fileSize, fileExtName,
                 metaDataSet);
         // 上传缩略图
         uploadThumbImage(client, new ByteArrayInputStream(bytes), path.getPath(), fileExtName);
@@ -94,12 +94,12 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
     }
 
     /**
-     * 检查是否有MateData
+     * 检查是否有MataData
      * 
      * @param metaDataSet
      * @return
      */
-    private boolean hasMateData(Set<MateData> metaDataSet) {
+    private boolean hasMataData(Set<MataData> metaDataSet) {
         return null != metaDataSet && !metaDataSet.isEmpty();
     }
 
@@ -123,14 +123,14 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      * @param metaDataSet
      * @return
      */
-    private StorePath uploadFileAndMateData(StorageNode client, InputStream inputStream, long fileSize,
-            String fileExtName, Set<MateData> metaDataSet) {
+    private StorePath uploadFileAndMataData(StorageNode client, InputStream inputStream, long fileSize,
+                                            String fileExtName, Set<MataData> metaDataSet) {
         // 上传文件
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, false);
         StorePath path = connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
         // 上传matadata
-        if (hasMateData(metaDataSet)) {
+        if (hasMataData(metaDataSet)) {
             StorageSetMetadataCommand setMDCommand = new StorageSetMetadataCommand(path.getGroup(), path.getPath(),
                     metaDataSet, StorageMetdataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
             connectionManager.executeFdfsCmd(client.getInetSocketAddress(), setMDCommand);
@@ -143,9 +143,8 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      * 
      * @param client
      * @param inputStream
-     * @param fileSize
+     * @param masterFilename
      * @param fileExtName
-     * @param metaDataSet
      */
     private void uploadThumbImage(StorageNode client, InputStream inputStream, String masterFilename,
             String fileExtName) {
@@ -171,7 +170,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
     /**
      * 获取缩略图
      * 
-     * @param filePath
+     * @param inputStream
      * @return
      * @throws IOException
      */

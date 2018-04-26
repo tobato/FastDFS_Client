@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import com.github.tobato.fastdfs.conn.ConnectionManager;
 import org.junit.Test;
 
 import com.github.tobato.fastdfs.TestConstants;
@@ -11,6 +12,9 @@ import com.github.tobato.fastdfs.domain.FileInfo;
 import com.github.tobato.fastdfs.domain.RandomTextFile;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 
 /**
  * 文件基础操作测试演示
@@ -74,6 +78,41 @@ public class StorageClientBasicTest extends StorageClientTestBase {
 
         LOGGER.debug("##删除文件..##");
         storageClient.deleteFile(path.getGroup(), path.getPath());
+    }
+
+    /**
+     * 验证文件部分下载
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testDownLoadSubFile() throws IOException {
+        LOGGER.debug("##上传文件..##");
+        RandomTextFile file = new RandomTextFile("this is a good day to make money!");
+        StorePath path = storageClient.uploadFile(TestConstants.DEFAULT_GROUP, file.getInputStream(),
+                file.getFileSize(), file.getFileExtName());
+        assertNotNull(path);
+        LOGGER.debug("上传文件 result={}", path);
+
+        LOGGER.debug("##查询文件信息..##");
+        FileInfo fileInfo = storageClient.queryFileInfo(path.getGroup(), path.getPath());
+        LOGGER.debug("查询文件信息 result={}", fileInfo);
+
+        LOGGER.debug("##下载文件..##");
+        DownloadByteArray callback = new DownloadByteArray();
+        // 下载部分文件
+        byte[] content = storageClient.downloadFile(path.getGroup(),
+                path.getPath(),2,8,callback);
+
+        // 源文件当中截取
+        byte[] subContent = new byte[8];
+        System.arraycopy(file.toByte(), 2, subContent, 0, 8);
+        // 验证是否一致
+        assertArrayEquals(subContent, content);
+
+        LOGGER.debug("##删除主文件..##");
+        storageClient.deleteFile(path.getGroup(), path.getPath());
+
     }
 
 }

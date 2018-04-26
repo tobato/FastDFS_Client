@@ -9,7 +9,7 @@ import java.util.List;
 import com.github.tobato.fastdfs.domain.GroupState;
 import com.github.tobato.fastdfs.proto.FdfsResponse;
 import com.github.tobato.fastdfs.proto.mapper.FdfsParamMapper;
-import com.github.tobato.fastdfs.proto.mapper.ObjectMateData;
+import com.github.tobato.fastdfs.proto.mapper.ObjectMataData;
 
 /**
  * 列出分组信息执行结果
@@ -50,8 +50,8 @@ public class TrackerListGroupsResponse extends FdfsResponse<List<GroupState>> {
      */
     private List<GroupState> decode(byte[] bs, Charset charset) throws IOException {
         // 获取对象转换定义
-        ObjectMateData objectMateData = FdfsParamMapper.getObjectMap(GroupState.class);
-        int fixFieldsTotalSize = objectMateData.getFieldsFixTotalSize();
+        ObjectMataData objectMataData = FdfsParamMapper.getObjectMap(GroupState.class);
+        int fixFieldsTotalSize = objectMataData.getFieldsFixTotalSize();
         if (bs.length % fixFieldsTotalSize != 0) {
             throw new IOException("byte array length: " + bs.length + " is invalid!");
         }

@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.github.tobato.fastdfs.domain.MataData;
 import org.junit.Test;
 
 import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.domain.MateData;
 import com.github.tobato.fastdfs.domain.RandomTextFile;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsServerException;
@@ -32,31 +32,31 @@ public class StorageClientMetadataTest extends StorageClientTestBase {
         LOGGER.debug("上传文件 result={}", path);
 
         LOGGER.debug("##生成Metadata##");
-        Set<MateData> firstMateData = new HashSet<MateData>();
-        firstMateData.add(new MateData("Author", "wyf"));
-        firstMateData.add(new MateData("CreateDate", "2016-01-05"));
-        storageClient.overwriteMetadata(path.getGroup(), path.getPath(), firstMateData);
+        Set<MataData> firstMataData = new HashSet<MataData>();
+        firstMataData.add(new MataData("Author", "wyf"));
+        firstMataData.add(new MataData("CreateDate", "2016-01-05"));
+        storageClient.overwriteMetadata(path.getGroup(), path.getPath(), firstMataData);
 
         LOGGER.debug("##获取Metadata##");
-        Set<MateData> fetchMateData = storageClient.getMetadata(path.getGroup(), path.getPath());
-        assertEquals(fetchMateData, firstMateData);
+        Set<MataData> fetchMataData = storageClient.getMetadata(path.getGroup(), path.getPath());
+        assertEquals(fetchMataData, firstMataData);
 
         LOGGER.debug("##合并Metadata##");
-        Set<MateData> secendMateData = new HashSet<MateData>();
-        secendMateData.add(new MateData("Author", "tobato"));
-        secendMateData.add(new MateData("CreateDate", "2016-01-05"));
-        storageClient.mergeMetadata(path.getGroup(), path.getPath(), secendMateData);
+        Set<MataData> secendMataData = new HashSet<MataData>();
+        secendMataData.add(new MataData("Author", "tobato"));
+        secendMataData.add(new MataData("CreateDate", "2016-01-05"));
+        storageClient.mergeMetadata(path.getGroup(), path.getPath(), secendMataData);
 
         LOGGER.debug("##第二次获取Metadata##");
-        fetchMateData = storageClient.getMetadata(path.getGroup(), path.getPath());
-        assertEquals(fetchMateData, secendMateData);
+        fetchMataData = storageClient.getMetadata(path.getGroup(), path.getPath());
+        assertEquals(fetchMataData, secendMataData);
 
         LOGGER.debug("##删除主文件..##");
         storageClient.deleteFile(path.getGroup(), path.getPath());
 
         LOGGER.debug("##第三次获取Metadata##");
         try {
-            fetchMateData = storageClient.getMetadata(path.getGroup(), path.getPath());
+            fetchMataData = storageClient.getMetadata(path.getGroup(), path.getPath());
             fail("No exception thrown.");
         } catch (Exception e) {
             assertTrue(e instanceof FdfsServerException);

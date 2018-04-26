@@ -2,7 +2,7 @@ package com.github.tobato.fastdfs.proto.storage;
 
 import java.util.Set;
 
-import com.github.tobato.fastdfs.domain.MateData;
+import com.github.tobato.fastdfs.domain.MataData;
 import com.github.tobato.fastdfs.proto.AbstractFdfsCommand;
 import com.github.tobato.fastdfs.proto.FdfsResponse;
 import com.github.tobato.fastdfs.proto.storage.enums.StorageMetdataSetType;
@@ -24,7 +24,7 @@ public class StorageSetMetadataCommand extends AbstractFdfsCommand<Void> {
      * @param metaDataSet
      * @param type
      */
-    public StorageSetMetadataCommand(String groupName, String path, Set<MateData> metaDataSet,
+    public StorageSetMetadataCommand(String groupName, String path, Set<MataData> metaDataSet,
             StorageMetdataSetType type) {
         this.request = new StorageSetMetadataRequest(groupName, path, metaDataSet, type);
         // 输出响应
