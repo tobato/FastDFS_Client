@@ -1,3 +1,10 @@
+## 1.26.2 (2018-04-26)
+
+Bugfixes:
+
+   - 修正downloadFile分段下载bug (#40,@ligq10)
+   - 修正MetaData拼写错误 (#44, @ThomasYangZi)
+
 ## 1.26.1 (2018-03-20)
 
 update:
