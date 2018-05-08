@@ -94,7 +94,6 @@
                         <configuration>
                             <encoding>UTF-8</encoding>
                             <charset>UTF-8</charset>
-                            <skip>true</skip>
                             <additionalparam>-Xdoclint:none</additionalparam>
                         </configuration>
                     </plugin>

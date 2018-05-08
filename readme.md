@@ -62,7 +62,7 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.26.2-RELEASE</version>
+        <version>1.26.2</version>
     </dependency>
 
 
