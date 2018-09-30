@@ -82,6 +82,8 @@ public class ConnectionManager {
         } finally {
             try {
                 if (null != conn) {
+                    //移除pool
+                    //pool.invalidateObject(address, conn);
                     pool.returnObject(address, conn);
                 }
             } catch (Exception e) {

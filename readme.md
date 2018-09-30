@@ -16,6 +16,10 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
 3. 支持对服务端的连接池管理(commons-pool2)
 4. 支持上传图片时候检查图片格式，并且自动生成缩略图
 
+## 修改日志
+
+版本更新情况请查看[修改日志](/CHANGELOG.md)
+
 ## 运行环境要求
 
 由于笔者主要工作环境是SpringBoot，因此目前客户端主要依赖于SpringBoot
@@ -62,7 +66,7 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.26.2</version>
+        <version>1.26.3</version>
     </dependency>
 
 
@@ -122,7 +126,18 @@ Maven依赖为
 4. AppendFileStorageClient - 支持文件续传操作的接口 (StorageServer接口)
 
 
-## 修改日志
+## 常见问题
 
-版本更新情况请查看[修改日志](/CHANGELOG.md)
+### 1.如何在没有spring-boot的情况下使用
+
+参考下面文章进行改造
+
+https://blog.csdn.net/wzl19870309/article/details/74049204
+
+### 2.高并发下测试出现上传的文件和得到的返回路径的文件不是同一个
+
+通过加大超时时间后解决
+
+    soTimeout: 1500
+    connectTimeout: 600
 
