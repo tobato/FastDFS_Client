@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.tobato.fastdfs.conn.ConnectionManager;
@@ -35,11 +36,11 @@ import com.github.tobato.fastdfs.proto.storage.enums.StorageMetdataSetType;
 public class DefaultGenerateStorageClient implements GenerateStorageClient {
 
     /** trackerClient */
-    @Resource
+    @Autowired
     protected TrackerClient trackerClient;
 
     /** connectManager */
-    @Resource
+    @Autowired
     protected ConnectionManager connectionManager;
 
     /** 日志 */

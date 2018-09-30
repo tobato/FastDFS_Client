@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.tobato.fastdfs.conn.TrackerConnectionManager;
@@ -27,7 +28,7 @@ import com.github.tobato.fastdfs.proto.tracker.TrackerListStoragesCommand;
 @Service
 public class DefaultTrackerClient implements TrackerClient {
 
-    @Resource
+    @Autowired
     private TrackerConnectionManager trackerConnectionManager;
 
     /**
