@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import com.github.tobato.fastdfs.domain.MataData;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.tobato.fastdfs.domain.StorageNode;
@@ -39,8 +40,9 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
     /** 支持的图片类型 */
     private static final String[] SUPPORT_IMAGE_TYPE = { "JPG", "JPEG", "PNG", "GIF", "BMP", "WBMP" };
     private static final List<String> SUPPORT_IMAGE_LIST = Arrays.asList(SUPPORT_IMAGE_TYPE);
+
     /** 缩略图生成配置 */
-    @Resource
+    @Autowired
     private ThumbImageConfig thumbImageConfig;
 
     /**
