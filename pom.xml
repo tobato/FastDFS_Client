@@ -25,19 +25,6 @@
         </developer>
     </developers>
 
-    <distributionManagement>
-        <repository>
-            <id>ccae-releases</id>
-            <name>Nexus Release Repository</name>
-            <url>http://192.168.0.154:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>ccae-snapshots</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>http://192.168.0.154:8081/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <scm>
         <connection>scm:git:git@github.com:tobato/FastDFS_Client.git</connection>
         <developerConnection>scm:git:git@github.com:tobato/FastDFS_Client.git</developerConnection>
