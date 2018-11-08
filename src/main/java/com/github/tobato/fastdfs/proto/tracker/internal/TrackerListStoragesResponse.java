@@ -9,7 +9,7 @@ import java.util.List;
 import com.github.tobato.fastdfs.domain.StorageState;
 import com.github.tobato.fastdfs.proto.FdfsResponse;
 import com.github.tobato.fastdfs.proto.mapper.FdfsParamMapper;
-import com.github.tobato.fastdfs.proto.mapper.ObjectMataData;
+import com.github.tobato.fastdfs.proto.mapper.ObjectMetaData;
 
 /**
  * 列出分组信息执行结果
@@ -44,8 +44,8 @@ public class TrackerListStoragesResponse extends FdfsResponse<List<StorageState>
      */
     private List<StorageState> decode(byte[] bs, Charset charset) throws IOException {
         // 获取对象转换定义
-        ObjectMataData objectMataData = FdfsParamMapper.getObjectMap(StorageState.class);
-        int fixFieldsTotalSize = objectMataData.getFieldsFixTotalSize();
+        ObjectMetaData objectMetaData = FdfsParamMapper.getObjectMap(StorageState.class);
+        int fixFieldsTotalSize = objectMetaData.getFieldsFixTotalSize();
         if (bs.length % fixFieldsTotalSize != 0) {
             throw new IOException("fixFieldsTotalSize=" + fixFieldsTotalSize + "but byte array length: " + bs.length
                     + " is invalid!");

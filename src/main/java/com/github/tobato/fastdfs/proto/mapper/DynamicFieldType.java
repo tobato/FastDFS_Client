@@ -19,6 +19,6 @@ public enum DynamicFieldType {
     /** 可空的属性 */
     nullable,
     /** 文件元数据Set */
-    matadata
+    metadata
 
 }

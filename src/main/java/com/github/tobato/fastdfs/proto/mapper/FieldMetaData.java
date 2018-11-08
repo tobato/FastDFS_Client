@@ -6,18 +6,18 @@ import java.nio.charset.Charset;
 import java.sql.Date;
 import java.util.Set;
 
-import com.github.tobato.fastdfs.domain.MataData;
+import com.github.tobato.fastdfs.domain.MetaData;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import com.github.tobato.fastdfs.proto.OtherConstants;
 
 /**
- * 属性映射MataData定义
+ * 属性映射MetaData定义
  * 
  * @author tobato
  *
  */
-class FieldMataData {
+class FieldMetaData {
 
     /** 列 */
     private Field field;
@@ -38,7 +38,7 @@ class FieldMataData {
      * @param mapedfield
      * @param offsize
      */
-    public FieldMataData(Field mapedfield, int offsize) {
+    public FieldMetaData(Field mapedfield, int offsize) {
         FdfsColumn column = mapedfield.getAnnotation(FdfsColumn.class);
         this.field = mapedfield;
         this.index = column.index();
@@ -142,7 +142,7 @@ class FieldMataData {
 
     @Override
     public String toString() {
-        return "FieldMataData [field=" + getFieldName() + ", index=" + index + ", max=" + max + ", size=" + size
+        return "FieldMetaData [field=" + getFieldName() + ", index=" + index + ", max=" + max + ", size=" + size
                 + ", offsize=" + offsize + "]";
     }
 
@@ -192,9 +192,9 @@ class FieldMataData {
         // 如果是打包剩余的所有Byte
         case allRestByte:
             return BytesUtil.objString2Byte((String) value, charset);
-        // 如果是文件matadata
-        case matadata:
-            return MetadataMapper.toByte((Set<MataData>) value, charset);
+        // 如果是文件metadata
+        case metadata:
+            return MetadataMapper.toByte((Set<MetaData>) value, charset);
         default:
             return BytesUtil.objString2Byte((String) value, charset);
         }
@@ -235,9 +235,9 @@ class FieldMataData {
         // 如果是打包剩余的所有Byte
         case allRestByte:
             return ((String) value).getBytes(charset).length;
-        // 如果是文件matadata
-        case matadata:
-            return MetadataMapper.toByte((Set<MataData>) value, charset).length;
+        // 如果是文件metadata
+        case metadata:
+            return MetadataMapper.toByte((Set<MetaData>) value, charset).length;
         default:
             return getFieldSize(field);
         }

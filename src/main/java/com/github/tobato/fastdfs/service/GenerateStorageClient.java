@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.Set;
 
 import com.github.tobato.fastdfs.domain.FileInfo;
-import com.github.tobato.fastdfs.domain.MataData;
+import com.github.tobato.fastdfs.domain.MetaData;
 import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.storage.DownloadCallback;
 
@@ -52,7 +52,7 @@ public interface GenerateStorageClient {
      * @param path
      * @return
      */
-    Set<MataData> getMetadata(String groupName, String path);
+    Set<MetaData> getMetadata(String groupName, String path);
 
     /**
      * 修改文件元信息（覆盖）
@@ -61,7 +61,7 @@ public interface GenerateStorageClient {
      * @param path
      * @param metaDataSet
      */
-    void overwriteMetadata(String groupName, String path, Set<MataData> metaDataSet);
+    void overwriteMetadata(String groupName, String path, Set<MetaData> metaDataSet);
 
     /**
      * 修改文件元信息（合并）
@@ -70,7 +70,7 @@ public interface GenerateStorageClient {
      * @param path
      * @param metaDataSet
      */
-    void mergeMetadata(String groupName, String path, Set<MataData> metaDataSet);
+    void mergeMetadata(String groupName, String path, Set<MetaData> metaDataSet);
 
     /**
      * 查看文件的信息

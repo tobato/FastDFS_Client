@@ -6,7 +6,7 @@ package com.github.tobato.fastdfs.proto.storage.enums;
  * @author tobato
  *
  */
-public enum StorageMetdataSetType {
+public enum StorageMetadataSetType {
 
     /** 覆盖 */
     STORAGE_SET_METADATA_FLAG_OVERWRITE((byte) 'O'),
@@ -15,7 +15,7 @@ public enum StorageMetdataSetType {
 
     private byte type;
 
-    private StorageMetdataSetType(byte type) {
+    private StorageMetadataSetType(byte type) {
         this.type = type;
     }
 

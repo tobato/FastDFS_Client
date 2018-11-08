@@ -3,19 +3,14 @@ package com.github.tobato.fastdfs.service;
 import java.io.InputStream;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
+import com.github.tobato.fastdfs.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.tobato.fastdfs.conn.ConnectionManager;
-import com.github.tobato.fastdfs.domain.FileInfo;
-import com.github.tobato.fastdfs.domain.MataData;
-import com.github.tobato.fastdfs.domain.StorageNode;
-import com.github.tobato.fastdfs.domain.StorageNodeInfo;
-import com.github.tobato.fastdfs.domain.StorePath;
+import com.github.tobato.fastdfs.domain.MetaData;
 import com.github.tobato.fastdfs.proto.storage.DownloadCallback;
 import com.github.tobato.fastdfs.proto.storage.StorageDeleteFileCommand;
 import com.github.tobato.fastdfs.proto.storage.StorageDownloadCommand;
@@ -24,7 +19,7 @@ import com.github.tobato.fastdfs.proto.storage.StorageQueryFileInfoCommand;
 import com.github.tobato.fastdfs.proto.storage.StorageSetMetadataCommand;
 import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
 import com.github.tobato.fastdfs.proto.storage.StorageUploadSlaveFileCommand;
-import com.github.tobato.fastdfs.proto.storage.enums.StorageMetdataSetType;
+import com.github.tobato.fastdfs.proto.storage.enums.StorageMetadataSetType;
 
 /**
  * 基本存储客户端操作实现
@@ -73,7 +68,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      * 获取metadata
      */
     @Override
-    public Set<MataData> getMetadata(String groupName, String path) {
+    public Set<MetaData> getMetadata(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageGetMetadataCommand command = new StorageGetMetadataCommand(groupName, path);
         return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
@@ -83,10 +78,10 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      * 覆盖metadata
      */
     @Override
-    public void overwriteMetadata(String groupName, String path, Set<MataData> metaDataSet) {
+    public void overwriteMetadata(String groupName, String path, Set<MetaData> metaDataSet) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
-                StorageMetdataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
+                StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
         connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
@@ -94,10 +89,10 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      * 合并metadata
      */
     @Override
-    public void mergeMetadata(String groupName, String path, Set<MataData> metaDataSet) {
+    public void mergeMetadata(String groupName, String path, Set<MetaData> metaDataSet) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
-                StorageMetdataSetType.STORAGE_SET_METADATA_FLAG_MERGE);
+                StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_MERGE);
         connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 

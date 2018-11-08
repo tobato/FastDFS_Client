@@ -20,19 +20,19 @@ import org.slf4j.LoggerFactory;
  * @author tobato
  *
  */
-public class ObjectMataData {
+public class ObjectMetaData {
 
     /** 日志 */
-    private static Logger LOGGER = LoggerFactory.getLogger(ObjectMataData.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ObjectMetaData.class);
 
     /** 映射对象类名 */
     private String className;
 
     /** 映射列(全部) */
-    private List<FieldMataData> fieldList = new ArrayList<FieldMataData>();
+    private List<FieldMetaData> fieldList = new ArrayList<FieldMetaData>();
 
     /** 动态计算列(部分)fieldList包含dynamicFieldList */
-    private List<FieldMataData> dynamicFieldList = new ArrayList<FieldMataData>();
+    private List<FieldMetaData> dynamicFieldList = new ArrayList<FieldMetaData>();
 
     /** FieldsTotalSize */
     private int fieldsTotalSize = 0;
@@ -42,7 +42,7 @@ public class ObjectMataData {
      * 
      * @param genericType
      */
-    public <T> ObjectMataData(Class<T> genericType) {
+    public <T> ObjectMetaData(Class<T> genericType) {
         // 获得对象类名
         this.className = genericType.getName();
         this.fieldList = praseFieldList(genericType);
@@ -54,7 +54,7 @@ public class ObjectMataData {
         return className;
     }
 
-    public List<FieldMataData> getFieldList() {
+    public List<FieldMetaData> getFieldList() {
         return Collections.unmodifiableList(fieldList);
     }
 
@@ -63,18 +63,18 @@ public class ObjectMataData {
      * 
      * @return
      */
-    private <T> List<FieldMataData> praseFieldList(Class<T> genericType) {
+    private <T> List<FieldMetaData> praseFieldList(Class<T> genericType) {
         Field[] fields = genericType.getDeclaredFields();
-        List<FieldMataData> mapedFieldList = new ArrayList<FieldMataData>();
+        List<FieldMetaData> mapedFieldList = new ArrayList<FieldMetaData>();
         for (int i = 0; i < fields.length; i++) {
             if (fields[i].isAnnotationPresent(FdfsColumn.class)) {
-                FieldMataData fieldMataData = new FieldMataData(fields[i], fieldsTotalSize);
-                mapedFieldList.add(fieldMataData);
+                FieldMetaData fieldMetaData = new FieldMetaData(fields[i], fieldsTotalSize);
+                mapedFieldList.add(fieldMetaData);
                 // 计算偏移量
-                fieldsTotalSize += fieldMataData.getRealeSize();
+                fieldsTotalSize += fieldMetaData.getRealeSize();
                 // 如果是动态计算列
-                if (fieldMataData.isDynamicField()) {
-                    dynamicFieldList.add(fieldMataData);
+                if (fieldMetaData.isDynamicField()) {
+                    dynamicFieldList.add(fieldMetaData);
                 }
             }
         }
@@ -89,7 +89,7 @@ public class ObjectMataData {
      * </pre>
      */
     private void validatFieldListDefine() {
-        for (FieldMataData field : fieldList) {
+        for (FieldMetaData field : fieldList) {
             validatFieldItemDefineByIndex(field);
         }
     }
@@ -99,8 +99,8 @@ public class ObjectMataData {
      * 
      * @param field
      */
-    private void validatFieldItemDefineByIndex(FieldMataData field) {
-        for (FieldMataData otherfield : fieldList) {
+    private void validatFieldItemDefineByIndex(FieldMetaData field) {
+        for (FieldMetaData otherfield : fieldList) {
             if (!field.equals(otherfield) && (field.getIndex() == otherfield.getIndex())) {
                 Object[] param = { className, field.getFieldName(), otherfield.getFieldName(), field.getIndex() };
                 LOGGER.warn("在类{}映射定义中{}与{}索引定义相同为{}(请检查是否为程序错误)", param);
@@ -114,7 +114,7 @@ public class ObjectMataData {
      * @return
      */
     private boolean hasDynamicField() {
-        for (FieldMataData field : fieldList) {
+        for (FieldMetaData field : fieldList) {
             if (field.isDynamicField()) {
                 return true;
             }
@@ -133,7 +133,7 @@ public class ObjectMataData {
     private int getDynamicFieldSize(Object obj, Charset charset)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         int size = 0;
-        for (FieldMataData field : dynamicFieldList) {
+        for (FieldMetaData field : dynamicFieldList) {
             size = size + field.getDynamicFieldByteSize(obj, charset);
         }
         return size;
@@ -197,10 +197,10 @@ public class ObjectMataData {
      * 导出调试信息
      *
      */
-    public void dumpObjectMataData() {
+    public void dumpObjectMetaData() {
         LOGGER.debug("dump class={}", className);
         LOGGER.debug("----------------------------------------");
-        for (FieldMataData md : fieldList) {
+        for (FieldMetaData md : fieldList) {
             LOGGER.debug(md.toString());
         }
     }

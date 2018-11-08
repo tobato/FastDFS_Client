@@ -2,7 +2,7 @@ package com.github.tobato.fastdfs.proto.storage;
 
 import java.util.Set;
 
-import com.github.tobato.fastdfs.domain.MataData;
+import com.github.tobato.fastdfs.domain.MetaData;
 import com.github.tobato.fastdfs.proto.AbstractFdfsCommand;
 import com.github.tobato.fastdfs.proto.storage.internal.StorageGetMetadataRequest;
 import com.github.tobato.fastdfs.proto.storage.internal.StorageGetMetadataResponse;
@@ -13,7 +13,7 @@ import com.github.tobato.fastdfs.proto.storage.internal.StorageGetMetadataRespon
  * @author tobato
  *
  */
-public class StorageGetMetadataCommand extends AbstractFdfsCommand<Set<MataData>> {
+public class StorageGetMetadataCommand extends AbstractFdfsCommand<Set<MetaData>> {
 
     /**
      * 设置文件标签(元数据)

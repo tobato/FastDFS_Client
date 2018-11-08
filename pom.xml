@@ -3,8 +3,9 @@
 
     <groupId>com.github.tobato</groupId>
     <artifactId>fastdfs-client</artifactId>
-    <version>1.26.4-SNAPSHOT</version>
+    <version>1.26.4</version>
     <packaging>jar</packaging>
+    <!-- x-SNAPSHOT -->
 
     <name>fastdfs-client</name>
     <description>基于yuqih发布的代码与fastdfs-client 官方1.26版本的重构</description>

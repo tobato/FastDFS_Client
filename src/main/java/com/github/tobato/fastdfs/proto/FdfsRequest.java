@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import com.github.tobato.fastdfs.proto.mapper.FdfsParamMapper;
-import com.github.tobato.fastdfs.proto.mapper.ObjectMataData;
+import com.github.tobato.fastdfs.proto.mapper.ObjectMetaData;
 
 /**
  * Fdfs交易请求基类
@@ -57,8 +57,8 @@ public abstract class FdfsRequest {
      * @return
      */
     protected long getBodyLength(Charset charset) {
-        ObjectMataData objectMataData = FdfsParamMapper.getObjectMap(this.getClass());
-        return objectMataData.getFieldsSendTotalByteSize(this, charset) + getFileSize();
+        ObjectMetaData objectMetaData = FdfsParamMapper.getObjectMap(this.getClass());
+        return objectMetaData.getFieldsSendTotalByteSize(this, charset) + getFileSize();
     }
 
     public InputStream getInputFile() {

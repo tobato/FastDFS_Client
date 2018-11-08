@@ -3,9 +3,9 @@ package com.github.tobato.fastdfs.proto.storage.internal;
 import java.nio.charset.Charset;
 import java.util.Set;
 
+import com.github.tobato.fastdfs.domain.MetaData;
 import org.apache.commons.lang3.Validate;
 
-import com.github.tobato.fastdfs.domain.MataData;
 import com.github.tobato.fastdfs.proto.CmdConstants;
 import com.github.tobato.fastdfs.proto.FdfsRequest;
 import com.github.tobato.fastdfs.proto.OtherConstants;
@@ -13,7 +13,7 @@ import com.github.tobato.fastdfs.proto.ProtoHead;
 import com.github.tobato.fastdfs.proto.mapper.DynamicFieldType;
 import com.github.tobato.fastdfs.proto.mapper.FdfsColumn;
 import com.github.tobato.fastdfs.proto.mapper.MetadataMapper;
-import com.github.tobato.fastdfs.proto.storage.enums.StorageMetdataSetType;
+import com.github.tobato.fastdfs.proto.storage.enums.StorageMetadataSetType;
 
 /**
  * 设置文件标签
@@ -28,7 +28,7 @@ public class StorageSetMetadataRequest extends FdfsRequest {
     private int fileNameByteLengh;
     /** 元数据byte长度 */
     @FdfsColumn(index = 1)
-    private int mataDataByteLength;
+    private int metaDataByteLength;
     /** 操作标记（重写/覆盖） */
     @FdfsColumn(index = 2)
     private byte opFlag;
@@ -39,8 +39,8 @@ public class StorageSetMetadataRequest extends FdfsRequest {
     @FdfsColumn(index = 4, dynamicField = DynamicFieldType.allRestByte)
     private String path;
     /** 元数据 */
-    @FdfsColumn(index = 5, dynamicField = DynamicFieldType.matadata)
-    private Set<MataData> metaDataSet;
+    @FdfsColumn(index = 5, dynamicField = DynamicFieldType.metadata)
+    private Set<MetaData> metaDataSet;
 
     /**
      * 设置文件元数据
@@ -50,8 +50,8 @@ public class StorageSetMetadataRequest extends FdfsRequest {
      * @param metaDataSet
      * @param type
      */
-    public StorageSetMetadataRequest(String groupName, String path, Set<MataData> metaDataSet,
-            StorageMetdataSetType type) {
+    public StorageSetMetadataRequest(String groupName, String path, Set<MetaData> metaDataSet,
+            StorageMetadataSetType type) {
         super();
         Validate.notBlank(groupName, "分组不能为空");
         Validate.notBlank(path, "分组不能为空");
@@ -71,14 +71,13 @@ public class StorageSetMetadataRequest extends FdfsRequest {
     public byte[] encodeParam(Charset charset) {
         // 运行时参数在此计算值
         this.fileNameByteLengh = path.getBytes(charset).length;
-        this.mataDataByteLength = getMetaDataSetByteSize(charset);
+        this.metaDataByteLength = getMetaDataSetByteSize(charset);
         return super.encodeParam(charset);
     }
 
     /**
      * 获取metaDataSet长度
      * 
-     * @param metaDataSet
      * @param charset
      * @return
      */
@@ -90,7 +89,7 @@ public class StorageSetMetadataRequest extends FdfsRequest {
         return groupName;
     }
 
-    public Set<MataData> getMetaDataSet() {
+    public Set<MetaData> getMetaDataSet() {
         return metaDataSet;
     }
 
@@ -106,8 +105,8 @@ public class StorageSetMetadataRequest extends FdfsRequest {
         return fileNameByteLengh;
     }
 
-    public int getMataDataByteLength() {
-        return mataDataByteLength;
+    public int getMetaDataByteLength() {
+        return metaDataByteLength;
     }
 
 }

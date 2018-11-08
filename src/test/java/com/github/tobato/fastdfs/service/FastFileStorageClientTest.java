@@ -43,35 +43,35 @@ public class FastFileStorageClientTest {
     protected static Logger LOGGER = LoggerFactory.getLogger(FastFileStorageClientTest.class);
 
     /**
-     * 上传文件，并且设置MataData
+     * 上传文件，并且设置MetaData
      */
     @Test
-    public void testUploadFileAndMataData() {
+    public void testUploadFileAndMetaData() {
 
         LOGGER.debug("##上传文件..##");
         RandomTextFile file = new RandomTextFile();
         // Metadata
-        Set<MataData> metaDataSet = createMataData();
+        Set<MetaData> metaDataSet = createMetaData();
         // 上传文件和Metadata
         StorePath path = storageClient.uploadFile(file.getInputStream(), file.getFileSize(), file.getFileExtName(),
                 metaDataSet);
         assertNotNull(path);
         LOGGER.debug("上传文件路径{}", path);
 
-        // 验证获取MataData
+        // 验证获取MetaData
         LOGGER.debug("##获取Metadata##");
-        Set<MataData> fetchMataData = storageClient.getMetadata(path.getGroup(), path.getPath());
-        assertEquals(fetchMataData, metaDataSet);
+        Set<MetaData> fetchMetaData = storageClient.getMetadata(path.getGroup(), path.getPath());
+        assertEquals(fetchMetaData, metaDataSet);
 
         LOGGER.debug("##删除文件..##");
         storageClient.deleteFile(path.getGroup(), path.getPath());
     }
 
     /**
-     * 不带MataData也应该能上传成功
+     * 不带MetaData也应该能上传成功
      */
     @Test
-    public void testUploadFileWithoutMataData() {
+    public void testUploadFileWithoutMetaData() {
 
         LOGGER.debug("##上传文件..##");
         RandomTextFile file = new RandomTextFile();
@@ -90,14 +90,14 @@ public class FastFileStorageClientTest {
     @Test
     public void testUploadImageAndCrtThumbImage() {
         LOGGER.debug("##上传文件..##");
-        Set<MataData> metaDataSet = createMataData();
+        Set<MetaData> metaDataSet = createMetaData();
         StorePath path = uploadImageAndCrtThumbImage(TestConstants.PERFORM_FILE_PATH, metaDataSet);
         LOGGER.debug("上传文件路径{}", path);
 
-        // 验证获取MataData
+        // 验证获取MetaData
         LOGGER.debug("##获取Metadata##");
-        Set<MataData> fetchMataData = storageClient.getMetadata(path.getGroup(), path.getPath());
-        assertEquals(fetchMataData, metaDataSet);
+        Set<MetaData> fetchMetaData = storageClient.getMetadata(path.getGroup(), path.getPath());
+        assertEquals(fetchMetaData, metaDataSet);
 
         // 验证获取从文件
         LOGGER.debug("##获取Metadata##");
@@ -116,7 +116,7 @@ public class FastFileStorageClientTest {
      * @param filePath
      * @return
      */
-    private StorePath uploadImageAndCrtThumbImage(String filePath, Set<MataData> metaDataSet) {
+    private StorePath uploadImageAndCrtThumbImage(String filePath, Set<MetaData> metaDataSet) {
         InputStream in = null;
         File file = TestUtils.getFile(filePath);
         String fileExtName = FilenameUtils.getExtension(file.getName());
@@ -139,10 +139,10 @@ public class FastFileStorageClientTest {
 
     }
 
-    private Set<MataData> createMataData() {
-        Set<MataData> metaDataSet = new HashSet<MataData>();
-        metaDataSet.add(new MataData("Author", "wyf"));
-        metaDataSet.add(new MataData("CreateDate", "2016-01-05"));
+    private Set<MetaData> createMetaData() {
+        Set<MetaData> metaDataSet = new HashSet<MetaData>();
+        metaDataSet.add(new MetaData("Author", "wyf"));
+        metaDataSet.add(new MetaData("CreateDate", "2016-01-05"));
         return metaDataSet;
     }
 

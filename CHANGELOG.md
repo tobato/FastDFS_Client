@@ -1,12 +1,22 @@
+## 1.26.4 (2018-11-10)
+
+Features:
+
+   - 加入自动加载机制spring boot autoconfigure（#82 @Lzgabel）,无需再@Import(FdfsClientConfig.class)
+
+BugFixes:
+
+   - 拼写错误Mate错误拼写为Mata(#85 @Abigale-ztg)
+   
 ## 1.26.3 (2018-09-30)
 
-Bugfixes:
+BugFixes:
 
    - 依赖注入改为@Autowired强制按类型注入(#58 #79)
    
 ## 1.26.2 (2018-04-26)
 
-Bugfixes:
+BugFixes:
 
    - 修正downloadFile分段下载bug (#40,@ligq10)
    - 修正MetaData拼写错误 (#44, @ThomasYangZi)
@@ -22,7 +32,7 @@ update:
 
 ## 1.25.4 (2017-06-14)
 
-Bugfixes:
+BugFixes:
 
   - 解决在SpringBoot项目当中JMX重复注册的问题 (#8,#18,@flykarry,@SevenSecondsOfMemory)
   
@@ -67,7 +77,7 @@ Features:
 
   - 优化无法连接后端服务器时候的错误输出，输出连接配置地址
 
-Bugfixes:
+BugFixes:
 
   - 修正打包时候将application.yml打包的问题 (#1,@wmz7year)
   - 修正设置MetaData错误 (#5, @yuck0419)

@@ -8,9 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
-import com.github.tobato.fastdfs.domain.MataData;
+import com.github.tobato.fastdfs.domain.MetaData;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ import com.github.tobato.fastdfs.exception.FdfsUploadImageException;
 import com.github.tobato.fastdfs.proto.storage.StorageSetMetadataCommand;
 import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
 import com.github.tobato.fastdfs.proto.storage.StorageUploadSlaveFileCommand;
-import com.github.tobato.fastdfs.proto.storage.enums.StorageMetdataSetType;
+import com.github.tobato.fastdfs.proto.storage.enums.StorageMetadataSetType;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -49,11 +47,11 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      * 上传文件
      */
     @Override
-    public StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MataData> metaDataSet) {
+    public StorePath uploadFile(InputStream inputStream, long fileSize, String fileExtName, Set<MetaData> metaDataSet) {
         Validate.notNull(inputStream, "上传文件流不能为空");
         Validate.notBlank(fileExtName, "文件扩展名不能为空");
         StorageNode client = trackerClient.getStoreStorage();
-        return uploadFileAndMataData(client, inputStream, fileSize, fileExtName, metaDataSet);
+        return uploadFileAndMetaData(client, inputStream, fileSize, fileExtName, metaDataSet);
     }
 
     /**
@@ -61,7 +59,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      */
     @Override
     public StorePath uploadImageAndCrtThumbImage(InputStream inputStream, long fileSize, String fileExtName,
-            Set<MataData> metaDataSet) {
+            Set<MetaData> metaDataSet) {
         Validate.notNull(inputStream, "上传文件流不能为空");
         Validate.notBlank(fileExtName, "文件扩展名不能为空");
         // 检查是否能处理此类图片
@@ -71,8 +69,8 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         StorageNode client = trackerClient.getStoreStorage();
         byte[] bytes = inputStreamToByte(inputStream);
 
-        // 上传文件和mataData
-        StorePath path = uploadFileAndMataData(client, new ByteArrayInputStream(bytes), fileSize, fileExtName,
+        // 上传文件和mestaData
+        StorePath path = uploadFileAndMetaData(client, new ByteArrayInputStream(bytes), fileSize, fileExtName,
                 metaDataSet);
         // 上传缩略图
         uploadThumbImage(client, new ByteArrayInputStream(bytes), path.getPath(), fileExtName);
@@ -96,12 +94,12 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
     }
 
     /**
-     * 检查是否有MataData
+     * 检查是否有MetaData
      * 
      * @param metaDataSet
      * @return
      */
-    private boolean hasMataData(Set<MataData> metaDataSet) {
+    private boolean hasMetaData(Set<MetaData> metaDataSet) {
         return null != metaDataSet && !metaDataSet.isEmpty();
     }
 
@@ -125,16 +123,16 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      * @param metaDataSet
      * @return
      */
-    private StorePath uploadFileAndMataData(StorageNode client, InputStream inputStream, long fileSize,
-                                            String fileExtName, Set<MataData> metaDataSet) {
+    private StorePath uploadFileAndMetaData(StorageNode client, InputStream inputStream, long fileSize,
+                                            String fileExtName, Set<MetaData> metaDataSet) {
         // 上传文件
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, false);
         StorePath path = connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
-        // 上传matadata
-        if (hasMataData(metaDataSet)) {
+        // 上传metadata
+        if (hasMetaData(metaDataSet)) {
             StorageSetMetadataCommand setMDCommand = new StorageSetMetadataCommand(path.getGroup(), path.getPath(),
-                    metaDataSet, StorageMetdataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
+                    metaDataSet, StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
             connectionManager.executeFdfsCmd(client.getInetSocketAddress(), setMDCommand);
         }
         return path;
