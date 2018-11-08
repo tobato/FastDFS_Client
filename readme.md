@@ -15,6 +15,7 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
 2. 将以前对byte硬解析风格重构为使用 对象+注解 的形式，尽量增强了代码的可读性
 3. 支持对服务端的连接池管理(commons-pool2)
 4. 支持上传图片时候检查图片格式，并且自动生成缩略图
+5. 在SpringBoot当中自动导入依赖
 
 ## 修改日志
 
@@ -71,6 +72,10 @@ Maven依赖为
 
 
 ### 2.将Fdfs配置引入项目
+
+在Maven当中配置依赖以后，SpringBoot项目将会自动导入FastDFS依赖(感谢@Lzgabel)。
+
+#### FastDFS-Client 1.26.4版本以前引入方式
 
 将FastDFS-Client客户端引入本地化项目的方式非常简单，在SpringBoot项目`/src/[com.xxx.主目录]/conf`当中配置
 
