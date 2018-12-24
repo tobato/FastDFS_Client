@@ -1,17 +1,15 @@
 package com.github.tobato.fastdfs.domain;
 
-import java.io.InputStream;
-
-import org.apache.commons.lang3.RandomStringUtils;
-
 import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.TestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+
+import java.io.InputStream;
 
 /**
  * 测试用随机字符文件
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class RandomTextFile {
 
@@ -21,7 +19,7 @@ public class RandomTextFile {
 
     private long fileSize;
 
-    private String fileExtName = "text";
+    private String fileExtName = "txt";
 
     public RandomTextFile() {
         this.text = RandomStringUtils.random(30, "762830abdcefghijklmnopqrstuvwxyz0991822-");

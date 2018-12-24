@@ -1,24 +1,24 @@
 package com.github.tobato.fastdfs.service;
 
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+
 import java.io.InputStream;
 
-import com.github.tobato.fastdfs.domain.StorePath;
 
 /**
  * 支持断点续传的文件服务接口
- * 
+ * <p>
  * <pre>
  * 适合处理大文件，分段传输
  * </pre>
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public interface AppendFileStorageClient extends GenerateStorageClient {
 
     /**
      * 上传支持断点续传的文件
-     * 
+     *
      * @param groupName
      * @param inputStream
      * @param fileSize
@@ -29,7 +29,7 @@ public interface AppendFileStorageClient extends GenerateStorageClient {
 
     /**
      * 断点续传文件
-     * 
+     *
      * @param groupName
      * @param path
      * @param inputStream
@@ -39,7 +39,7 @@ public interface AppendFileStorageClient extends GenerateStorageClient {
 
     /**
      * 修改续传文件的内容
-     * 
+     *
      * @param groupName
      * @param path
      * @param inputStream
@@ -50,7 +50,7 @@ public interface AppendFileStorageClient extends GenerateStorageClient {
 
     /**
      * 清除续传类型文件的内容
-     * 
+     *
      * @param groupName
      * @param path
      * @param truncatedFileSize
@@ -59,7 +59,7 @@ public interface AppendFileStorageClient extends GenerateStorageClient {
 
     /**
      * 清除续传类型文件的内容
-     * 
+     *
      * @param groupName
      * @param path
      */

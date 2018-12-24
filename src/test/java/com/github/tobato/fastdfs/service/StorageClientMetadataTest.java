@@ -1,24 +1,22 @@
 package com.github.tobato.fastdfs.service;
 
-import static org.junit.Assert.*;
+import com.github.tobato.fastdfs.TestConstants;
+import com.github.tobato.fastdfs.domain.RandomTextFile;
+import com.github.tobato.fastdfs.domain.fdfs.MetaData;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.proto.ErrorCodeConstants;
+import com.github.tobato.fastdfs.exception.FdfsServerException;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.github.tobato.fastdfs.domain.MetaData;
-import org.junit.Test;
-
-import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.domain.RandomTextFile;
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.exception.FdfsServerException;
-import com.github.tobato.fastdfs.proto.ErrorCodeConstants;
+import static org.junit.Assert.*;
 
 /**
  * Metadata操作演示
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class StorageClientMetadataTest extends StorageClientTestBase {
 

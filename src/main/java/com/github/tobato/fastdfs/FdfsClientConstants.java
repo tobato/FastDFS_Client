@@ -1,10 +1,9 @@
 package com.github.tobato.fastdfs;
 
 /**
- * 客户端常量配置
- * 
- * @author tobato
+ * FDFSClient常量配置
  *
+ * @author tobato
  */
 public class FdfsClientConstants {
 
@@ -12,12 +11,24 @@ public class FdfsClientConstants {
         // hide for constants
     }
 
-    /** 配置文件前缀 */
+    /**
+     * 支持图片类型
+     */
+    public static final String[] SUPPORT_IMAGE_TYPE = {"JPG", "JPEG", "PNG", "GIF", "BMP", "WBMP"};
+
+    /**
+     * 配置文件前缀
+     */
     public static final String ROOT_CONFIG_PREFIX = "fdfs";
 
+    /**
+     * 缩略图配置
+     */
     public static final String THUMB_IMAGE_CONFIG_PREFIX = "fdfs.thumb-image";
 
+    /**
+     * 连接池配置
+     */
     public static final String POOL_CONFIG_PREFIX = "fdfs.pool";
 
-    // public static final String CONFIG_PREFIX = "fdfs";
 }

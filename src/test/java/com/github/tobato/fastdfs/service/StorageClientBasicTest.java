@@ -1,32 +1,27 @@
 package com.github.tobato.fastdfs.service;
 
-import static org.junit.Assert.*;
+import com.github.tobato.fastdfs.TestConstants;
+import com.github.tobato.fastdfs.domain.RandomTextFile;
+import com.github.tobato.fastdfs.domain.fdfs.FileInfo;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
+import org.junit.Test;
 
 import java.io.IOException;
 
-import com.github.tobato.fastdfs.conn.ConnectionManager;
-import org.junit.Test;
-
-import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.domain.FileInfo;
-import com.github.tobato.fastdfs.domain.RandomTextFile;
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.Resource;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * 文件基础操作测试演示
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class StorageClientBasicTest extends StorageClientTestBase {
 
     /**
      * 基本文件上传操作测试
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -63,7 +58,7 @@ public class StorageClientBasicTest extends StorageClientTestBase {
 
     /**
      * 演示上传文件的时候Group可以为空
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -102,7 +97,7 @@ public class StorageClientBasicTest extends StorageClientTestBase {
         DownloadByteArray callback = new DownloadByteArray();
         // 下载部分文件
         byte[] content = storageClient.downloadFile(path.getGroup(),
-                path.getPath(),2,8,callback);
+                path.getPath(), 2, 8, callback);
 
         // 源文件当中截取
         byte[] subContent = new byte[8];

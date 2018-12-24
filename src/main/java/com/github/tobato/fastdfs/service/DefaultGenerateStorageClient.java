@@ -1,44 +1,40 @@
 package com.github.tobato.fastdfs.service;
 
-import java.io.InputStream;
-import java.util.Set;
-
-import com.github.tobato.fastdfs.domain.*;
+import com.github.tobato.fastdfs.domain.conn.ConnectionManager;
+import com.github.tobato.fastdfs.domain.fdfs.*;
+import com.github.tobato.fastdfs.domain.proto.storage.*;
+import com.github.tobato.fastdfs.domain.proto.storage.enums.StorageMetadataSetType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.tobato.fastdfs.conn.ConnectionManager;
-import com.github.tobato.fastdfs.domain.MetaData;
-import com.github.tobato.fastdfs.proto.storage.DownloadCallback;
-import com.github.tobato.fastdfs.proto.storage.StorageDeleteFileCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageDownloadCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageGetMetadataCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageQueryFileInfoCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageSetMetadataCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageUploadSlaveFileCommand;
-import com.github.tobato.fastdfs.proto.storage.enums.StorageMetadataSetType;
+import java.io.InputStream;
+import java.util.Set;
 
 /**
  * 基本存储客户端操作实现
- * 
- * @author tobato
  *
+ * @author tobato
  */
 @Component
 public class DefaultGenerateStorageClient implements GenerateStorageClient {
 
-    /** trackerClient */
+    /**
+     * trackerClient
+     */
     @Autowired
     protected TrackerClient trackerClient;
 
-    /** connectManager */
+    /**
+     * connectManager
+     */
     @Autowired
     protected ConnectionManager connectionManager;
 
-    /** 日志 */
+    /**
+     * 日志
+     */
     protected static Logger LOGGER = LoggerFactory.getLogger(DefaultGenerateStorageClient.class);
 
     /**
@@ -57,7 +53,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      */
     @Override
     public StorePath uploadSlaveFile(String groupName, String masterFilename, InputStream inputStream, long fileSize,
-            String prefixName, String fileExtName) {
+                                     String prefixName, String fileExtName) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, masterFilename);
         StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(inputStream, fileSize, masterFilename,
                 prefixName, fileExtName);
@@ -131,7 +127,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      */
     @Override
     public <T> T downloadFile(String groupName, String path, long fileOffset, long fileSize,
-            DownloadCallback<T> callback) {
+                              DownloadCallback<T> callback) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageDownloadCommand<T> command = new StorageDownloadCommand<T>(groupName, path, fileOffset, fileSize, callback);
         return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);

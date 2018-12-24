@@ -1,27 +1,26 @@
 package com.github.tobato.fastdfs.service;
 
-import static org.junit.Assert.*;
+import com.github.tobato.fastdfs.TestConstants;
+import com.github.tobato.fastdfs.domain.RandomTextFile;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
+import org.junit.Test;
 
 import java.io.IOException;
 
-import org.junit.Test;
-
-import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.domain.RandomTextFile;
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * 支持断点续传的文件操作演示
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class StorageClientAppendFileTest extends StorageClientTestBase {
 
     /**
      * 支持断点续传的文件操作测试
-     * 
+     *
      * @throws IOException
      */
     @Test
@@ -70,7 +69,7 @@ public class StorageClientAppendFileTest extends StorageClientTestBase {
 
     /**
      * 合并文件内容
-     * 
+     *
      * @param file
      * @param secendFile
      * @return

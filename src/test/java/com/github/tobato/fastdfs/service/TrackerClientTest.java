@@ -2,11 +2,11 @@ package com.github.tobato.fastdfs.service;
 
 import com.github.tobato.fastdfs.FastdfsTestApplication;
 import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.domain.GroupState;
-import com.github.tobato.fastdfs.domain.StorageNode;
-import com.github.tobato.fastdfs.domain.StorageState;
+import com.github.tobato.fastdfs.domain.fdfs.GroupState;
+import com.github.tobato.fastdfs.domain.fdfs.StorageNode;
+import com.github.tobato.fastdfs.domain.fdfs.StorageState;
+import com.github.tobato.fastdfs.domain.proto.ErrorCodeConstants;
 import com.github.tobato.fastdfs.exception.FdfsServerException;
-import com.github.tobato.fastdfs.proto.ErrorCodeConstants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -15,22 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 /**
  * unit test for TrackerClientService
- * 
- * @author tobato
  *
+ * @author tobato
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = FastdfsTestApplication.class)
 public class TrackerClientTest {
 
-    /** 日志 */
+    /**
+     * 日志
+     */
     private static Logger LOGGER = LoggerFactory.getLogger(TrackerClientTest.class);
 
     @Autowired

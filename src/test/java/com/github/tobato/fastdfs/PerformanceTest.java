@@ -1,21 +1,19 @@
 package com.github.tobato.fastdfs;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.service.AppendFileStorageClient;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.service.AppendFileStorageClient;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 性能测试
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class PerformanceTest {
 

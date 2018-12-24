@@ -4,11 +4,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.tobato.fastdfs.proto.ErrorCodeConstants;
+import com.github.tobato.fastdfs.domain.proto.ErrorCodeConstants;
 
 /**
  * fastdfs服务端返回的错误码构成的异常
- * 
+ *
  * @author yuqih
  * @author tobato
  */
@@ -19,7 +19,9 @@ public class FdfsServerException extends FdfsException {
      */
     private static final long serialVersionUID = 1L;
 
-    /** 错误对照表 */
+    /**
+     * 错误对照表
+     */
     private static final Map<Integer, String> CODE_MESSAGE_MAPPING;
 
     static {
@@ -37,7 +39,7 @@ public class FdfsServerException extends FdfsException {
     private int errorCode;
 
     /**
-     * 
+     *
      */
     private FdfsServerException(int errorCode, String message) {
         super(message);

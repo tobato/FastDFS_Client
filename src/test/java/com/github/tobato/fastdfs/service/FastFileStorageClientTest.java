@@ -3,7 +3,11 @@ package com.github.tobato.fastdfs.service;
 import com.github.tobato.fastdfs.FastdfsTestApplication;
 import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.TestUtils;
-import com.github.tobato.fastdfs.domain.*;
+import com.github.tobato.fastdfs.domain.RandomTextFile;
+import com.github.tobato.fastdfs.domain.fdfs.FileInfo;
+import com.github.tobato.fastdfs.domain.fdfs.MetaData;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.fdfs.ThumbImageConfig;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,9 +29,8 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * FastFileStorageClient客户端
- * 
- * @author tobato
  *
+ * @author tobato
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = FastdfsTestApplication.class)
@@ -39,7 +42,9 @@ public class FastFileStorageClientTest {
     @Autowired
     private ThumbImageConfig thumbImageConfig;
 
-    /** 日志 */
+    /**
+     * 日志
+     */
     protected static Logger LOGGER = LoggerFactory.getLogger(FastFileStorageClientTest.class);
 
     /**
@@ -112,7 +117,7 @@ public class FastFileStorageClientTest {
 
     /**
      * 上传文件
-     * 
+     *
      * @param filePath
      * @return
      */
@@ -141,7 +146,7 @@ public class FastFileStorageClientTest {
 
     private Set<MetaData> createMetaData() {
         Set<MetaData> metaDataSet = new HashSet<MetaData>();
-        metaDataSet.add(new MetaData("Author", "wyf"));
+        metaDataSet.add(new MetaData("Author", "tobato"));
         metaDataSet.add(new MetaData("CreateDate", "2016-01-05"));
         return metaDataSet;
     }

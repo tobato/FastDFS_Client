@@ -1,22 +1,20 @@
 package com.github.tobato.fastdfs.service;
 
-import java.io.InputStream;
-
+import com.github.tobato.fastdfs.domain.fdfs.StorageNode;
+import com.github.tobato.fastdfs.domain.fdfs.StorageNodeInfo;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.proto.storage.StorageAppendFileCommand;
+import com.github.tobato.fastdfs.domain.proto.storage.StorageModifyCommand;
+import com.github.tobato.fastdfs.domain.proto.storage.StorageTruncateCommand;
+import com.github.tobato.fastdfs.domain.proto.storage.StorageUploadFileCommand;
 import org.springframework.stereotype.Component;
 
-import com.github.tobato.fastdfs.domain.StorageNode;
-import com.github.tobato.fastdfs.domain.StorageNodeInfo;
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.proto.storage.StorageAppendFileCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageModifyCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageTruncateCommand;
-import com.github.tobato.fastdfs.proto.storage.StorageUploadFileCommand;
+import java.io.InputStream;
 
 /**
  * 存储服务客户端接口实现
- * 
- * @author tobato
  *
+ * @author tobato
  */
 @Component
 public class DefaultAppendFileStorageClient extends DefaultGenerateStorageClient implements AppendFileStorageClient {
