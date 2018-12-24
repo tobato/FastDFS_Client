@@ -1,4 +1,4 @@
-FastDFS-Client 1.26.4(2018-12-24)
+FastDFS-Client 1.26.5(2018-12-24)
 ---
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
