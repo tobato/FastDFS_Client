@@ -1,4 +1,4 @@
-FastDFS-Client 1.26.4(2018-11-10)
+FastDFS-Client 1.26.4(2018-12-24)
 ---
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
@@ -67,7 +67,7 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.26.4</version>
+        <version>1.26.5</version>
     </dependency>
 
 
