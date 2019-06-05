@@ -1,15 +1,14 @@
 package com.github.tobato.fastdfs;
 
+import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
+
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
-import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
-
 /**
  * 测试常量定义
- * 
- * @author tobato
  *
+ * @author tobato
  */
 @SuppressWarnings("unused")
 public class TestConstants {
@@ -27,5 +26,6 @@ public class TestConstants {
 
     public static final String PERFORM_FILE_PATH = "/images/gs.jpg";
     public static final String CAT_IMAGE_FILE = "/images/cat.jpg";
+    public static final String FLY_IMAGE_FILE = "/images/fly.png";
 
 }

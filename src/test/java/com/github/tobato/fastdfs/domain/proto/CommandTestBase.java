@@ -55,4 +55,11 @@ public class CommandTestBase {
         return new FdfsConnectionPool(new PooledConnectionFactory());
     }
 
+    /**
+     * 导出pool信息
+     */
+    protected void dumpPool() {
+        manager.dumpPoolInfo(TestConstants.store_address);
+    }
+
 }

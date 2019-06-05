@@ -1,12 +1,11 @@
 package com.github.tobato.fastdfs.domain.proto;
 
+import com.github.tobato.fastdfs.domain.proto.mapper.FdfsParamMapper;
+import org.springframework.core.GenericTypeResolver;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-
-import org.springframework.core.GenericTypeResolver;
-
-import com.github.tobato.fastdfs.domain.proto.mapper.FdfsParamMapper;
 
 /**
  * Fdfs交易应答基类
@@ -33,8 +32,6 @@ public abstract class FdfsResponse<T> {
 
     /**
      * 构造函数
-     *
-     * @param genericType
      */
     @SuppressWarnings("unchecked")
     public FdfsResponse() {

@@ -4,7 +4,7 @@
 
     <groupId>com.github.tobato</groupId>
     <artifactId>fastdfs-client</artifactId>
-    <version>1.26.6-SNAPSHOT</version>
+    <version>1.26.5</version>
     <packaging>jar</packaging>
     <!-- x-SNAPSHOT -->
 
@@ -43,7 +43,7 @@
     <properties>
         <!-- commons utils -->
         <commons-lang3.version>3.3.2</commons-lang3.version>
-        <commons-beanutils.version>1.9.1</commons-beanutils.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
 
         <mockito.version>1.9.5</mockito.version>
         <hibernate-validator.version>6.0.8.Final</hibernate-validator.version>

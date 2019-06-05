@@ -11,11 +11,10 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
- * 验证会轮询地址
+ * 验证连接池管理
  *
  * @author tobato
  */
@@ -26,15 +25,13 @@ public class TrackerConnectionManagerTest {
      */
     protected static Logger LOGGER = LoggerFactory.getLogger(TrackerConnectionManagerTest.class);
 
-    private String[] ips = {"192.168.174.141:22122", "192.168.1.115:22122"};
-    private List<String> trackerIpList = Arrays.asList(ips);
-
+    /**
+     * 会对tracker连接地址列表进行轮询
+     */
     @Test
     public void testConnectionManager() {
         // 初始化
-        TrackerConnectionManager manager = new TrackerConnectionManager(createPool());
-        manager.setTrackerList(trackerIpList);
-        manager.initTracker();
+        TrackerConnectionManager manager = crtInvalidateIpListManager();
         List<GroupState> list = null;
         // 第一次执行
         try {
@@ -54,9 +51,28 @@ public class TrackerConnectionManagerTest {
             assertTrue(e instanceof FdfsConnectException);
         }
 
-        LOGGER.debug("执行结果{}", list);
+        assertNull(list);
     }
 
+    /**
+     * 创建无效的IP地址列表连接管理
+     *
+     * @return
+     */
+    private TrackerConnectionManager crtInvalidateIpListManager() {
+        String[] ips = {"192.168.174.141:22122", "192.168.1.115:22122"};
+        List<String> trackerIpList = Arrays.asList(ips);
+        TrackerConnectionManager manager = new TrackerConnectionManager(createPool());
+        manager.setTrackerList(trackerIpList);
+        manager.initTracker();
+        return manager;
+    }
+
+    /**
+     * 创建连接池
+     *
+     * @return
+     */
     private FdfsConnectionPool createPool() {
         PooledConnectionFactory factory = new PooledConnectionFactory();
         factory.setConnectTimeout(TestConstants.connectTimeout);

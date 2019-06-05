@@ -20,6 +20,7 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -262,37 +263,6 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
     }
 
     /**
-     * 上传缩略图
-     *
-     * @param client
-     * @param inputStream
-     * @param masterFilename
-     * @param fileExtName
-     */
-    private void uploadThumbImage(StorageNode client, InputStream inputStream, String masterFilename,
-                                  String fileExtName) {
-        ByteArrayInputStream thumbImageStream = null;
-        try {
-            thumbImageStream = generateThumbImageByDefault(inputStream);// getFileInputStream
-            // 获取文件大小
-            long fileSize = thumbImageStream.available();
-            // 获取缩略图前缀
-            String prefixName = thumbImageConfig.getPrefixName();
-            LOGGER.debug("上传缩略图主文件={},前缀={}", masterFilename, prefixName);
-            StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(thumbImageStream, fileSize,
-                    masterFilename, prefixName, fileExtName);
-            connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
-
-        } catch (IOException e) {
-            LOGGER.error("upload ThumbImage error", e);
-            throw new FdfsUploadImageException("upload ThumbImage error", e.getCause());
-        } finally {
-            IOUtils.closeQuietly(thumbImageStream);
-        }
-    }
-
-
-    /**
      * 生成缩略图
      *
      * @param inputStream
@@ -332,6 +302,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         Thumbnails
                 .of(inputStream)
                 .scale(thumbImage.getPercent())
+                .imageType(BufferedImage.TYPE_INT_ARGB)
                 .toOutputStream(out);
         //@formatter:on
         return new ByteArrayInputStream(out.toByteArray());
@@ -354,6 +325,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         Thumbnails
                 .of(inputStream)
                 .size(thumbImage.getWidth(), thumbImage.getHeight())
+                .imageType(BufferedImage.TYPE_INT_ARGB)
                 .toOutputStream(out);
         //@formatter:on
         return new ByteArrayInputStream(out.toByteArray());
@@ -374,6 +346,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         Thumbnails
                 .of(inputStream)
                 .size(thumbImageConfig.getWidth(), thumbImageConfig.getHeight())
+                .imageType(BufferedImage.TYPE_INT_ARGB)
                 .toOutputStream(out);
         //@formatter:on
         return new ByteArrayInputStream(out.toByteArray());

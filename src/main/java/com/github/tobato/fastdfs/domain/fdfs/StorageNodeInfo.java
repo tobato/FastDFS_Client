@@ -1,9 +1,9 @@
 package com.github.tobato.fastdfs.domain.fdfs;
 
-import java.net.InetSocketAddress;
-
 import com.github.tobato.fastdfs.domain.proto.OtherConstants;
 import com.github.tobato.fastdfs.domain.proto.mapper.FdfsColumn;
+
+import java.net.InetSocketAddress;
 
 /**
  * 向tracker请求上传、下载文件或其他文件请求时，tracker返回的文件storage节点的信息
@@ -24,7 +24,6 @@ public class StorageNodeInfo {
      *
      * @param ip
      * @param port
-     * @param storeIndex
      */
     public StorageNodeInfo(String ip, int port) {
         super();

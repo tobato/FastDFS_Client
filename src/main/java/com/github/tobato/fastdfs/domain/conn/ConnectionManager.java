@@ -11,9 +11,11 @@ import java.net.InetSocketAddress;
 
 /**
  * 连接池管理
- * <p>
  * <pre>
  * 负责借出连接，在连接上执行业务逻辑，然后归还连
+ *
+ * ConnectionManager类主要负责StorageConnect连接管理
+ * ConnectionManager类扩展的子类{@link TrackerConnectionManager}主要负责TrackerConnection连接管理
  * </pre>
  *
  * @author tobato
@@ -72,25 +74,64 @@ public class ConnectionManager {
      * @return
      */
     protected <T> T execute(InetSocketAddress address, Connection conn, FdfsCommand<T> command) {
+        boolean isException = false;
         try {
             // 执行交易
             LOGGER.debug("对地址{}发出交易请求{}", address, command.getClass().getSimpleName());
             return command.execute(conn);
         } catch (FdfsException e) {
+            LOGGER.error("execute fdfs command error", e);
+            isException = true;
             throw e;
         } catch (Exception e) {
-            LOGGER.error("execute fdfs command error", e);
+            LOGGER.error("execute fdfs command exception", e);
+            isException = true;
             throw new RuntimeException("execute fdfs command error", e);
         } finally {
-            try {
-                if (null != conn) {
-                    //移除pool
-                    //pool.invalidateObject(address, conn);
-                    pool.returnObject(address, conn);
-                }
-            } catch (Exception e) {
-                LOGGER.error("return pooled connection error", e);
+            if (isException) {
+                //移除连接
+                LOGGER.debug("remove connect {}", conn);
+                removeConnect(address, conn);
+            } else {
+                //归还连接
+                LOGGER.debug("return connect {}", conn);
+                returnConnect(address, conn);
             }
+
+        }
+    }
+
+    /**
+     * 出现例外时从连接池移除连接
+     *
+     * @param address
+     * @param conn
+     */
+    private void removeConnect(InetSocketAddress address, Connection conn) {
+        try {
+            if (null != conn) {
+                //移除pool
+                pool.invalidateObject(address, conn);
+            }
+        } catch (Exception e) {
+            LOGGER.error("remove pooled connection error", e);
+        }
+    }
+
+    /**
+     * 归还连接
+     *
+     * @param address
+     * @param conn
+     */
+    private void returnConnect(InetSocketAddress address, Connection conn) {
+        try {
+            if (null != conn) {
+                //归还连接
+                pool.returnObject(address, conn);
+            }
+        } catch (Exception e) {
+            LOGGER.error("return pooled connection error", e);
         }
     }
 
@@ -122,6 +163,11 @@ public class ConnectionManager {
         this.pool = pool;
     }
 
+    /**
+     * 打印连接池情况
+     *
+     * @param address
+     */
     public void dumpPoolInfo(InetSocketAddress address) {
 
         LOGGER.debug("==============Begin Dump Pool Info==========");

@@ -75,7 +75,7 @@ public class FileInfo {
     }
 
     /**
-     * @param size the size to set
+     * @param fileSize the size to set
      */
     public void setFileSize(long fileSize) {
         this.fileSize = fileSize;

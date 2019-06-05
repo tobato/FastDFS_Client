@@ -1,11 +1,14 @@
 package com.github.tobato.fastdfs.domain.proto.storage;
 
+import com.github.tobato.fastdfs.exception.FdfsIOException;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
 
 /**
  * 文件下载回调方法
@@ -13,6 +16,11 @@ import org.apache.commons.io.IOUtils;
  * @author tobato
  */
 public class DownloadFileWriter implements DownloadCallback<String> {
+
+    /**
+     * 日志
+     */
+    protected static Logger LOGGER = LoggerFactory.getLogger(DownloadFileWriter.class);
 
     /**
      * 文件名称
@@ -37,7 +45,8 @@ public class DownloadFileWriter implements DownloadCallback<String> {
             IOUtils.copy(in, out);
             out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("文件下载接收处理失败", e.getCause());
+            throw new FdfsIOException("文件下载接收处理失败");
         } finally {
             // 关闭流
             IOUtils.closeQuietly(in);
