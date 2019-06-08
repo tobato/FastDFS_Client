@@ -1,4 +1,4 @@
-FastDFS-Client 1.26.5(2019-06-08)
+FastDFS-Client 1.26.6(2019-06-08)
 ---
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
@@ -154,3 +154,6 @@ https://blog.csdn.net/wzl19870309/article/details/74049204
     soTimeout: 1500
     connectTimeout: 600
 
+### 3.新手不会用
+
+阅读单元测试，从学习test/java/com/github/tobato/fastdfs/service下的单元测试入手
