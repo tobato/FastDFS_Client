@@ -52,4 +52,7 @@ public class RandomTextFile {
         return this.text.getBytes(TestConstants.DEFAULT_CHARSET);
     }
 
+    public void setFileExtName(String fileExtName) {
+        this.fileExtName = fileExtName;
+    }
 }

@@ -146,6 +146,7 @@ public class ConnectionManager {
         try {
             // 获取连接
             conn = pool.borrowObject(address);
+            //dumpPoolInfo(address);
         } catch (FdfsException e) {
             throw e;
         } catch (Exception e) {
@@ -171,6 +172,11 @@ public class ConnectionManager {
     public void dumpPoolInfo(InetSocketAddress address) {
 
         LOGGER.debug("==============Begin Dump Pool Info==========");
+        LOGGER.debug("Address={}", address);
+        LOGGER.debug("连接池最大连接数配置{}", pool.getMaxTotal());
+        LOGGER.debug("每个Key最大连接数配置{}", pool.getMaxTotalPerKey());
+        LOGGER.debug("每个key对应连接池最大空闲连接数{}", pool.getMaxIdlePerKey());
+        LOGGER.debug("每个key对应连接池最小空闲连接数{}", pool.getMinIdlePerKey());
         LOGGER.debug("活动连接{}", pool.getNumActive(address));
         LOGGER.debug("空闲连接{}", pool.getNumIdle(address));
         LOGGER.debug("连接获取总数统计{}", pool.getBorrowedCount());

@@ -18,7 +18,22 @@ public class ConnectionPoolConfig extends GenericKeyedObjectPoolConfig {
     /**
      * 从池中借出的对象的最大数目
      */
-    public static final int FDFS_MAX_TOTAL = 50;
+    public static final int FDFS_MAX_TOTAL = -1;
+
+    /**
+     * 每个Key最大连接数
+     */
+    public static final int FDFS_MAX_TOTAL_PER_KEY = 50;
+
+    /**
+     * 每个key对应的连接池最大空闲连接数
+     */
+    public static final int FDFS_MAX_IDLE_PER_KEY = 10;
+
+    /**
+     * 每个key对应的连接池最小空闲连接数
+     */
+    public static final int FDFS_MIN_IDLE_PER_KEY = 5;
 
     /**
      * 在空闲时检查有效性, 默认false
@@ -35,7 +50,7 @@ public class ConnectionPoolConfig extends GenericKeyedObjectPoolConfig {
      * 获取连接时的最大等待毫秒数(如果设置为阻塞时BlockWhenExhausted)
      * 如果超时就抛异常,小于零:阻塞不确定的时间,默认-1
      */
-    public static final long FDFS_MAX_WAIT_MILLIS = 100;
+    public static final long FDFS_MAX_WAIT_MILLIS = 1000 * 5;
 
     public static final long FDFS_MIN_EVICTABLE_IDLETIME_MILLIS = 180000;
 
@@ -61,6 +76,7 @@ public class ConnectionPoolConfig extends GenericKeyedObjectPoolConfig {
      */
     public static final String FDFS_JMX_NAME_PREFIX = "fdfsPool";
 
+
     public ConnectionPoolConfig() {
         // 从池中借出的对象的最大数目
         setMaxTotal(FDFS_MAX_TOTAL);
@@ -68,8 +84,14 @@ public class ConnectionPoolConfig extends GenericKeyedObjectPoolConfig {
         setTestWhileIdle(FDFS_TEST_WHILE_IDLE);
         // 连接耗尽时是否阻塞(默认true)
         setBlockWhenExhausted(FDFS_BLOCK_WHEN_EXHAUSTED);
-        // 获取连接时的最大等待毫秒数100
+        // 获取连接时的最大等待5秒
         setMaxWaitMillis(FDFS_MAX_WAIT_MILLIS);
+        // 每个key对应的池最大连接数
+        setMaxTotalPerKey(FDFS_MAX_TOTAL_PER_KEY);
+        // 每个key对应的连接池最大空闲连接数
+        setMaxIdlePerKey(FDFS_MAX_IDLE_PER_KEY);
+        // 每个key对应的连接池最小空闲连接数
+        setMinIdlePerKey(FDFS_MIN_IDLE_PER_KEY);
         // 视休眠时间超过了180秒的对象为过期
         setMinEvictableIdleTimeMillis(FDFS_MIN_EVICTABLE_IDLETIME_MILLIS);
         // 每过60秒进行一次后台对象清理的行动

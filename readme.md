@@ -1,4 +1,4 @@
-FastDFS-Client 1.26.5(2018-12-24)
+FastDFS-Client 1.26.5(2019-06-08)
 ---
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
@@ -67,7 +67,7 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.26.5</version>
+        <version>1.26.6</version>
     </dependency>
 
 
@@ -111,15 +111,23 @@ Maven依赖为
         - 192.168.1.105:22122
         - 192.168.1.106:22122 
 
-如果有必要可以参考 apache.pool2 参数配置连接池属性
+如果有必要可以参考 apache.pool2 参数配置连接池属性，默认配置为
 
     fdfs:
        ..其他配置信息..
       pool:
-        #从池中借出的对象的最大数目
-        max-total: 153
-        #获取连接时的最大等待毫秒数100
-         max-wait-millis: 102
+        #从池中借出的对象的最大数目（配置为-1表示不限制）
+        max-total: -1
+        #获取连接时的最大等待毫秒数(默认配置为5秒)
+        max-wait-millis: 5*1000
+        #每个key最大连接数
+        max-total-per-key: 50
+        #每个key对应的连接池最大空闲连接数
+        max-idle-per-key: 10
+        #每个key对应的连接池最小空闲连接数
+        max_idle_per_key: 5
+
+注意: key配置的是连接服务端的地址(IP+端口)连接情况，如果有连接不够用的情况可以调整以上参数
 
 ### 4.使用接口服务对Fdfs服务端进行操作
 

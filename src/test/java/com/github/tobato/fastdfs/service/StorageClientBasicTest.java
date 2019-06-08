@@ -9,8 +9,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * 文件基础操作测试演示
@@ -54,6 +53,22 @@ public class StorageClientBasicTest extends StorageClientTestBase {
         LOGGER.debug("##删除从文件..##");
         storageClient.deleteFile(slavePath.getGroup(), slavePath.getPath());
 
+    }
+
+    /**
+     * 测试上传文件的时候不提供后缀名称
+     */
+    @Test
+    public void testUploadWithoutExtName() {
+        LOGGER.debug("##上传文件..##");
+        RandomTextFile file = new RandomTextFile();
+        file.setFileExtName(null);
+        assertNull(file.getFileExtName());
+
+        StorePath path = storageClient.uploadFile(TestConstants.DEFAULT_GROUP, file.getInputStream(),
+                file.getFileSize(), file.getFileExtName());
+        assertNotNull(path);
+        LOGGER.debug("上传文件 result={}", path);
     }
 
     /**
@@ -107,6 +122,31 @@ public class StorageClientBasicTest extends StorageClientTestBase {
 
         LOGGER.debug("##删除主文件..##");
         storageClient.deleteFile(path.getGroup(), path.getPath());
+
+    }
+
+
+    /**
+     * 测试多次下载是否报错
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testMultiDownload() throws IOException {
+        LOGGER.debug("##上传文件..##");
+        RandomTextFile file = new RandomTextFile();
+        StorePath path = storageClient.uploadFile(TestConstants.DEFAULT_GROUP, file.getInputStream(),
+                file.getFileSize(), file.getFileExtName());
+        assertNotNull(path);
+        LOGGER.debug("上传文件 result={}", path);
+
+        //连续下载60次
+        for (int i = 0; i < 60; i++) {
+            LOGGER.debug("##下载文件..##");
+            DownloadByteArray callback = new DownloadByteArray();
+            byte[] content = storageClient.downloadFile(path.getGroup(), path.getPath(), callback);
+            assertArrayEquals(content, file.toByte());
+        }
 
     }
 

@@ -13,6 +13,9 @@ import org.junit.Test;
  */
 public class StorageMonkeyDownloadTest extends StorageCommandTestBase {
 
+    /**
+     * 问题#121当发生异常时，怎么把链接中对应的流数据一次性清空
+     */
     @Test
     public void testStorageDownloadCommand() {
         // 上传文件
