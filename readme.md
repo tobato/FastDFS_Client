@@ -157,3 +157,11 @@ https://blog.csdn.net/wzl19870309/article/details/74049204
 ### 3.新手不会用
 
 阅读单元测试，从学习test/java/com/github/tobato/fastdfs/service下的单元测试入手
+
+## 参考资料
+
+对于FDFS服务端相关的问题可以在下面的论坛找到一些材料
+
+[FastDFS论坛](http://bbs.chinaunix.net/forum-240-1.html)
+
+[FastDFS常见问题](http://bbs.chinaunix.net/thread-1920470-1-1.html)
