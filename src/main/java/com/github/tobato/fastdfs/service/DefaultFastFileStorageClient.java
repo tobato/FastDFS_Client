@@ -248,7 +248,9 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
             long fileSize = thumbImageStream.available();
             // 获取配置缩略图前缀
             String prefixName = thumbImage.getPrefixName();
-            LOGGER.error("获取到缩略图前缀{}", prefixName);
+	        if (LOGGER.isDebugEnabled()) {
+		        LOGGER.debug("获取到缩略图前缀{}", prefixName);
+	        }
             StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(thumbImageStream, fileSize,
                     masterFilename, prefixName, fastImageFile.getFileExtName());
             connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
