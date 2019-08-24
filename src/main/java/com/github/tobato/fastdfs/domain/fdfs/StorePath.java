@@ -88,7 +88,7 @@ public class StorePath {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -126,7 +126,6 @@ public class StorePath {
         if (paths.length == 1) {
             throw new FdfsUnsupportStorePathException("解析文件路径错误,有效的路径样式为(group/path) 而当前解析路径为".concat(filePath));
         }
-        System.out.println(paths);
         for (String item : paths) {
             if (item.indexOf(SPLIT_GROUP_NAME) != -1) {
                 return item;

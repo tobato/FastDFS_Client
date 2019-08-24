@@ -23,7 +23,7 @@ public class ConnectionTest extends MockServerTestBase {
     public void testCheck() {
         // 创建连接测试
         Connection conn = createConnection();
-        System.out.println("当前连接状态" + conn.isValid());
+        LOGGER.debug("当前连接状态={}", conn.isValid());
         conn.close();
     }
 

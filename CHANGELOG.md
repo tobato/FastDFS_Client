@@ -1,3 +1,14 @@
+## 1.26.7 (2019-08-24)
+
+BugFixes:
+
+   - 修复StorePath.getGroupName中有额外的输出(#137 @jerry-yuan)
+   - 修复DefaultGenerateStorageClient当中错误的LOGGER.error(#136 @Gsmsu @zhangmrit)
+   
+升级提示:
+
+  - 没有接口改动，可以直接从1.26.6升级
+   
 ## 1.26.6 (2019-06-08)
 
 BugFixes:

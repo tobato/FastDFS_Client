@@ -1,13 +1,17 @@
 package com.github.tobato.soket.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
 import java.net.Socket;
 
 public class Handler implements Runnable {
+    /**
+     * 日志
+     */
+    private final Logger LOGGER = LoggerFactory.getLogger(Handler.class);
+
     private Socket socket;
 
     public Handler(Socket socket) {
@@ -16,7 +20,7 @@ public class Handler implements Runnable {
 
     public void run() {
         try {
-            System.out.println("新连接:" + socket.getInetAddress() + ":" + socket.getPort());
+            LOGGER.debug("新连接={}:{}", socket.getInetAddress(), socket.getPort());
             // Thread.sleep(10000);
             InputStream in = socket.getInputStream();
             DataInputStream din = new DataInputStream(in);
@@ -30,7 +34,7 @@ public class Handler implements Runnable {
             e.printStackTrace();
         } finally {
             try {
-                System.out.println("关闭连接:" + socket.getInetAddress() + ":" + socket.getPort());
+                LOGGER.debug("关闭连接={}:{}", socket.getInetAddress(), socket.getPort());
                 if (socket != null)
                     socket.close();
             } catch (IOException e) {

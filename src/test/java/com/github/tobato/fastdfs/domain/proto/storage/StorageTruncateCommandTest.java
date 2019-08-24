@@ -20,7 +20,7 @@ public class StorageTruncateCommandTest extends StorageCommandTestBase {
         InputStream firstIn = getTextInputStream(text);
         long firstSize = firstIn.available();
         // 上载文字
-        System.out.println(firstSize);
+        LOGGER.debug("文件大小={}", firstSize);
         StorePath path = uploadInputStream(firstIn, "txt", firstSize, true);
         // 文件截取
         StorageTruncateCommand command = new StorageTruncateCommand(path.getPath(), 0);

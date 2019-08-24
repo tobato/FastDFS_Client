@@ -25,7 +25,6 @@ public class ClientDemo {
 
         String st = din.readUTF();
 
-        // System.out.println(st);
         in.close();
         out.close();
         s.close();
