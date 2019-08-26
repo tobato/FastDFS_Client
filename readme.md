@@ -17,6 +17,10 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
 4. 支持上传图片时候检查图片格式，并且自动生成缩略图
 5. 在SpringBoot当中自动导入依赖
 
+## 参考文档
+
+想要学习掌握更多FastDFS的架构原理可以参考本[项目文档](https://github.com/tobato/FastDFS_Client/wiki).
+
 ## 修改日志
 
 版本更新情况请查看[修改日志](/CHANGELOG.md)
@@ -158,7 +162,7 @@ https://blog.csdn.net/wzl19870309/article/details/74049204
 
 阅读单元测试，从学习test/java/com/github/tobato/fastdfs/service下的单元测试入手
 
-## 参考资料
+## 其他参考资料
 
 对于FDFS服务端相关的问题可以在下面的论坛找到一些材料
 
