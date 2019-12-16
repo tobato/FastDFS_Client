@@ -28,9 +28,16 @@ public interface FastFileStorageClient extends GenerateStorageClient {
 
     /**
      * 上传图片并且生成缩略图
-     * <p>
      * <pre>
      * 支持的图片格式包括"JPG", "JPEG", "PNG", "GIF", "BMP", "WBMP"
+     *
+     * 缩略图为上传文件名+缩略图后缀 _150x150,如 xxx.jpg,缩略图为 xxx_150x150.jpg
+     *
+     * 实际样例如下
+     *
+     *  原图   http://localhost:8098/M00/00/17/rBEAAl33pQaAWNQNAAHYvQQn-YE374.jpg
+     *  缩略图 http://localhost:8098/M00/00/17/rBEAAl33pQaAWNQNAAHYvQQn-YE374_150x150.jpg
+     *
      * </pre>
      *
      * @param inputStream

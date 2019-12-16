@@ -91,6 +91,14 @@ public class FastFileStorageClientTest {
 
     /**
      * 上传图片，并且生成缩略图
+     * <pre>
+     *     缩略图为上传文件名+缩略图后缀 _150x150,如 xxx.jpg,缩略图为 xxx_150x150.jpg
+     *
+     * 实际样例如下
+     *
+     * http://localhost:8098/M00/00/17/rBEAAl33pQaAWNQNAAHYvQQn-YE374.jpg
+     * http://localhost:8098/M00/00/17/rBEAAl33pQaAWNQNAAHYvQQn-YE374_150x150.jpg
+     * </pre>
      */
     @Test
     public void testUploadImageAndCrtThumbImage() {
@@ -145,7 +153,7 @@ public class FastFileStorageClientTest {
     }
 
     private Set<MetaData> createMetaData() {
-        Set<MetaData> metaDataSet = new HashSet<MetaData>();
+        Set<MetaData> metaDataSet = new HashSet<>();
         metaDataSet.add(new MetaData("Author", "tobato"));
         metaDataSet.add(new MetaData("CreateDate", "2016-01-05"));
         return metaDataSet;

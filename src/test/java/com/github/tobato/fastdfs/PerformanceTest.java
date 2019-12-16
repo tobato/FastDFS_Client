@@ -17,6 +17,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -41,6 +43,7 @@ public class PerformanceTest {
      */
     @Test
     public void testUploadPerformance() {
+        final Set pathStore = new HashSet();
         final AtomicInteger failCount = new AtomicInteger(0);
         final AtomicInteger count = new AtomicInteger(0);
         int totalCount = 20;
@@ -57,6 +60,16 @@ public class PerformanceTest {
                         byte[] bytes = FileUtils.readFileToByteArray(new File(path.getPath()));
                         StorePath storePath = storageClient.uploadFile(null, new ByteArrayInputStream(bytes),
                                 bytes.length, "jpg");
+                        if (pathStore.contains(storePath.getPath())) {
+                            LOGGER.error("并发上传文件冲突！！！！！");
+                            LOGGER.error("并发上传文件冲突！！！！！");
+                            LOGGER.error("并发上传文件冲突！！！！！");
+                        } else {
+                            LOGGER.info("upload: {}", storePath.getPath());
+                            pathStore.add(storePath.getPath());
+                        }
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         failCount.incrementAndGet();

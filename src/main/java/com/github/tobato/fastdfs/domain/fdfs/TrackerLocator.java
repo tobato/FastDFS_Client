@@ -1,17 +1,10 @@
 package com.github.tobato.fastdfs.domain.fdfs;
 
-import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
 import org.apache.commons.lang3.StringUtils;
 
-import com.github.tobato.fastdfs.exception.FdfsUnavailableException;
+import java.net.InetSocketAddress;
+import java.util.*;
 
 /**
  * 表示Tracker服务器位置
@@ -27,27 +20,27 @@ public class TrackerLocator {
     /**
      * 10分钟以后重试连接
      */
-    private static final int DEFAULT_RETRY_AFTER_SECEND = 10 * 60;
+    private static final int DEFAULT_RETRY_AFTER_SECOND = 10 * 60;
 
     /**
      * tracker服务配置地址列表
      */
-    private List<String> trackerList = new ArrayList<String>();
+    private List<String> trackerList = new ArrayList<>();
 
     /**
      * 目录服务地址-为了加速处理，增加了一个map
      */
-    private Map<InetSocketAddress, TrackerAddressHolder> trackerAddressMap = new HashMap<InetSocketAddress, TrackerAddressHolder>();
+    private Map<InetSocketAddress, TrackerAddressHolder> trackerAddressMap = new HashMap<>();
 
     /**
      * 轮询圈
      */
-    private CircularList<TrackerAddressHolder> trackerAddressCircular = new CircularList<TrackerAddressHolder>();
+    private CircularList<TrackerAddressHolder> trackerAddressCircular = new CircularList<>();
 
     /**
      * 连接中断以后经过N秒重试
      */
-    private int retryAfterSecend = DEFAULT_RETRY_AFTER_SECEND;
+    private int retryAfterSecond = DEFAULT_RETRY_AFTER_SECOND;
 
     /**
      * 初始化Tracker服务器地址
@@ -65,7 +58,7 @@ public class TrackerLocator {
      * 分析TrackerAddress
      */
     private void buildTrackerAddresses() {
-        Set<InetSocketAddress> addressSet = new HashSet<InetSocketAddress>();
+        Set<InetSocketAddress> addressSet = new HashSet<>();
         for (String item : trackerList) {
             if (StringUtils.isBlank(item)) {
                 continue;
@@ -91,21 +84,21 @@ public class TrackerLocator {
         this.trackerList = trackerList;
     }
 
-    public void setRetryAfterSecend(int retryAfterSecend) {
-        this.retryAfterSecend = retryAfterSecend;
+    public void setRetryAfterSecond(int retryAfterSecond) {
+        this.retryAfterSecond = retryAfterSecond;
     }
 
     /**
      * 获取Tracker服务器地址
      *
-     * @return
+     * @return trackerAddress
      */
     public InetSocketAddress getTrackerAddress() {
         TrackerAddressHolder holder;
         // 遍历连接地址,抓取当前有效的地址
         for (int i = 0; i < trackerAddressCircular.size(); i++) {
             holder = trackerAddressCircular.next();
-            if (holder.canTryToConnect(retryAfterSecend)) {
+            if (holder.canTryToConnect(retryAfterSecond)) {
                 return holder.getAddress();
             }
         }
@@ -115,7 +108,7 @@ public class TrackerLocator {
     /**
      * 获取配置地址列表
      *
-     * @return
+     * @return trackerAddressConfig
      */
     private String getTrackerAddressConfigString() {
         StringBuffer config = new StringBuffer();
