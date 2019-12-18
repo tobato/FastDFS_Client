@@ -95,7 +95,7 @@ public class FastFile {
     }
 
     public Set<MetaData> getMetaDataSet() {
-        return Collections.unmodifiableSet(metaDataSet);
+        return metaDataSet != null ? Collections.unmodifiableSet(metaDataSet) : Collections.EMPTY_SET;
     }
 
     public String getGroupName() {

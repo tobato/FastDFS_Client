@@ -4,9 +4,10 @@ import com.github.tobato.fastdfs.domain.RandomTextFile;
 import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.HashSet;
 
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 /**
  * FastFile单元测试
@@ -26,6 +27,23 @@ public class FastFileTest {
                 .withFile(file.getInputStream(), file.getFileSize(), file.getFileExtName())
                 .withMetaData(null)
                 .build();
+    }
+
+    /**
+     * 元数据不能为空
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testBuildMateDataNotSet() throws Exception {
+        RandomTextFile file = new RandomTextFile();
+        FastFile fastFile = new FastFile(file.getInputStream(),
+                file.getFileSize(),
+                file.getFileExtName(),
+                null);
+        assertNotNull(fastFile.getFileExtName());
+
+        assertEquals(fastFile.getMetaDataSet(), Collections.EMPTY_SET);
     }
 
     /**

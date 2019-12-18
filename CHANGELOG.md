@@ -3,6 +3,7 @@
 BugFixes:
 
    - 修复DEFAULT_RETRY_AFTER_SECOND拼写错误(#181 @liangxiong3403)
+   - 修复metaDataSet default value logic bug(#182 @liangxiong3403)
 
 Docs:
 
