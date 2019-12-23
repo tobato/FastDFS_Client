@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.domain.conn.ConnectionManager;
+import com.github.tobato.fastdfs.domain.conn.FdfsConnectionManager;
 import com.github.tobato.fastdfs.domain.conn.FdfsConnectionPool;
 import com.github.tobato.fastdfs.domain.conn.PooledConnectionFactory;
 
@@ -22,7 +22,7 @@ public class CommandTestBase {
     /**
      * 连接池
      */
-    protected ConnectionManager manager = createConnectionManager();
+    protected FdfsConnectionManager manager = createConnectionManager();
 
     /**
      * 执行Tracker交易命令
@@ -44,8 +44,8 @@ public class CommandTestBase {
         return manager.executeFdfsCmd(TestConstants.store_address, command);
     }
 
-    private ConnectionManager createConnectionManager() {
-        return new ConnectionManager(createPool());
+    private FdfsConnectionManager createConnectionManager() {
+        return new FdfsConnectionManager(createPool());
     }
 
     private FdfsConnectionPool createPool() {
