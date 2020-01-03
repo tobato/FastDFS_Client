@@ -1,6 +1,6 @@
 package com.github.tobato.fastdfs.service;
 
-import com.github.tobato.fastdfs.domain.conn.ConnectionManager;
+import com.github.tobato.fastdfs.domain.conn.FdfsConnectionManager;
 import com.github.tobato.fastdfs.domain.fdfs.*;
 import com.github.tobato.fastdfs.domain.proto.storage.*;
 import com.github.tobato.fastdfs.domain.proto.storage.enums.StorageMetadataSetType;
@@ -30,7 +30,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
      * connectManager
      */
     @Autowired
-    protected ConnectionManager connectionManager;
+    protected FdfsConnectionManager fdfsConnectionManager;
 
     /**
      * 日志
@@ -45,7 +45,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
         StorageNode client = trackerClient.getStoreStorage(groupName);
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, false);
-        return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        return fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -57,7 +57,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, masterFilename);
         StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(inputStream, fileSize, masterFilename,
                 prefixName, fileExtName);
-        return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        return fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -67,7 +67,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
     public Set<MetaData> getMetadata(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageGetMetadataCommand command = new StorageGetMetadataCommand(groupName, path);
-        return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        return fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -78,7 +78,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
                 StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
-        connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -89,7 +89,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
                 StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_MERGE);
-        connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -99,7 +99,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
     public FileInfo queryFileInfo(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageQueryFileInfoCommand command = new StorageQueryFileInfoCommand(groupName, path);
-        return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        return fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -109,7 +109,7 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
     public void deleteFile(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageDeleteFileCommand command = new StorageDeleteFileCommand(groupName, path);
-        connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -130,15 +130,15 @@ public class DefaultGenerateStorageClient implements GenerateStorageClient {
                               DownloadCallback<T> callback) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageDownloadCommand<T> command = new StorageDownloadCommand<T>(groupName, path, fileOffset, fileSize, callback);
-        return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        return fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     public void setTrackerClientService(TrackerClient trackerClientService) {
         this.trackerClient = trackerClientService;
     }
 
-    public void setConnectionManager(ConnectionManager connectionManager) {
-        this.connectionManager = connectionManager;
+    public void setConnectionManager(FdfsConnectionManager fdfsConnectionManager) {
+        this.fdfsConnectionManager = fdfsConnectionManager;
     }
 
 }

@@ -27,7 +27,7 @@ public class DefaultAppendFileStorageClient extends DefaultGenerateStorageClient
         StorageNode client = trackerClient.getStoreStorage(groupName);
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, true);
-        return connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        return fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -37,7 +37,7 @@ public class DefaultAppendFileStorageClient extends DefaultGenerateStorageClient
     public void appendFile(String groupName, String path, InputStream inputStream, long fileSize) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageAppendFileCommand command = new StorageAppendFileCommand(inputStream, fileSize, path);
-        connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**
@@ -47,7 +47,7 @@ public class DefaultAppendFileStorageClient extends DefaultGenerateStorageClient
     public void modifyFile(String groupName, String path, InputStream inputStream, long fileSize, long fileOffset) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageModifyCommand command = new StorageModifyCommand(path, inputStream, fileSize, fileOffset);
-        connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
 
     }
 
@@ -58,7 +58,7 @@ public class DefaultAppendFileStorageClient extends DefaultGenerateStorageClient
     public void truncateFile(String groupName, String path, long truncatedFileSize) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageTruncateCommand command = new StorageTruncateCommand(path, truncatedFileSize);
-        connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
     }
 
     /**

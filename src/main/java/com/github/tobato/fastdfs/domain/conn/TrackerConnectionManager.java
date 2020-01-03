@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Component
 @ConfigurationProperties(prefix = FdfsClientConstants.ROOT_CONFIG_PREFIX)
-public class TrackerConnectionManager extends ConnectionManager {
+public class TrackerConnectionManager extends FdfsConnectionManager {
 
     /**
      * Tracker定位

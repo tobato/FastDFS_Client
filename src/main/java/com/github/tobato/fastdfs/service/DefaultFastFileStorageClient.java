@@ -220,12 +220,12 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         // 上传文件
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, false);
-        StorePath path = connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+        StorePath path = fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
         // 上传metadata
         if (hasMetaData(metaDataSet)) {
             StorageSetMetadataCommand setMDCommand = new StorageSetMetadataCommand(path.getGroup(), path.getPath(),
                     metaDataSet, StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
-            connectionManager.executeFdfsCmd(client.getInetSocketAddress(), setMDCommand);
+            fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), setMDCommand);
         }
         return path;
     }
@@ -254,7 +254,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
 	        }
             StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(thumbImageStream, fileSize,
                     masterFilename, prefixName, fastImageFile.getFileExtName());
-            connectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+            fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
 
         } catch (IOException e) {
             LOGGER.error("upload ThumbImage error", e);
