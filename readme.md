@@ -1,4 +1,4 @@
-FastDFS-Client 1.26.7(2019-08-24)
+FastDFS-Client 1.27.1(2020-1-27)
 ---
 
 This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs).
@@ -34,7 +34,7 @@ This is a java client lib for [FastDFS](https://github.com/happyfish100/fastdfs)
     <version>2.0.0.RELEASE</version>
     <relativePath />
     
-* JDK环境要求  1.7
+* JDK环境要求  1.8
 * FastDFS服务端 5.07 测试通过
 
 ## 单元测试
@@ -71,7 +71,7 @@ Maven依赖为
     <dependency>
         <groupId>com.github.tobato</groupId>
         <artifactId>fastdfs-client</artifactId>
-        <version>1.26.7</version>
+        <version>1.27.1</version>
     </dependency>
 
 
@@ -97,7 +97,7 @@ Maven依赖为
         // 导入依赖组件
     }
     
-对的，只需要一行注解 @Import(FdfsClientConfig.class)就可以拥有带有连接池的FastDFS Java客户端了。
+只需要一行注解 @Import(FdfsClientConfig.class)就可以拥有带有连接池的FastDFS Java客户端了。
 
 >注意：`@EnableMBeanExport`解决问题JMX重复注册问题,[issue #8](../../issues/8) [issue #18](../../issues/8)，不要再配置 `spring.jmx.enabled=false`，以免影响SpringBoot默认的JMX监控。
 
@@ -115,7 +115,16 @@ Maven依赖为
         - 192.168.1.105:22122
         - 192.168.1.106:22122 
 
-如果有必要可以参考 apache.pool2 参数配置连接池属性，默认配置为
+### 4.连接池的管理参数
+
+应用启动后拥有两个连接池管理对象:
+
+* Tracker连接池(`TrackerConnectionManager`)
+* Storage连接池(`FdfsConnectionManager`)
+
+必要的时候可以注入这两个对象，跟踪打印并分析连接池的情况
+
+两个连接池的参数配置一致，可参考 ConnectionPoolConfig 与 apache.pool2 进行优化配置，默认配置为
 
     fdfs:
        ..其他配置信息..

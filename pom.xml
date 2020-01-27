@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.tobato</groupId>
     <artifactId>fastdfs-client</artifactId>
-    <version>1.26.8-SNAPSHOT</version>
+    <version>1.27.1</version>
     <packaging>jar</packaging>
     <!-- x-SNAPSHOT -->
 
@@ -30,14 +29,14 @@
         <connection>scm:git:git@github.com:tobato/FastDFS_Client.git</connection>
         <developerConnection>scm:git:git@github.com:tobato/FastDFS_Client.git</developerConnection>
         <url>https://github.com/tobato/FastDFS_Client</url>
-        <tag>HEAD</tag>
+        <tag>fastdfs-client-1.27.1</tag>
     </scm>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.0.RELEASE</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <properties>
@@ -53,7 +52,7 @@
 
         <!-- Plugin的属性定义 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
 
         <!-- 本地发布服务器 -->
         <local.nexus>192.168.129.12:8081</local.nexus>
@@ -277,6 +276,12 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>javax.servlet</groupId>-->
+        <!--            <artifactId>javax.servlet-api</artifactId>-->
+        <!--            <version>3.1.0</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
 

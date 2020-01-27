@@ -1,10 +1,10 @@
 package com.github.tobato.fastdfs.domain.conn;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
 
 /**
  * 连接池创建测试
@@ -28,6 +28,7 @@ public class ConnectionPoolTest extends MockServerTestBase {
             pool.returnObject(address, connA);
             // 清理连接
             pool.clear(address);
+            LOGGER.debug("连接测试情况={}", pool.getTestOnBorrow());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,6 +41,7 @@ public class ConnectionPoolTest extends MockServerTestBase {
         try {
             // 获取连接
             printPoolStates("未获取前", address, pool);
+            //pool.setTestOnBorrow(true);
             Connection connA = pool.borrowObject(address);
             printPoolStates("获取一个连接", address, pool);
             // 获取第二个连接

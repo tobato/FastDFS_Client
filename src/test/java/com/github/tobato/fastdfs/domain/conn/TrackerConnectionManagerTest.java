@@ -1,6 +1,5 @@
 package com.github.tobato.fastdfs.domain.conn;
 
-import com.github.tobato.fastdfs.TestConstants;
 import com.github.tobato.fastdfs.domain.fdfs.GroupState;
 import com.github.tobato.fastdfs.domain.proto.tracker.TrackerListGroupsCommand;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
@@ -60,7 +59,7 @@ public class TrackerConnectionManagerTest {
      * @return
      */
     private TrackerConnectionManager crtInvalidateIpListManager() {
-        String[] ips = {"192.168.174.141:22122", "192.168.1.115:22122"};
+        String[] ips = {"192.168.1.1:22122", "192.168.1.115:212"};
         List<String> trackerIpList = Arrays.asList(ips);
         TrackerConnectionManager manager = new TrackerConnectionManager(createPool());
         manager.setTrackerList(trackerIpList);
@@ -75,9 +74,11 @@ public class TrackerConnectionManagerTest {
      */
     private FdfsConnectionPool createPool() {
         PooledConnectionFactory factory = new PooledConnectionFactory();
-        factory.setConnectTimeout(TestConstants.connectTimeout);
-        factory.setSoTimeout(TestConstants.soTimeout);
+        //缩短连接超时时间
+        factory.setConnectTimeout(2);
+        factory.setSoTimeout(2);
         return new FdfsConnectionPool(factory);
     }
+
 
 }

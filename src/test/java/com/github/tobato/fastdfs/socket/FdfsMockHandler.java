@@ -1,21 +1,22 @@
 package com.github.tobato.fastdfs.socket;
 
-import java.io.DataInputStream;
-import java.net.Socket;
-
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.DataInputStream;
+import java.net.Socket;
+
 /**
  * 模拟socket处理类
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class FdfsMockHandler extends Thread {
 
-    /** 日志 */
+    /**
+     * 日志
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(FdfsMockHandler.class);
 
     private Socket client;

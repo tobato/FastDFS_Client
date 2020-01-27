@@ -1,9 +1,19 @@
-## 1.26.8 (2019-12-30)
+## 1.27.1 (2020-1-27)
 
 BugFixes:
 
    - 修复DEFAULT_RETRY_AFTER_SECOND拼写错误(#181 @liangxiong3403)
    - 修复metaDataSet default value logic bug(#182 @liangxiong3403)
+
+Update:
+
+   - JDK版本升级到1.8版本,做一个大的版本升级(#189 @HaoQiangJiang)
+   - 重命名ConnectionManager ，解决与openfeign包冲突(#186 @summitxf)
+   - 合并增加一种文件下载回调方法(#161 @xlb ),并在此基础上重构
+   - 增加连接池控制参数：连接空闲的最小时间、创建时是否进行连接测试、借出时是否检测有效性
+   - 调整连接池默认参数，关闭自动检查机制，如果需要自动检查，请手动开启
+   
+   感谢@HaoQiangJiang @summitxf 提交更新
 
 Docs:
 
@@ -11,10 +21,9 @@ Docs:
    - 常见问题:能自定义上传路径么，或者有没有类似的解决方案(#173 @yj348382870)
    - 常见问题:请问当上传100M以上文件怎么才能获取进度(#172 @lxge)
    
-   
 升级提示:
 
-  - 没有接口改动，可以直接从1.26.7升级
+  - 默认JDK升级到1.8版本
 
 ## 1.26.7 (2019-08-24)
 

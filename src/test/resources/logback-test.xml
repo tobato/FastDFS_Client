@@ -7,7 +7,7 @@
         </layout>
     </appender>
 
-    <logger name="com.github.tobato" level="INFO"/>
+    <logger name="com.github.tobato" level="DEBUG"/>
     <!-- 关闭报文日志 -->
     <logger name="com.github.tobato.fastdfs.domain.proto" level="WARN"/>
     <logger name="org.springframework" level="WARN"/>

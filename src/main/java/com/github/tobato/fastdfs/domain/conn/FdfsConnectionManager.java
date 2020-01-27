@@ -12,10 +12,10 @@ import java.net.InetSocketAddress;
 /**
  * 连接池管理
  * <pre>
- * 负责借出连接，在连接上执行业务逻辑，然后归还连
+ * 负责借出连接，在连接上执行业务逻辑，然后归还连接
  *
- * ConnectionManager类主要负责StorageConnect连接管理
- * ConnectionManager类扩展的子类{@link TrackerConnectionManager}主要负责TrackerConnection连接管理
+ * FdfsConnectionManager类主要负责StorageConnect连接管理
+ * FdfsConnectionManager类扩展的子类{@link TrackerConnectionManager}主要负责TrackerConnection连接管理
  * </pre>
  *
  * @author tobato
@@ -179,11 +179,18 @@ public class FdfsConnectionManager {
         LOGGER.debug("每个key对应连接池最小空闲连接数{}", pool.getMinIdlePerKey());
         LOGGER.debug("活动连接{}", pool.getNumActive(address));
         LOGGER.debug("空闲连接{}", pool.getNumIdle(address));
+        LOGGER.debug("获取前测试连接状态{}", pool.getTestOnBorrow());
+        LOGGER.debug("归还前测试连接状态{}", pool.getTestOnReturn());
+        LOGGER.debug("空闲时测试连接状态{}", pool.getTestWhileIdle());
         LOGGER.debug("连接获取总数统计{}", pool.getBorrowedCount());
         LOGGER.debug("连接返回总数统计{}", pool.getReturnedCount());
         LOGGER.debug("连接销毁总数统计{}", pool.getDestroyedCount());
+        LOGGER.debug("JmxName={}", pool.getJmxName());
         LOGGER.debug("==============END Dump Pool ================");
+    }
 
+    public void dumpFullPoolInfo() {
+        //pool.get
     }
 
 }

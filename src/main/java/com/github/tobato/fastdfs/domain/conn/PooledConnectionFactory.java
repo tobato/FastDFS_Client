@@ -84,11 +84,24 @@ public class PooledConnectionFactory extends BaseKeyedPooledObjectFactory<InetSo
         return charset;
     }
 
+    /**
+     * 从池中移出
+     *
+     * @param key
+     * @param p
+     * @throws Exception
+     */
     @Override
     public void destroyObject(InetSocketAddress key, PooledObject<Connection> p) throws Exception {
         p.getObject().close();
     }
 
+    /***
+     * 验证池中对象是否可用
+     * @param key
+     * @param p
+     * @return
+     */
     @Override
     public boolean validateObject(InetSocketAddress key, PooledObject<Connection> p) {
         return p.getObject().isValid();

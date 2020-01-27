@@ -1,48 +1,86 @@
-package com.github.tobato.fastdfs.domain.proto.storage;import java.io.BufferedInputStream;import java.io.IOException;import java.io.InputStream;import java.io.OutputStream;import javax.servlet.http.HttpServletResponse;
+package com.github.tobato.fastdfs.domain.proto.storage;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
- * 文件下载回调方法,1M1M读取，防止下载时内存溢出
- * 同时不要讲流返回出去，再进行操作，不然并发下载情况下会有各种问题
+ * Web环境下文件下载回调方法,默认按4K循环读取，防止下载时内存溢出
+ * <pre>
+ *
+ * refactor:
+ * 将HttpServletResponse调整为OutputStream对象，
+ * 注意：使用时候在外层做response.getOutputStream()，使用完毕后，在外层做 os.close()
+ * 如：
+ *  os = response.getOutputStream();
+ *  DownloadFileStream stream = new DownloadFileStream(os);
+ *  ...
+ *  os.close();
+ *
+ * </pre>
  *
  * @author xulb
  */
 public class DownloadFileStream implements DownloadCallback<BufferedInputStream> {
 
-	private HttpServletResponse response;
-
-    public DownloadFileStream(HttpServletResponse response) {
-		this.response=response;
-	}
-
-	/**
-     * 文件接收处理
-	 * @return 
+    /**
+     * 默认缓存长度
      */
+    private static final int DEFAULT_BUFFER_SIZE = 4096;
 
-	@Override
-	public BufferedInputStream recv(InputStream ins) throws IOException {
-		BufferedInputStream bufferedInputStream = new BufferedInputStream(ins);
-		// 实现文件下载
-		byte[] buffer = new byte[1024];
-		OutputStream os=null;
-		try {
-			 os = response.getOutputStream();
-			int i = bufferedInputStream.read(buffer);
-			while (i != -1) {
-				os.write(buffer, 0, i);
-				i = bufferedInputStream.read(buffer);
-			}
-		} catch (Exception e) {
-			
-			throw new IOException("文件下载失败!",e);
-		}finally {
-			bufferedInputStream.close();
-			os.flush();
-			os.close();
-			
-		}
-		return null;
-		
+    /**
+     * 输出流
+     * HttpServletResponse对象response.getOutputStream()
+     */
+    private OutputStream outputStream;
+
+    /**
+     * 默认缓存长度
+     */
+    private int bufferLength = DEFAULT_BUFFER_SIZE;
+
+
+    /**
+     * 从HttpServletResponse对象response.getOutputStream()构造
+     *
+     * @param responseOutputStream 输出流
+     */
+    public DownloadFileStream(OutputStream responseOutputStream) {
+        this.outputStream = responseOutputStream;
+    }
+
+    /**
+     * 从HttpServletResponse对象response.getOutputStream()构造
+     *
+     * @param responseOutputStream 输出流
+     * @param bufferLength         缓存长度
+     */
+    public DownloadFileStream(OutputStream responseOutputStream, int bufferLength) {
+        this.outputStream = responseOutputStream;
+        this.bufferLength = bufferLength;
+    }
+
+    /**
+     * 文件接收处理
+     *
+     * @return
+     */
+    @Override
+    public BufferedInputStream recv(InputStream ins) throws IOException {
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(ins);
+        // 实现文件下载
+        byte[] buffer = new byte[bufferLength];
+        try {
+            IOUtils.copyLarge(ins, outputStream, buffer);
+        } catch (IOException e) {
+            throw new IOException("文件下载失败!", e);
+        } finally {
+            IOUtils.closeQuietly(bufferedInputStream);
+        }
+        return null;
     }
 
 }

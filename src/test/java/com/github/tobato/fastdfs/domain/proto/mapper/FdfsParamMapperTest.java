@@ -1,22 +1,20 @@
 package com.github.tobato.fastdfs.domain.proto.mapper;
 
-import static org.junit.Assert.*;
-
-import java.nio.charset.Charset;
-import java.util.Arrays;
-
+import com.github.tobato.fastdfs.TestConstants;
+import com.github.tobato.fastdfs.domain.proto.OtherConstants;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.tobato.fastdfs.TestConstants;
-import com.github.tobato.fastdfs.domain.proto.OtherConstants;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+
+import static org.junit.Assert.*;
 
 /**
  * 测试对象序列化
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class FdfsParamMapperTest {
 
@@ -26,7 +24,9 @@ public class FdfsParamMapperTest {
     private static final String GROUP_NAME = TestConstants.DEFAULT_GROUP;
     private static final String IP = TestConstants.DEFAULT_STORAGE_IP;
 
-    /** 日志 */
+    /**
+     * 日志
+     */
     protected static Logger LOGGER = LoggerFactory.getLogger(FdfsParamMapperTest.class);
 
     /**
@@ -124,7 +124,7 @@ public class FdfsParamMapperTest {
 
     /**
      * 打印消息
-     * 
+     *
      * @param src
      * @param request
      */
@@ -139,5 +139,11 @@ public class FdfsParamMapperTest {
         LOGGER.debug("{}", builder);
         LOGGER.debug("-------------------");
     }
+
+
+//    @Test
+//    public void testInstance() throws IllegalAccessException, InstantiationException {
+//        Object obj = java.lang.Void.class.newInstance();
+//    }
 
 }

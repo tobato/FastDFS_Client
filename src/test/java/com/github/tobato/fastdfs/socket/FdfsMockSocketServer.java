@@ -1,27 +1,27 @@
 package com.github.tobato.fastdfs.socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * 模拟测试服务
- * 
- * @author tobato
  *
+ * @author tobato
  */
 public class FdfsMockSocketServer extends Thread {
 
-    /** 日志 */
+    /**
+     * 日志
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(FdfsMockSocketServer.class);
 
-    public final static int PORT = 22122;
-    public final static int STORE_PORT = 23000;
+    public final static int PORT = 20001;//22122
     private ServerSocket serverSocket;
     private boolean stop = false;
     private int index = 0;

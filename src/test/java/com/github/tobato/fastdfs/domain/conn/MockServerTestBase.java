@@ -1,13 +1,12 @@
 package com.github.tobato.fastdfs.domain.conn;
 
-import java.net.InetSocketAddress;
-
+import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.tobato.fastdfs.socket.FdfsMockSocketServer;
+import java.net.InetSocketAddress;
 
 /**
  * socket 测试基类
