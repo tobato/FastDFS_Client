@@ -192,6 +192,14 @@ https://blog.csdn.net/wzl19870309/article/details/74049204
 FastDFS设计是用来存储小文件的，过大的文件处理方案是拆分为小文件，可跟踪小文件的上传情况。
 如果应用场景都是处理大文件，可能选择其他分布式文件系统方案会更合适。
 
+### 7.文件扩展名字数长度限制?
+
+我需要上传文件扩展名很长的文件到fastdfs，但是发现扩展名总是会被截取，追了一下发现是Constants限制了FDFS_FILE_EXT_NAME_MAX_LEN = 6 ，请问这个参数可以配置吗？应该怎么修改呢？
+在我将otherConstants类里的FDFS_FILE_EXT_NAME_MAX_LEN的值从6改到16时, 尝试传一张后缀长的文件时,会报错无效参数, 
+原因是服务器上的fastDFS源码(c语言编写的那个)的commons包下fdfs_global.h中FDFS_FILE_EXT_NAME_MAX_LEN=6, 于是将6改为16, make.sh重新编译后, 
+解决了传后缀长文件的问题（#157 感谢@787390869提供解答）
+
+
 ## 其他参考资料
 
 对于FDFS服务端相关的问题可以在下面的论坛找到一些材料
