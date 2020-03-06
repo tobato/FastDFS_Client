@@ -20,6 +20,11 @@ public class FastImageFile extends FastFile {
     private ThumbImage thumbImage;
 
     /**
+     * 在生成缩略图时是否保存源文件
+     */
+    private boolean isSaveSourceFile;
+
+    /**
      * 上传图片文件
      *
      * @param inputStream
@@ -53,6 +58,10 @@ public class FastImageFile extends FastFile {
         return thumbImage;
     }
 
+    public boolean isSaveSourceFile() {
+        return isSaveSourceFile;
+    }
+
     /**
      * 获取缩略图路径
      *
@@ -69,6 +78,8 @@ public class FastImageFile extends FastFile {
     public static class Builder extends AbstractFastFileBuilder<FastImageFile> {
 
         private ThumbImage thumbImage;
+
+        private boolean isSaveSourceFile;
 
         @Override
         public Builder toGroup(String groupName) {
@@ -130,6 +141,17 @@ public class FastImageFile extends FastFile {
         }
 
         /**
+         * 在生成缩略图时是否保存源文件,请确保同时调用了withThumbImage方法生成缩略图配置
+         *
+         * @param isSaveSourceFile
+         * @return
+         */
+        public Builder isSaveSourceFile(boolean isSaveSourceFile) {
+            this.isSaveSourceFile = isSaveSourceFile;
+            return this;
+        }
+
+        /**
          * 构造上传文件对象
          *
          * @return
@@ -143,6 +165,7 @@ public class FastImageFile extends FastFile {
             file.metaDataSet = this.metaDataSet;
             file.thumbImage = this.thumbImage;
             file.groupName = this.groupName;
+            file.isSaveSourceFile = this.isSaveSourceFile;
             return file;
         }
 

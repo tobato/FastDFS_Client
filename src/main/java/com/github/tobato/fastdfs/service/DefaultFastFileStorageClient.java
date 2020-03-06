@@ -141,16 +141,23 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         StorageNode client = getStorageNode(fastImageFile.getGroupName());
         byte[] bytes = inputStreamToByte(fastImageFile.getInputStream());
 
-        // 上传文件和metaDataSet
-        StorePath path = uploadFileAndMetaData(client, new ByteArrayInputStream(bytes),
-                fastImageFile.getFileSize(), fileExtName,
-                fastImageFile.getMetaDataSet());
+        StorePath path;
 
-        //如果设置了需要上传缩略图
-        if (null != fastImageFile.getThumbImage()) {
-            // 上传缩略图
-            uploadThumbImage(client, new ByteArrayInputStream(bytes), path.getPath(), fastImageFile);
+        if (null == fastImageFile.getThumbImage() || fastImageFile.isSaveSourceFile()) {
+            // 上传文件和metaDataSet
+            path = uploadFileAndMetaData(client, new ByteArrayInputStream(bytes),
+                    fastImageFile.getFileSize(), fileExtName,
+                    fastImageFile.getMetaDataSet());
+            //如果设置了需要上传缩略图
+            if (null != fastImageFile.getThumbImage()) {
+                // 上传缩略图
+                uploadThumbImage(client, new ByteArrayInputStream(bytes), path.getPath(), fastImageFile);
+            }
+        } else {
+            // 仅将压缩后的缩略图上传
+            path = uploadThumbImage(client, new ByteArrayInputStream(bytes), fastImageFile);
         }
+
         bytes = null;
         return path;
     }
@@ -249,13 +256,38 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
             long fileSize = thumbImageStream.available();
             // 获取配置缩略图前缀
             String prefixName = thumbImage.getPrefixName();
-	        if (LOGGER.isDebugEnabled()) {
-		        LOGGER.debug("获取到缩略图前缀{}", prefixName);
-	        }
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("获取到缩略图前缀{}", prefixName);
+            }
             StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(thumbImageStream, fileSize,
                     masterFilename, prefixName, fastImageFile.getFileExtName());
             fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
 
+        } catch (IOException e) {
+            LOGGER.error("upload ThumbImage error", e);
+            throw new FdfsUploadImageException("upload ThumbImage error", e.getCause());
+        } finally {
+            IOUtils.closeQuietly(thumbImageStream);
+        }
+    }
+
+    /**
+     * 上传缩略图
+     *
+     * @param client
+     * @param inputStream
+     * @param fastImageFile
+     */
+    private StorePath uploadThumbImage(StorageNode client, InputStream inputStream, FastImageFile fastImageFile) {
+        ByteArrayInputStream thumbImageStream = null;
+        ThumbImage thumbImage = fastImageFile.getThumbImage();
+        try {
+            //生成缩略图片
+            thumbImageStream = generateThumbImageStream(inputStream, thumbImage);
+            //上传缩略图
+            return uploadFileAndMetaData(client, thumbImageStream,
+                    thumbImageStream.available(), fastImageFile.getFileExtName(),
+                    fastImageFile.getMetaDataSet());
         } catch (IOException e) {
             LOGGER.error("upload ThumbImage error", e);
             throw new FdfsUploadImageException("upload ThumbImage error", e.getCause());
