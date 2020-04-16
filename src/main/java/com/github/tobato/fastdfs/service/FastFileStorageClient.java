@@ -4,6 +4,7 @@ import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.domain.upload.FastFile;
 import com.github.tobato.fastdfs.domain.upload.FastImageFile;
+import com.github.tobato.fastdfs.domain.upload.ThumbImage;
 
 import java.io.InputStream;
 import java.util.Set;
@@ -48,6 +49,14 @@ public interface FastFileStorageClient extends GenerateStorageClient {
      */
     StorePath uploadImageAndCrtThumbImage(InputStream inputStream, long fileSize, String fileExtName,
                                           Set<MetaData> metaDataSet);
+
+    /**
+     * 根据已有源图生成缩略图
+     * @param storePath 源图片储存地址
+     * @param thumbImage 缩略图配置
+     * @return 缩略图储存地址
+     */
+    StorePath createThumbImage(StorePath storePath, ThumbImage thumbImage);
 
     /**
      * 上传图片

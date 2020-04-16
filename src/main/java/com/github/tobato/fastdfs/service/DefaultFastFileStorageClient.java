@@ -5,6 +5,7 @@ import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorageNode;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.domain.fdfs.ThumbImageConfig;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadCallback;
 import com.github.tobato.fastdfs.domain.proto.storage.StorageSetMetadataCommand;
 import com.github.tobato.fastdfs.domain.proto.storage.StorageUploadFileCommand;
 import com.github.tobato.fastdfs.domain.proto.storage.StorageUploadSlaveFileCommand;
@@ -92,6 +93,19 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         return uploadImage(fastImageFile);
     }
 
+    @Override
+    public StorePath createThumbImage(final StorePath storePath, final ThumbImage thumbImage) {
+        final StorageNode client = getStorageNode(storePath.getGroup());
+        final String fileExtName = storePath.getPath().substring(storePath.getPath().lastIndexOf(".") + 1);
+        return downloadFile(storePath.getGroup(), storePath.getPath(),
+            new DownloadCallback<StorePath>() {
+                @Override
+                public StorePath recv(InputStream inputStream) throws IOException {
+                    return uploadThumbImage(client, inputStream, storePath.getPath(), thumbImage, fileExtName);
+                }
+            });
+    }
+
     /**
      * 上传文件
      * <pre>
@@ -149,7 +163,8 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         //如果设置了需要上传缩略图
         if (null != fastImageFile.getThumbImage()) {
             // 上传缩略图
-            uploadThumbImage(client, new ByteArrayInputStream(bytes), path.getPath(), fastImageFile);
+            uploadThumbImage(client, new ByteArrayInputStream(bytes), path.getPath(),
+                fastImageFile.getThumbImage(), fileExtName);
         }
         bytes = null;
         return path;
@@ -236,12 +251,13 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
      * @param client
      * @param inputStream
      * @param masterFilename
-     * @param fastImageFile
+     * @param thumbImage
      */
-    private void uploadThumbImage(StorageNode client, InputStream inputStream,
-                                  String masterFilename, FastImageFile fastImageFile) {
+    private StorePath uploadThumbImage(StorageNode client, InputStream inputStream,
+                                  String masterFilename, ThumbImage thumbImage,
+                                       String fileExtName) {
         ByteArrayInputStream thumbImageStream = null;
-        ThumbImage thumbImage = fastImageFile.getThumbImage();
+        StorePath storePath = null;
         try {
             //生成缩略图片
             thumbImageStream = generateThumbImageStream(inputStream, thumbImage);
@@ -253,8 +269,8 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
 		        LOGGER.debug("获取到缩略图前缀{}", prefixName);
 	        }
             StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(thumbImageStream, fileSize,
-                    masterFilename, prefixName, fastImageFile.getFileExtName());
-            fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
+                    masterFilename, prefixName, fileExtName);
+            storePath = fdfsConnectionManager.executeFdfsCmd(client.getInetSocketAddress(), command);
 
         } catch (IOException e) {
             LOGGER.error("upload ThumbImage error", e);
@@ -262,6 +278,7 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
         } finally {
             IOUtils.closeQuietly(thumbImageStream);
         }
+        return storePath;
     }
 
     /**
