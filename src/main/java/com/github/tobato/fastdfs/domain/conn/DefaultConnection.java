@@ -60,6 +60,7 @@ public class DefaultConnection implements Connection {
     /**
      * 正常关闭连接
      */
+    @Override
     public synchronized void close() {
         LOGGER.debug("disconnect from {}", socket);
         byte[] header = new byte[OtherConstants.FDFS_PROTO_PKG_LEN_SIZE + 2];
@@ -120,6 +121,7 @@ public class DefaultConnection implements Connection {
      * @return
      * @throws IOException
      */
+    @Override
     public OutputStream getOutputStream() throws IOException {
         return socket.getOutputStream();
     }
@@ -130,6 +132,7 @@ public class DefaultConnection implements Connection {
      * @return
      * @throws IOException
      */
+    @Override
     public InputStream getInputStream() throws IOException {
         return socket.getInputStream();
     }
@@ -139,6 +142,7 @@ public class DefaultConnection implements Connection {
      *
      * @return
      */
+    @Override
     public Charset getCharset() {
         return charset;
     }
