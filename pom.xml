@@ -155,12 +155,12 @@
                 <repository>
                     <id>local-releases</id>
                     <name>Nexus Release Repository</name>
-                    <url>http://${local.nexus}/nexus/content/repositories/releases/</url>
+                    <url>https://${local.nexus}/nexus/content/repositories/releases/</url>
                 </repository>
                 <snapshotRepository>
                     <id>local-snapshots</id>
                     <name>Nexus Snapshot Repository</name>
-                    <url>http://${local.nexus}/nexus/content/repositories/snapshots/</url>
+                    <url>https://${local.nexus}/nexus/content/repositories/snapshots/</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
