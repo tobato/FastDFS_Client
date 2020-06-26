@@ -43,7 +43,7 @@
     <properties>
         <!-- commons utils -->
         <commons-lang3.version>3.3.2</commons-lang3.version>
-        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
 
         <mockito.version>1.9.5</mockito.version>
         <hibernate-validator.version>6.0.8.Final</hibernate-validator.version>
