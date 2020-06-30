@@ -9,6 +9,7 @@ import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.domain.fdfs.ThumbImageConfig;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -23,9 +24,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * FastFileStorageClient客户端
@@ -87,6 +90,33 @@ public class FastFileStorageClientTest {
 
         LOGGER.debug("##删除文件..##");
         storageClient.deleteFile(path.getFullPath());
+    }
+
+    /**
+     * 测试上传文件的时候不提供后缀名称
+     */
+    @Test
+    public void testUploadWithoutExtName() {
+        // null扩展名的文件
+        LOGGER.debug("##上传具有null扩展名的文件..##");
+        RandomTextFile file = new RandomTextFile();
+        file.setFileExtName(null);
+        assertNull(file.getFileExtName());
+
+        StorePath path = storageClient.uploadFile(file.getInputStream(),
+                file.getFileSize(), file.getFileExtName(), Collections.<MetaData>emptySet());
+        assertNotNull(path);
+        LOGGER.debug("上传文件 result={}", path);
+        // 空字串扩展名文件
+        LOGGER.debug("##上传具有空字符串扩展名的文件..##");
+        file = new RandomTextFile();
+        file.setFileExtName(Strings.EMPTY);
+        assertEquals(Strings.EMPTY, file.getFileExtName());
+
+        path = storageClient.uploadFile(file.getInputStream(),
+                file.getFileSize(), file.getFileExtName(), Collections.<MetaData>emptySet());
+        assertNotNull(path);
+        LOGGER.debug("上传文件 result={}", path);
     }
 
     /**

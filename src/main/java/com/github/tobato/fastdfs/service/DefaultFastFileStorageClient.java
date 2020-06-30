@@ -105,7 +105,6 @@ public class DefaultFastFileStorageClient extends DefaultGenerateStorageClient i
     @Override
     public StorePath uploadFile(FastFile fastFile) {
         Validate.notNull(fastFile.getInputStream(), "上传文件流不能为空");
-        Validate.notBlank(fastFile.getFileExtName(), "文件扩展名不能为空");
         // 获取存储节点
         StorageNode client = getStorageNode(fastFile.getGroupName());
         // 上传文件
