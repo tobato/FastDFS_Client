@@ -31,4 +31,11 @@ public class FdfsClientConstants {
      */
     public static final String POOL_CONFIG_PREFIX = "fdfs.pool";
 
+    /**
+     * 存储节点配置
+     */
+    public static final String STORAGE_CONFIG_PREFIX = "fdfs.storage-node";
+
+
+
 }
