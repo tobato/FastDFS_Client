@@ -138,7 +138,7 @@ Maven依赖为
         #每个key对应的连接池最大空闲连接数
         max-idle-per-key: 10
         #每个key对应的连接池最小空闲连接数
-        max_idle_per_key: 5
+        min-idle-per-key: 5
 
 注意: key配置的是连接服务端的地址(IP+端口)连接情况，如果有连接不够用的情况可以调整以上参数
 
