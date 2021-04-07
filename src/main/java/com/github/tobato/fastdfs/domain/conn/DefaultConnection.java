@@ -2,7 +2,8 @@ package com.github.tobato.fastdfs.domain.conn;
 
 import com.github.tobato.fastdfs.domain.proto.CmdConstants;
 import com.github.tobato.fastdfs.domain.proto.OtherConstants;
-import com.github.tobato.fastdfs.domain.proto.mapper.BytesUtil;
+import com.github.tobato.fastdfs.domain.proto.ProtoHead;
+import com.github.tobato.fastdfs.domain.proto.StatusConstants;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -14,7 +15,6 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 
 /**
  * 默认连接实现
@@ -60,16 +60,11 @@ public class DefaultConnection implements Connection {
     /**
      * 正常关闭连接
      */
+    @Override
     public synchronized void close() {
         LOGGER.debug("disconnect from {}", socket);
-        byte[] header = new byte[OtherConstants.FDFS_PROTO_PKG_LEN_SIZE + 2];
-        Arrays.fill(header, (byte) 0);
-
-        byte[] hex_len = BytesUtil.long2buff(0);
-        System.arraycopy(hex_len, 0, header, 0, hex_len.length);
-        header[OtherConstants.PROTO_HEADER_CMD_INDEX] = CmdConstants.FDFS_PROTO_CMD_QUIT;
-        header[OtherConstants.PROTO_HEADER_STATUS_INDEX] = (byte) 0;
         try {
+            byte[] header = new ProtoHead(CmdConstants.FDFS_PROTO_CMD_QUIT).toByte();
             socket.getOutputStream().write(header);
             socket.close();
         } catch (IOException e) {
@@ -95,19 +90,13 @@ public class DefaultConnection implements Connection {
     public boolean isValid() {
         LOGGER.debug("check connection status of {} ", this);
         try {
-            byte[] header = new byte[OtherConstants.FDFS_PROTO_PKG_LEN_SIZE + 2];
-            Arrays.fill(header, (byte) 0);
-
-            byte[] hex_len = BytesUtil.long2buff(0);
-            System.arraycopy(hex_len, 0, header, 0, hex_len.length);
-            header[OtherConstants.PROTO_HEADER_CMD_INDEX] = CmdConstants.FDFS_PROTO_CMD_ACTIVE_TEST;
-            header[OtherConstants.PROTO_HEADER_STATUS_INDEX] = (byte) 0;
+            byte[] header = new ProtoHead(CmdConstants.FDFS_PROTO_CMD_ACTIVE_TEST).toByte();
             socket.getOutputStream().write(header);
             if (socket.getInputStream().read(header) != header.length) {
                 return false;
             }
 
-            return header[OtherConstants.PROTO_HEADER_STATUS_INDEX] == 0 ? true : false;
+            return header[OtherConstants.PROTO_HEADER_STATUS_INDEX] == StatusConstants.FDFS_STORAGE_STATUS_INIT;
         } catch (IOException e) {
             LOGGER.error("valid connection error", e);
             return false;
@@ -120,6 +109,7 @@ public class DefaultConnection implements Connection {
      * @return
      * @throws IOException
      */
+    @Override
     public OutputStream getOutputStream() throws IOException {
         return socket.getOutputStream();
     }
@@ -130,6 +120,7 @@ public class DefaultConnection implements Connection {
      * @return
      * @throws IOException
      */
+    @Override
     public InputStream getInputStream() throws IOException {
         return socket.getInputStream();
     }
@@ -139,6 +130,7 @@ public class DefaultConnection implements Connection {
      *
      * @return
      */
+    @Override
     public Charset getCharset() {
         return charset;
     }
