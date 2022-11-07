@@ -34,6 +34,11 @@ public class TrackerConnectionManager extends FdfsConnectionManager {
     private List<String> trackerList = new ArrayList<String>();
 
     /**
+     * 连接中断以后经过N秒重试，不配置时默认为10分钟
+     */
+    private int retryAfterSecond;
+
+    /**
      * 构造函数
      */
     public TrackerConnectionManager() {
@@ -54,6 +59,11 @@ public class TrackerConnectionManager extends FdfsConnectionManager {
     public void initTracker() {
         LOGGER.debug("init trackerLocator {}", trackerList);
         trackerLocator = new TrackerLocator(trackerList);
+        if (0 != retryAfterSecond) {
+            // 如果 retryAfterSecond ！= 0则，表示开发者自己配置了；set相关对象的属性值
+            trackerLocator.setRetryAfterSecond(retryAfterSecond);
+            LOGGER.debug("update trackerLocator retryAfterSecond to [{}]s", retryAfterSecond);
+        }
     }
 
     /**
@@ -88,5 +98,13 @@ public class TrackerConnectionManager extends FdfsConnectionManager {
 
     public void setTrackerList(List<String> trackerList) {
         this.trackerList = trackerList;
+    }
+
+    public int getRetryAfterSecond() {
+        return retryAfterSecond;
+    }
+
+    public void setRetryAfterSecond(int retryAfterSecond) {
+        this.retryAfterSecond = retryAfterSecond;
     }
 }
